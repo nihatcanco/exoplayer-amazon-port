@@ -893,7 +893,7 @@ public class ConcatenatingMediaSource extends CompositeMediaSource<MediaSourceHo
   }
 
   /** Data class to hold playlist media sources together with meta data needed to process them. */
-  /* package */ static final class MediaSourceHolder implements Comparable<MediaSourceHolder> {
+  /* package */ public class MediaSourceHolder implements Comparable<MediaSourceHolder> {
 
     public final MediaSource mediaSource;
     public final Object uid;
