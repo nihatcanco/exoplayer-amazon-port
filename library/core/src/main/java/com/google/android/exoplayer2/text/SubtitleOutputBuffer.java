@@ -33,8 +33,8 @@ public abstract class SubtitleOutputBuffer extends OutputBuffer implements Subti
    *
    * @param timeUs The time of the start of the subtitle in microseconds.
    * @param subtitle The subtitle.
-   * @param subsampleOffsetUs An offset that must be added to the subtitle's event times, or
-   *     {@link Format#OFFSET_SAMPLE_RELATIVE} if {@code timeUs} should be added.
+   * @param subsampleOffsetUs An offset that must be added to the subtitle's event times, or {@link
+   * Format#OFFSET_SAMPLE_RELATIVE} if {@code timeUs} should be added.
    */
   public void setContent(long timeUs, Subtitle subtitle, long subsampleOffsetUs) {
     this.timeUs = timeUs;
@@ -62,9 +62,6 @@ public abstract class SubtitleOutputBuffer extends OutputBuffer implements Subti
   public List<Cue> getCues(long timeUs) {
     return subtitle.getCues(timeUs - subsampleOffsetUs);
   }
-
-  @Override
-  public abstract void release();
 
   @Override
   public void clear() {

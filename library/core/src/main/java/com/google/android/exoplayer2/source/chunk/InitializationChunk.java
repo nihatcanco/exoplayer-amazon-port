@@ -29,7 +29,7 @@ import com.google.android.exoplayer2.util.Util;
 import java.io.IOException;
 
 /**
- * A {@link Chunk} that uses an {@link Extractor} to decode initialization data for single track.
+ * A {@link Chunk} that uses an {@link Extractor} to decodeC initialization data for single track.
  */
 public final class InitializationChunk extends Chunk {
 
@@ -81,7 +81,7 @@ public final class InitializationChunk extends Chunk {
             /* startTimeUs= */ C.TIME_UNSET,
             /* endTimeUs= */ C.TIME_UNSET);
       }
-      // Load and decode the initialization data.
+      // Load and decodeC the initialization data.
       try {
         Extractor extractor = extractorWrapper.extractor;
         int result = Extractor.RESULT_CONTINUE;

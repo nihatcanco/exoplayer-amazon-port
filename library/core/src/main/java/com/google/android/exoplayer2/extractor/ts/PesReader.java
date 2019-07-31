@@ -227,8 +227,8 @@ public final class PesReader implements TsPayloadReader {
         dts |= pesScratch.readBits(15);
         pesScratch.skipBits(1); // marker_bit
         // Subsequent PES packets may have earlier presentation timestamps than this one, but they
-        // should all be greater than or equal to this packet's decode timestamp. We feed the
-        // decode timestamp to the adjuster here so that in the case that this is the first to be
+        // should all be greater than or equal to this packet's decodeC timestamp. We feed the
+        // decodeC timestamp to the adjuster here so that in the case that this is the first to be
         // fed, the adjuster will be able to compute an offset to apply such that the adjusted
         // presentation timestamps of all future packets are non-negative.
         timestampAdjuster.adjustTsTimestamp(dts);

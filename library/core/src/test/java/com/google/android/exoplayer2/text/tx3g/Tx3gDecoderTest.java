@@ -57,7 +57,7 @@ public final class Tx3gDecoderTest {
   public void testDecodeNoSubtitle() throws IOException, SubtitleDecoderException {
     Tx3gDecoder decoder = new Tx3gDecoder(Collections.emptyList());
     byte[] bytes = TestUtil.getByteArray(ApplicationProvider.getApplicationContext(), NO_SUBTITLE);
-    Subtitle subtitle = decoder.decode(bytes, bytes.length, false);
+    Subtitle subtitle = decoder.decodeC(bytes, bytes.length, false);
     assertThat(subtitle.getCues(0)).isEmpty();
   }
 
@@ -66,7 +66,7 @@ public final class Tx3gDecoderTest {
     Tx3gDecoder decoder = new Tx3gDecoder(Collections.emptyList());
     byte[] bytes =
         TestUtil.getByteArray(ApplicationProvider.getApplicationContext(), SAMPLE_JUST_TEXT);
-    Subtitle subtitle = decoder.decode(bytes, bytes.length, false);
+    Subtitle subtitle = decoder.decodeC(bytes, bytes.length, false);
     SpannedString text = new SpannedString(subtitle.getCues(0).get(0).text);
     assertThat(text.toString()).isEqualTo("CC Test");
     assertThat(text.getSpans(0, text.length(), Object.class)).hasLength(0);
@@ -78,7 +78,7 @@ public final class Tx3gDecoderTest {
     Tx3gDecoder decoder = new Tx3gDecoder(Collections.emptyList());
     byte[] bytes =
         TestUtil.getByteArray(ApplicationProvider.getApplicationContext(), SAMPLE_WITH_STYL);
-    Subtitle subtitle = decoder.decode(bytes, bytes.length, false);
+    Subtitle subtitle = decoder.decodeC(bytes, bytes.length, false);
     SpannedString text = new SpannedString(subtitle.getCues(0).get(0).text);
     assertThat(text.toString()).isEqualTo("CC Test");
     assertThat(text.getSpans(0, text.length(), Object.class)).hasLength(3);
@@ -96,7 +96,7 @@ public final class Tx3gDecoderTest {
     byte[] bytes =
         TestUtil.getByteArray(
             ApplicationProvider.getApplicationContext(), SAMPLE_WITH_STYL_ALL_DEFAULTS);
-    Subtitle subtitle = decoder.decode(bytes, bytes.length, false);
+    Subtitle subtitle = decoder.decodeC(bytes, bytes.length, false);
     SpannedString text = new SpannedString(subtitle.getCues(0).get(0).text);
     assertThat(text.toString()).isEqualTo("CC Test");
     assertThat(text.getSpans(0, text.length(), Object.class)).hasLength(0);
@@ -108,7 +108,7 @@ public final class Tx3gDecoderTest {
     Tx3gDecoder decoder = new Tx3gDecoder(Collections.emptyList());
     byte[] bytes =
         TestUtil.getByteArray(ApplicationProvider.getApplicationContext(), SAMPLE_UTF16_BE_NO_STYL);
-    Subtitle subtitle = decoder.decode(bytes, bytes.length, false);
+    Subtitle subtitle = decoder.decodeC(bytes, bytes.length, false);
     SpannedString text = new SpannedString(subtitle.getCues(0).get(0).text);
     assertThat(text.toString()).isEqualTo("你好");
     assertThat(text.getSpans(0, text.length(), Object.class)).hasLength(0);
@@ -120,7 +120,7 @@ public final class Tx3gDecoderTest {
     Tx3gDecoder decoder = new Tx3gDecoder(Collections.emptyList());
     byte[] bytes =
         TestUtil.getByteArray(ApplicationProvider.getApplicationContext(), SAMPLE_UTF16_LE_NO_STYL);
-    Subtitle subtitle = decoder.decode(bytes, bytes.length, false);
+    Subtitle subtitle = decoder.decodeC(bytes, bytes.length, false);
     SpannedString text = new SpannedString(subtitle.getCues(0).get(0).text);
     assertThat(text.toString()).isEqualTo("你好");
     assertThat(text.getSpans(0, text.length(), Object.class)).hasLength(0);
@@ -133,7 +133,7 @@ public final class Tx3gDecoderTest {
     byte[] bytes =
         TestUtil.getByteArray(
             ApplicationProvider.getApplicationContext(), SAMPLE_WITH_MULTIPLE_STYL);
-    Subtitle subtitle = decoder.decode(bytes, bytes.length, false);
+    Subtitle subtitle = decoder.decodeC(bytes, bytes.length, false);
     SpannedString text = new SpannedString(subtitle.getCues(0).get(0).text);
     assertThat(text.toString()).isEqualTo("Line 2\nLine 3");
     assertThat(text.getSpans(0, text.length(), Object.class)).hasLength(4);
@@ -153,7 +153,7 @@ public final class Tx3gDecoderTest {
     byte[] bytes =
         TestUtil.getByteArray(
             ApplicationProvider.getApplicationContext(), SAMPLE_WITH_OTHER_EXTENSION);
-    Subtitle subtitle = decoder.decode(bytes, bytes.length, false);
+    Subtitle subtitle = decoder.decodeC(bytes, bytes.length, false);
     SpannedString text = new SpannedString(subtitle.getCues(0).get(0).text);
     assertThat(text.toString()).isEqualTo("CC Test");
     assertThat(text.getSpans(0, text.length(), Object.class)).hasLength(2);
@@ -171,7 +171,7 @@ public final class Tx3gDecoderTest {
     Tx3gDecoder decoder = new Tx3gDecoder(Collections.singletonList(initBytes));
     byte[] bytes =
         TestUtil.getByteArray(ApplicationProvider.getApplicationContext(), SAMPLE_WITH_STYL);
-    Subtitle subtitle = decoder.decode(bytes, bytes.length, false);
+    Subtitle subtitle = decoder.decodeC(bytes, bytes.length, false);
     SpannedString text = new SpannedString(subtitle.getCues(0).get(0).text);
     assertThat(text.toString()).isEqualTo("CC Test");
     assertThat(text.getSpans(0, text.length(), Object.class)).hasLength(5);
@@ -194,7 +194,7 @@ public final class Tx3gDecoderTest {
     Tx3gDecoder decoder = new Tx3gDecoder(Collections.singletonList(initBytes));
     byte[] bytes =
         TestUtil.getByteArray(ApplicationProvider.getApplicationContext(), SAMPLE_WITH_TBOX);
-    Subtitle subtitle = decoder.decode(bytes, bytes.length, false);
+    Subtitle subtitle = decoder.decodeC(bytes, bytes.length, false);
     SpannedString text = new SpannedString(subtitle.getCues(0).get(0).text);
     assertThat(text.toString()).isEqualTo("CC Test");
     assertThat(text.getSpans(0, text.length(), Object.class)).hasLength(4);
@@ -217,7 +217,7 @@ public final class Tx3gDecoderTest {
     Tx3gDecoder decoder = new Tx3gDecoder(Collections.singletonList(initBytes));
     byte[] bytes =
         TestUtil.getByteArray(ApplicationProvider.getApplicationContext(), SAMPLE_WITH_STYL);
-    Subtitle subtitle = decoder.decode(bytes, bytes.length, false);
+    Subtitle subtitle = decoder.decodeC(bytes, bytes.length, false);
     SpannedString text = new SpannedString(subtitle.getCues(0).get(0).text);
     assertThat(text.toString()).isEqualTo("CC Test");
     assertThat(text.getSpans(0, text.length(), Object.class)).hasLength(3);

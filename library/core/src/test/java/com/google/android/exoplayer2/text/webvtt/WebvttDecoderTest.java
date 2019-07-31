@@ -57,7 +57,7 @@ public class WebvttDecoderTest {
     WebvttDecoder decoder = new WebvttDecoder();
     byte[] bytes = TestUtil.getByteArray(ApplicationProvider.getApplicationContext(), EMPTY_FILE);
     try {
-      decoder.decode(bytes, bytes.length, /* reset= */ false);
+      decoder.decodeC(bytes, bytes.length, /* reset= */ false);
       fail();
     } catch (SubtitleDecoderException expected) {
       // Do nothing.
@@ -395,7 +395,7 @@ public class WebvttDecoderTest {
       throws IOException, SubtitleDecoderException {
     WebvttDecoder decoder = new WebvttDecoder();
     byte[] bytes = TestUtil.getByteArray(ApplicationProvider.getApplicationContext(), asset);
-    return decoder.decode(bytes, bytes.length, /* reset= */ false);
+    return decoder.decodeC(bytes, bytes.length, /* reset= */ false);
   }
 
   private Spanned getUniqueSpanTextAt(WebvttSubtitle sub, long timeUs) {

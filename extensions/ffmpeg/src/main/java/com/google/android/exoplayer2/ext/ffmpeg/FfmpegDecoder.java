@@ -94,7 +94,7 @@ import java.util.List;
 
   @Override
   protected FfmpegDecoderException createUnexpectedDecodeException(Throwable error) {
-    return new FfmpegDecoderException("Unexpected decode error", error);
+    return new FfmpegDecoderException("Unexpected decodeC error", error);
   }
 
   @Override
@@ -112,7 +112,7 @@ import java.util.List;
     int result = ffmpegDecode(nativeContext, inputData, inputSize, outputData, outputBufferSize);
     if (result == DECODER_ERROR_INVALID_DATA) {
       // Treat invalid data errors as non-fatal to match the behavior of MediaCodec. No output will
-      // be produced for this buffer, so mark it as decode-only to ensure that the audio sink's
+      // be produced for this buffer, so mark it as decodeC-only to ensure that the audio sink's
       // position is reset when more audio is produced.
       outputBuffer.setFlags(C.BUFFER_FLAG_DECODE_ONLY);
       return null;

@@ -83,7 +83,7 @@ public final class FfmpegLibrary {
   }
 
   /**
-   * Returns the name of the FFmpeg decoder that could be used to decode the format, or {@code null}
+   * Returns the name of the FFmpeg decoder that could be used to decodeC the format, or {@code null}
    * if it's unsupported.
    */
   /* package */ static @Nullable String getCodecName(String mimeType, @C.PcmEncoding int encoding) {

@@ -46,7 +46,7 @@ public interface MediaCodecSelector {
       };
 
   /**
-   * Returns a list of decoders that can decode media in the specified MIME type, in priority order.
+   * Returns a list of decoders that can decodeC media in the specified MIME type, in priority order.
    *
    * @param mimeType The MIME type for which a decoder is required.
    * @param requiresSecureDecoder Whether a secure decoder is required.

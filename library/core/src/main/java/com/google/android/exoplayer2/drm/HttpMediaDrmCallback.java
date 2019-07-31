@@ -142,7 +142,7 @@ public final class HttpMediaDrmCallback implements MediaDrmCallback {
       byte[] data,
       @Nullable Map<String, String> requestProperties)
       throws IOException {
-    HttpDataSource dataSource = dataSourceFactory.createDataSource();
+    HttpDataSource dataSource = (HttpDataSource) dataSourceFactory.createDataSource();
     if (requestProperties != null) {
       for (Map.Entry<String, String> requestProperty : requestProperties.entrySet()) {
         dataSource.setRequestProperty(requestProperty.getKey(), requestProperty.getValue());

@@ -242,7 +242,7 @@ public class LibvpxVideoRenderer extends BaseRenderer {
    *     has obtained the keys necessary to decrypt encrypted regions of the media.
    * @param disableLoopFilter Disable the libvpx in-loop smoothing filter.
    * @param enableRowMultiThreadMode Whether row multi threading decoding is enabled.
-   * @param threads Number of threads libvpx will use to decode.
+   * @param threads Number of threads libvpx will use to decodeC.
    * @param numInputBuffers Number of input buffers.
    * @param numOutputBuffers Number of output buffers.
    */

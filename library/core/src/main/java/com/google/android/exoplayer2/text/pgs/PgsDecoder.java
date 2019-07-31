@@ -20,6 +20,8 @@ import com.google.android.exoplayer2.text.Cue;
 import com.google.android.exoplayer2.text.SimpleSubtitleDecoder;
 import com.google.android.exoplayer2.text.Subtitle;
 import com.google.android.exoplayer2.text.SubtitleDecoderException;
+import com.google.android.exoplayer2.text.SubtitleInputBuffer;
+import com.google.android.exoplayer2.text.SubtitleOutputBuffer;
 import com.google.android.exoplayer2.util.ParsableByteArray;
 import com.google.android.exoplayer2.util.Util;
 import java.util.ArrayList;
@@ -27,7 +29,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.zip.Inflater;
 
-/** A {@link SimpleSubtitleDecoder} for PGS subtitles. */
+/**
+ * A {@link SimpleSubtitleDecoder} for PGS subtitles.
+ */
 public final class PgsDecoder extends SimpleSubtitleDecoder {
 
   private static final int SECTION_TYPE_PALETTE = 0x14;
@@ -51,7 +55,7 @@ public final class PgsDecoder extends SimpleSubtitleDecoder {
   }
 
   @Override
-  protected Subtitle decode(byte[] data, int size, boolean reset) throws SubtitleDecoderException {
+  protected Subtitle decodeC(byte[] data, int size, boolean reset) throws SubtitleDecoderException {
     buffer.reset(data, size);
     maybeInflateData(buffer);
     cueBuilder.reset();
@@ -252,5 +256,12 @@ public final class PgsDecoder extends SimpleSubtitleDecoder {
       bitmapData.reset(0);
       colorsSet = false;
     }
+  }
+
+  @SuppressWarnings("ByteBufferBackingArray")
+  @Override
+  protected SubtitleDecoderException decode(SubtitleInputBuffer inputBuffer,
+      SubtitleOutputBuffer outputBuffer, boolean reset) {
+    return super.decode(inputBuffer, outputBuffer, reset);
   }
 }

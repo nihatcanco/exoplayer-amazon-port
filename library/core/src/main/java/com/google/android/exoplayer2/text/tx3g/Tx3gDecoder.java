@@ -28,6 +28,8 @@ import com.google.android.exoplayer2.text.Cue;
 import com.google.android.exoplayer2.text.SimpleSubtitleDecoder;
 import com.google.android.exoplayer2.text.Subtitle;
 import com.google.android.exoplayer2.text.SubtitleDecoderException;
+import com.google.android.exoplayer2.text.SubtitleInputBuffer;
+import com.google.android.exoplayer2.text.SubtitleOutputBuffer;
 import com.google.android.exoplayer2.util.ParsableByteArray;
 import com.google.android.exoplayer2.util.Util;
 import java.nio.charset.Charset;
@@ -116,7 +118,7 @@ public final class Tx3gDecoder extends SimpleSubtitleDecoder {
   }
 
   @Override
-  protected Subtitle decode(byte[] bytes, int length, boolean reset)
+  protected Subtitle decodeC(byte[] bytes, int length, boolean reset)
       throws SubtitleDecoderException {
     parsableByteArray.reset(bytes, length);
     String cueTextString = readSubtitleText(parsableByteArray);
@@ -231,5 +233,12 @@ public final class Tx3gDecoder extends SimpleSubtitleDecoder {
     if (!checkValue) {
       throw new SubtitleDecoderException("Unexpected subtitle format.");
     }
+  }
+
+  @SuppressWarnings("ByteBufferBackingArray")
+  @Override
+  protected SubtitleDecoderException decode(SubtitleInputBuffer inputBuffer,
+      SubtitleOutputBuffer outputBuffer, boolean reset) {
+    return super.decode(inputBuffer, outputBuffer, reset);
   }
 }

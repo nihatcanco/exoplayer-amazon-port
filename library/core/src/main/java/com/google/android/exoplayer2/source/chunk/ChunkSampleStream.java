@@ -582,7 +582,7 @@ public class ChunkSampleStream<T extends ChunkSource> implements SampleStream, S
       BaseMediaChunk mediaChunk = (BaseMediaChunk) loadable;
       if (pendingReset) {
         boolean resetToMediaChunk = mediaChunk.startTimeUs == pendingResetPositionUs;
-        // Only enable setting of the decode only flag if we're not resetting to a chunk boundary.
+        // Only enable setting of the decodeC only flag if we're not resetting to a chunk boundary.
         decodeOnlyUntilPositionUs = resetToMediaChunk ? 0 : pendingResetPositionUs;
         pendingResetPositionUs = C.TIME_UNSET;
       }

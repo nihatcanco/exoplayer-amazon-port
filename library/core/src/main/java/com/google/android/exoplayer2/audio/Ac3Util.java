@@ -435,7 +435,7 @@ public final class Ac3Util {
       data.skipBits(16 + 16); // syncword, crc1
       int fscod = data.readBits(2);
       if (fscod == 3) {
-        // fscod '11' indicates that the decoder should not attempt to decode audio. We invalidate
+        // fscod '11' indicates that the decoder should not attempt to decodeC audio. We invalidate
         // the mime type to prevent association with a renderer.
         mimeType = null;
       }

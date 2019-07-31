@@ -28,7 +28,7 @@ import com.google.android.exoplayer2.util.Util;
 import java.io.IOException;
 
 /**
- * A {@link BaseMediaChunk} that uses an {@link Extractor} to decode sample data.
+ * A {@link BaseMediaChunk} that uses an {@link Extractor} to decodeC sample data.
  */
 public class ContainerMediaChunk extends BaseMediaChunk {
 
@@ -127,7 +127,7 @@ public class ContainerMediaChunk extends BaseMediaChunk {
                 : (clippedStartTimeUs - sampleOffsetUs),
             clippedEndTimeUs == C.TIME_UNSET ? C.TIME_UNSET : (clippedEndTimeUs - sampleOffsetUs));
       }
-      // Load and decode the sample data.
+      // Load and decodeC the sample data.
       try {
         Extractor extractor = extractorWrapper.extractor;
         int result = Extractor.RESULT_CONTINUE;

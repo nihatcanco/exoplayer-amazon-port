@@ -91,7 +91,7 @@ public final class Id3Decoder implements MetadataDecoder {
   }
 
   /**
-   * @param framePredicate Determines which frames are decoded. May be null to decode all frames.
+   * @param framePredicate Determines which frames are decoded. May be null to decodeC all frames.
    */
   public Id3Decoder(@Nullable FramePredicate framePredicate) {
     this.framePredicate = framePredicate;
@@ -107,7 +107,7 @@ public final class Id3Decoder implements MetadataDecoder {
   /**
    * Decodes ID3 tags.
    *
-   * @param data The bytes to decode ID3 tags from.
+   * @param data The bytes to decodeC ID3 tags from.
    * @param size Amount of bytes in {@code data} to read.
    * @return A {@link Metadata} object containing the decoded ID3 tags, or null if the data could
    *     not be decoded.
@@ -390,7 +390,7 @@ public final class Id3Decoder implements MetadataDecoder {
         frame = decodeBinaryFrame(id3Data, frameSize, id);
       }
       if (frame == null) {
-        Log.w(TAG, "Failed to decode frame: id="
+        Log.w(TAG, "Failed to decodeC frame: id="
             + getFrameId(majorVersion, frameId0, frameId1, frameId2, frameId3) + ", frameSize="
             + frameSize);
       }
@@ -803,7 +803,7 @@ public final class Id3Decoder implements MetadataDecoder {
    * Returns a string obtained by decoding the specified range of {@code data} using the specified
    * {@code charsetName}. An empty string is returned if the range is invalid.
    *
-   * @param data The array from which to decode the string.
+   * @param data The array from which to decodeC the string.
    * @param from The start of the range.
    * @param to The end of the range (exclusive).
    * @param charsetName The name of the Charset to use.

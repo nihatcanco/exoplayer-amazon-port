@@ -26,7 +26,7 @@ import java.nio.ByteBuffer;
  */
 /* package */ final class FlacDecoderJni {
 
-  /** Exception to be thrown if {@link #decodeSample(ByteBuffer)} fails to decode a frame. */
+  /** Exception to be thrown if {@link #decodeSample(ByteBuffer)} fails to decodeC a frame. */
   public static final class FlacFrameDecodeException extends Exception {
 
     public final int errorCode;
@@ -165,7 +165,7 @@ import java.nio.ByteBuffer;
             : flacDecodeToArray(nativeDecoderContext, output.array());
     if (frameSize < 0) {
       if (!isDecoderAtEndOfInput()) {
-        throw new FlacFrameDecodeException("Cannot decode FLAC frame", frameSize);
+        throw new FlacFrameDecodeException("Cannot decodeC FLAC frame", frameSize);
       }
       // The decoder has read to EOI. Return a 0-size frame to indicate the EOI.
       output.limit(0);

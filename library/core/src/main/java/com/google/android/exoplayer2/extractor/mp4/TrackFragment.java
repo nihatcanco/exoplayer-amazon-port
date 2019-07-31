@@ -100,7 +100,7 @@ import java.io.IOException;
    */
   public boolean sampleEncryptionDataNeedsFill;
   /**
-   * The absolute decode time of the start of the next fragment.
+   * The absolute decodeC time of the start of the next fragment.
    */
   public long nextFragmentDecodeTime;
 

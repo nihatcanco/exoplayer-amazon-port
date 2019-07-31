@@ -500,7 +500,7 @@ public final class SampleQueueTest {
         DATA, SAMPLE_SIZES, SAMPLE_OFFSETS, decodeOrderTimestamps, SAMPLE_FORMATS, SAMPLE_FLAGS);
     assertThat(sampleQueue.getLargestQueuedTimestampUs()).isEqualTo(7000);
     sampleQueue.discardUpstreamSamples(SAMPLE_TIMESTAMPS.length - 2);
-    // Discarding the last two samples should not change the largest timestamp, due to the decode
+    // Discarding the last two samples should not change the largest timestamp, due to the decodeC
     // ordering of the timestamps.
     assertThat(sampleQueue.getLargestQueuedTimestampUs()).isEqualTo(7000);
     sampleQueue.discardUpstreamSamples(SAMPLE_TIMESTAMPS.length - 3);

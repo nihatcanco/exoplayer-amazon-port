@@ -20,7 +20,7 @@ import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.util.Assertions;
 import java.util.ArrayDeque;
 
-/** Base class for {@link Decoder}s that use their own decode thread. */
+/** Base class for {@link Decoder}s that use their own decodeC thread. */
 @SuppressWarnings("UngroupedOverloads")
 public abstract class SimpleDecoder<
         I extends DecoderInputBuffer, O extends OutputBuffer, E extends Exception>
@@ -162,9 +162,9 @@ public abstract class SimpleDecoder<
   }
 
   /**
-   * Throws a decode exception, if there is one.
+   * Throws a decodeC exception, if there is one.
    *
-   * @throws E The decode exception.
+   * @throws E The decodeC exception.
    */
   private void maybeThrowException() throws E {
     if (exception != null) {
@@ -173,8 +173,8 @@ public abstract class SimpleDecoder<
   }
 
   /**
-   * Notifies the decode loop if there exists a queued input buffer and an available output buffer
-   * to decode into.
+   * Notifies the decodeC loop if there exists a queued input buffer and an available output buffer
+   * to decodeC into.
    * <p>
    * Should only be called whilst synchronized on the lock object.
    */
@@ -200,7 +200,7 @@ public abstract class SimpleDecoder<
     O outputBuffer;
     boolean resetDecoder;
 
-    // Wait until we have an input buffer to decode, and an output buffer to decode into.
+    // Wait until we have an input buffer to decodeC, and an output buffer to decodeC into.
     synchronized (lock) {
       while (!released && !canDecodeBuffer()) {
         lock.wait();
@@ -282,9 +282,9 @@ public abstract class SimpleDecoder<
   protected abstract O createOutputBuffer();
 
   /**
-   * Creates an exception to propagate for an unexpected decode error.
+   * Creates an exception to propagate for an unexpected decodeC error.
    *
-   * @param error The unexpected decode error.
+   * @param error The unexpected decodeC error.
    * @return The exception to propagate.
    */
   protected abstract E createUnexpectedDecodeException(Throwable error);
@@ -292,7 +292,7 @@ public abstract class SimpleDecoder<
   /**
    * Decodes the {@code inputBuffer} and stores any decoded output in {@code outputBuffer}.
    *
-   * @param inputBuffer The buffer to decode.
+   * @param inputBuffer The buffer to decodeC.
    * @param outputBuffer The output buffer to store decoded data. The flag {@link
    *     C#BUFFER_FLAG_DECODE_ONLY} will be set if the same flag is set on {@code inputBuffer}, but
    *     may be set/unset as required. If the flag is set when the call returns then the output

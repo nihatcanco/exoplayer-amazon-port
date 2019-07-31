@@ -41,7 +41,7 @@ public final class SsaDecoderTest {
   public void testDecodeEmpty() throws IOException {
     SsaDecoder decoder = new SsaDecoder();
     byte[] bytes = TestUtil.getByteArray(ApplicationProvider.getApplicationContext(), EMPTY);
-    SsaSubtitle subtitle = decoder.decode(bytes, bytes.length, false);
+    SsaSubtitle subtitle = decoder.decodeC(bytes, bytes.length, false);
 
     assertThat(subtitle.getEventTimeCount()).isEqualTo(0);
     assertThat(subtitle.getCues(0).isEmpty()).isTrue();
@@ -51,7 +51,7 @@ public final class SsaDecoderTest {
   public void testDecodeTypical() throws IOException {
     SsaDecoder decoder = new SsaDecoder();
     byte[] bytes = TestUtil.getByteArray(ApplicationProvider.getApplicationContext(), TYPICAL);
-    SsaSubtitle subtitle = decoder.decode(bytes, bytes.length, false);
+    SsaSubtitle subtitle = decoder.decodeC(bytes, bytes.length, false);
 
     assertThat(subtitle.getEventTimeCount()).isEqualTo(6);
     assertTypicalCue1(subtitle, 0);
@@ -71,7 +71,7 @@ public final class SsaDecoderTest {
     SsaDecoder decoder = new SsaDecoder(initializationData);
     byte[] bytes =
         TestUtil.getByteArray(ApplicationProvider.getApplicationContext(), TYPICAL_DIALOGUE_ONLY);
-    SsaSubtitle subtitle = decoder.decode(bytes, bytes.length, false);
+    SsaSubtitle subtitle = decoder.decodeC(bytes, bytes.length, false);
 
     assertThat(subtitle.getEventTimeCount()).isEqualTo(6);
     assertTypicalCue1(subtitle, 0);
@@ -85,7 +85,7 @@ public final class SsaDecoderTest {
     SsaDecoder decoder = new SsaDecoder();
     byte[] bytes =
         TestUtil.getByteArray(ApplicationProvider.getApplicationContext(), INVALID_TIMECODES);
-    SsaSubtitle subtitle = decoder.decode(bytes, bytes.length, false);
+    SsaSubtitle subtitle = decoder.decodeC(bytes, bytes.length, false);
 
     assertThat(subtitle.getEventTimeCount()).isEqualTo(2);
     assertTypicalCue3(subtitle, 0);
@@ -96,7 +96,7 @@ public final class SsaDecoderTest {
     SsaDecoder decoder = new SsaDecoder();
     byte[] bytes =
         TestUtil.getByteArray(ApplicationProvider.getApplicationContext(), NO_END_TIMECODES);
-    SsaSubtitle subtitle = decoder.decode(bytes, bytes.length, false);
+    SsaSubtitle subtitle = decoder.decodeC(bytes, bytes.length, false);
 
     assertThat(subtitle.getEventTimeCount()).isEqualTo(3);
 

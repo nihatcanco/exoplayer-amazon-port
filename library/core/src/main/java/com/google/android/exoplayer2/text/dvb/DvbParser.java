@@ -119,7 +119,7 @@ import java.util.List;
   /**
    * Decodes a subtitling packet, returning a list of parsed {@link Cue}s.
    *
-   * @param data The subtitling packet data to decode.
+   * @param data The subtitling packet data to decodeC.
    * @param limit The limit in {@code data} at which to stop decoding.
    * @return The parsed {@link Cue}s.
    */

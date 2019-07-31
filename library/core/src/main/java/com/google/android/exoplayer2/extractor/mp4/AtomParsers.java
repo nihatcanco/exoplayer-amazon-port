@@ -68,7 +68,7 @@ import java.util.List;
   /**
    * Parses a trak atom (defined in 14496-12).
    *
-   * @param trak Atom to decode.
+   * @param trak Atom to decodeC.
    * @param mvhd Movie header atom, used to get the timescale.
    * @param duration The duration in units of the timescale declared in the mvhd atom, or
    *     {@link C#TIME_UNSET} if the duration should be parsed from the tkhd atom.
@@ -120,7 +120,7 @@ import java.util.List;
    * Parses an stbl atom (defined in 14496-12).
    *
    * @param track Track to which this sample table corresponds.
-   * @param stblAtom stbl (sample table) atom to decode.
+   * @param stblAtom stbl (sample table) atom to decodeC.
    * @param gaplessInfoHolder Holder to populate with gapless playback information.
    * @return Sample table described by the stbl atom.
    * @throws ParserException Thrown if the stbl atom can't be parsed.
@@ -249,7 +249,7 @@ import java.util.List;
             remainingSamplesAtTimestampOffset = ctts.readUnsignedIntToInt();
             // The BMFF spec (ISO 14496-12) states that sample offsets should be unsigned integers
             // in version 0 ctts boxes, however some streams violate the spec and use signed
-            // integers instead. It's safe to always decode sample offsets as signed integers here,
+            // integers instead. It's safe to always decodeC sample offsets as signed integers here,
             // because unsigned integers will still be parsed correctly (unless their top bit is
             // set, which is never true in practice because sample offsets are always small).
             timestampOffset = ctts.readInt();
@@ -282,7 +282,7 @@ import java.util.List;
           remainingSamplesAtTimestampDelta = stts.readUnsignedIntToInt();
           // The BMFF spec (ISO 14496-12) states that sample deltas should be unsigned integers
           // in stts boxes, however some streams violate the spec and use signed integers instead.
-          // See https://github.com/google/ExoPlayer/issues/3384. It's safe to always decode sample
+          // See https://github.com/google/ExoPlayer/issues/3384. It's safe to always decodeC sample
           // deltas as signed integers here, because unsigned integers will still be parsed
           // correctly (unless their top bit is set, which is never true in practice because sample
           // deltas are always small).
@@ -485,7 +485,7 @@ import java.util.List;
   /**
    * Parses a udta atom.
    *
-   * @param udtaAtom The udta (user data) atom to decode.
+   * @param udtaAtom The udta (user data) atom to decodeC.
    * @param isQuickTime True for QuickTime media. False otherwise.
    * @return Parsed metadata, or null.
    */
@@ -493,7 +493,7 @@ import java.util.List;
   public static Metadata parseUdta(Atom.LeafAtom udtaAtom, boolean isQuickTime) {
     if (isQuickTime) {
       // Meta boxes are regular boxes rather than full boxes in QuickTime. For now, don't try and
-      // decode one.
+      // decodeC one.
       return null;
     }
     ParsableByteArray udtaData = udtaAtom.data;
@@ -514,7 +514,7 @@ import java.util.List;
   /**
    * Parses a metadata meta atom if it contains metadata with handler 'mdta'.
    *
-   * @param meta The metadata atom to decode.
+   * @param meta The metadata atom to decodeC.
    * @return Parsed metadata, or null.
    */
   @Nullable
@@ -670,7 +670,7 @@ import java.util.List;
   /**
    * Parses an hdlr atom.
    *
-   * @param hdlr The hdlr atom to decode.
+   * @param hdlr The hdlr atom to decodeC.
    * @return The handler value.
    */
   private static int parseHdlr(ParsableByteArray hdlr) {
@@ -696,7 +696,7 @@ import java.util.List;
   /**
    * Parses an mdhd atom (defined in 14496-12).
    *
-   * @param mdhd The mdhd atom to decode.
+   * @param mdhd The mdhd atom to decodeC.
    * @return A pair consisting of the media timescale defined as the number of time units that pass
    * in one second, and the language code.
    */
@@ -719,7 +719,7 @@ import java.util.List;
   /**
    * Parses a stsd atom (defined in 14496-12).
    *
-   * @param stsd The stsd atom to decode.
+   * @param stsd The stsd atom to decodeC.
    * @param trackId The track's identifier in its container.
    * @param rotationDegrees The rotation of the track in degrees.
    * @param language The language of the track.
@@ -975,7 +975,7 @@ import java.util.List;
   /**
    * Parses the edts atom (defined in 14496-12 subsection 8.6.5).
    *
-   * @param edtsAtom edts (edit box) atom to decode.
+   * @param edtsAtom edts (edit box) atom to decodeC.
    * @return Pair of edit list durations and edit list media times, or a pair of nulls if they are
    *     not present.
    */

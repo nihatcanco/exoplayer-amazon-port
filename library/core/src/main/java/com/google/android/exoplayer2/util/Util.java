@@ -467,7 +467,7 @@ public final class Util {
   /**
    * Returns a new {@link String} constructed by decoding UTF-8 encoded bytes.
    *
-   * @param bytes The UTF-8 encoded bytes to decode.
+   * @param bytes The UTF-8 encoded bytes to decodeC.
    * @return The string.
    */
   public static String fromUtf8Bytes(byte[] bytes) {
@@ -477,9 +477,9 @@ public final class Util {
   /**
    * Returns a new {@link String} constructed by decoding UTF-8 encoded bytes in a subarray.
    *
-   * @param bytes The UTF-8 encoded bytes to decode.
-   * @param offset The index of the first byte to decode.
-   * @param length The number of bytes to decode.
+   * @param bytes The UTF-8 encoded bytes to decodeC.
+   * @param offset The index of the first byte to decodeC.
+   * @param length The number of bytes to decodeC.
    * @return The string.
    */
   public static String fromUtf8Bytes(byte[] bytes, int offset, int length) {
@@ -873,7 +873,7 @@ public final class Util {
   /**
    * Parses an xs:duration attribute value, returning the parsed duration in milliseconds.
    *
-   * @param value The attribute value to decode.
+   * @param value The attribute value to decodeC.
    * @return The parsed duration in milliseconds.
    */
   public static long parseXsDuration(String value) {
@@ -905,7 +905,7 @@ public final class Util {
    * Parses an xs:dateTime attribute value, returning the parsed timestamp in milliseconds since
    * the epoch.
    *
-   * @param value The attribute value to decode.
+   * @param value The attribute value to decodeC.
    * @return The parsed timestamp in milliseconds since the epoch.
    * @throws ParserException if an error occurs parsing the dateTime attribute value.
    */

@@ -40,7 +40,7 @@ public interface HttpDataSource extends DataSource {
   interface Factory extends DataSource.Factory {
 
     @Override
-    HttpDataSource createDataSource();
+    DataSource createDataSource();
 
     /**
      * Gets the default request properties used by all {@link HttpDataSource}s created by the
@@ -174,7 +174,7 @@ public interface HttpDataSource extends DataSource {
     }
 
     @Override
-    public final HttpDataSource createDataSource() {
+    public DataSource createDataSource() {
       return createDataSourceInternal(defaultRequestProperties);
     }
 

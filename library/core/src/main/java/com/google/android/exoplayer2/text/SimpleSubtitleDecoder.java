@@ -20,7 +20,7 @@ import com.google.android.exoplayer2.decoder.SimpleDecoder;
 import java.nio.ByteBuffer;
 
 /**
- * Base class for subtitle parsers that use their own decode thread.
+ * Base class for subtitle parsers that use their own decodeC thread.
  */
 public abstract class SimpleSubtitleDecoder extends
     SimpleDecoder<SubtitleInputBuffer, SubtitleOutputBuffer, SubtitleDecoderException> implements
@@ -38,7 +38,7 @@ public abstract class SimpleSubtitleDecoder extends
   }
 
   @Override
-  public final String getName() {
+  public String getName() {
     return name;
   }
 
@@ -48,32 +48,32 @@ public abstract class SimpleSubtitleDecoder extends
   }
 
   @Override
-  protected final SubtitleInputBuffer createInputBuffer() {
+  protected SubtitleInputBuffer createInputBuffer() {
     return new SubtitleInputBuffer();
   }
 
   @Override
-  protected final SubtitleOutputBuffer createOutputBuffer() {
+  protected SubtitleOutputBuffer createOutputBuffer() {
     return new SimpleSubtitleOutputBuffer(this);
   }
 
   @Override
-  protected final SubtitleDecoderException createUnexpectedDecodeException(Throwable error) {
-    return new SubtitleDecoderException("Unexpected decode error", error);
+  protected SubtitleDecoderException createUnexpectedDecodeException(Throwable error) {
+    return new SubtitleDecoderException("Unexpected decodeC error", error);
   }
 
   @Override
-  protected final void releaseOutputBuffer(SubtitleOutputBuffer buffer) {
+  protected void releaseOutputBuffer(SubtitleOutputBuffer buffer) {
     super.releaseOutputBuffer(buffer);
   }
 
   @SuppressWarnings("ByteBufferBackingArray")
   @Override
-  protected final SubtitleDecoderException decode(
+  protected SubtitleDecoderException decode(
       SubtitleInputBuffer inputBuffer, SubtitleOutputBuffer outputBuffer, boolean reset) {
     try {
       ByteBuffer inputData = inputBuffer.data;
-      Subtitle subtitle = decode(inputData.array(), inputData.limit(), reset);
+      Subtitle subtitle = decodeC(inputData.array(), inputData.limit(), reset);
       outputBuffer.setContent(inputBuffer.timeUs, subtitle, inputBuffer.subsampleOffsetUs);
       // Clear BUFFER_FLAG_DECODE_ONLY (see [Internal: b/27893809]).
       outputBuffer.clearFlag(C.BUFFER_FLAG_DECODE_ONLY);
@@ -92,7 +92,7 @@ public abstract class SimpleSubtitleDecoder extends
    * @return The decoded {@link Subtitle}.
    * @throws SubtitleDecoderException If a decoding error occurs.
    */
-  protected abstract Subtitle decode(byte[] data, int size, boolean reset)
+  protected abstract Subtitle decodeC(byte[] data, int size, boolean reset)
       throws SubtitleDecoderException;
 
 }

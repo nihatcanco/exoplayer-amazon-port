@@ -150,7 +150,7 @@ public final class H262Reader implements ElementaryStreamReader {
         // passed to csdBuffer.
         int bytesAlreadyPassed = lengthToStartCode < 0 ? -lengthToStartCode : 0;
         if (csdBuffer.onStartCode(startCodeValue, bytesAlreadyPassed)) {
-          // The csd data is complete, so we can decode and output the media format.
+          // The csd data is complete, so we can decodeC and output the media format.
           Pair<Format, Long> result = parseCsdBuffer(csdBuffer, formatId);
           output.format(result.first);
           frameDurationUs = result.second;

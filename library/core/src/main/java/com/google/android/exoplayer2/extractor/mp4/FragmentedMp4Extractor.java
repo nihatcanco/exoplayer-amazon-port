@@ -800,7 +800,7 @@ public class FragmentedMp4Extractor implements Extractor {
   /**
    * Parses a saio atom (defined in 14496-12).
    *
-   * @param saio The saio atom to decode.
+   * @param saio The saio atom to decodeC.
    * @param out The {@link TrackFragment} to populate with data from the saio atom.
    */
   private static void parseSaio(ParsableByteArray saio, TrackFragment out) throws ParserException {
@@ -827,7 +827,7 @@ public class FragmentedMp4Extractor implements Extractor {
    * returns the {@link TrackBundle} of the corresponding {@link Track}. If the tfhd does not refer
    * to any {@link TrackBundle}, {@code null} is returned and no changes are made.
    *
-   * @param tfhd The tfhd atom to decode.
+   * @param tfhd The tfhd atom to decodeC.
    * @param trackBundles The track bundles, one of which corresponds to the tfhd atom being parsed.
    * @return The {@link TrackBundle} to which the {@link TrackFragment} belongs, or null if the tfhd
    *     does not refer to any {@link TrackBundle}.
@@ -877,7 +877,7 @@ public class FragmentedMp4Extractor implements Extractor {
   /**
    * Parses a tfdt atom (defined in 14496-12).
    *
-   * @return baseMediaDecodeTime The sum of the decode durations of all earlier samples in the
+   * @return baseMediaDecodeTime The sum of the decodeC durations of all earlier samples in the
    *     media, expressed in the media's timescale.
    */
   private static long parseTfdt(ParsableByteArray tfdt) {
@@ -893,9 +893,9 @@ public class FragmentedMp4Extractor implements Extractor {
    * @param trackBundle The {@link TrackBundle} that contains the {@link TrackFragment} into
    *     which parsed data should be placed.
    * @param index Index of the track run in the fragment.
-   * @param decodeTime The decode time of the first sample in the fragment run.
+   * @param decodeTime The decodeC time of the first sample in the fragment run.
    * @param flags Flags to allow any required workaround to be executed.
-   * @param trun The trun atom to decode.
+   * @param trun The trun atom to decodeC.
    * @return The starting position of samples for the next run.
    */
   private static int parseTrun(TrackBundle trackBundle, int index, long decodeTime,
@@ -958,7 +958,7 @@ public class FragmentedMp4Extractor implements Extractor {
       if (sampleCompositionTimeOffsetsPresent) {
         // The BMFF spec (ISO 14496-12) states that sample offsets should be unsigned integers in
         // version 0 trun boxes, however a significant number of streams violate the spec and use
-        // signed integers instead. It's safe to always decode sample offsets as signed integers
+        // signed integers instead. It's safe to always decodeC sample offsets as signed integers
         // here, because unsigned integers will still be parsed correctly (unless their top bit is
         // set, which is never true in practice because sample offsets are always small).
         int sampleOffset = trun.readInt();
@@ -1242,7 +1242,7 @@ public class FragmentedMp4Extractor implements Extractor {
       sampleTimeUs = timestampAdjuster.adjustSampleTimestamp(sampleTimeUs);
     }
     if (track.nalUnitLengthFieldLength != 0) {
-      // Zero the top three bytes of the array that we'll use to decode nal unit lengths, in case
+      // Zero the top three bytes of the array that we'll use to decodeC nal unit lengths, in case
       // they're only 1 or 2 bytes long.
       byte[] nalPrefixData = nalPrefix.data;
       nalPrefixData[0] = 0;
@@ -1396,7 +1396,7 @@ public class FragmentedMp4Extractor implements Extractor {
     return schemeDatas == null ? null : new DrmInitData(schemeDatas);
   }
 
-  /** Returns whether the extractor should decode a leaf atom with type {@code atom}. */
+  /** Returns whether the extractor should decodeC a leaf atom with type {@code atom}. */
   private static boolean shouldParseLeafAtom(int atom) {
     return atom == Atom.TYPE_hdlr || atom == Atom.TYPE_mdhd || atom == Atom.TYPE_mvhd
         || atom == Atom.TYPE_sidx || atom == Atom.TYPE_stsd || atom == Atom.TYPE_tfdt
@@ -1407,7 +1407,7 @@ public class FragmentedMp4Extractor implements Extractor {
         || atom == Atom.TYPE_mehd || atom == Atom.TYPE_emsg;
   }
 
-  /** Returns whether the extractor should decode a container atom with type {@code atom}. */
+  /** Returns whether the extractor should decodeC a container atom with type {@code atom}. */
   private static boolean shouldParseContainerAtom(int atom) {
     return atom == Atom.TYPE_moov || atom == Atom.TYPE_trak || atom == Atom.TYPE_mdia
         || atom == Atom.TYPE_minf || atom == Atom.TYPE_stbl || atom == Atom.TYPE_moof

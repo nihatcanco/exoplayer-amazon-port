@@ -96,7 +96,7 @@ import com.google.android.exoplayer2.video.AvcConfig;
       hasOutputFormat = true;
     } else if (packetType == AVC_PACKET_TYPE_AVC_NALU && hasOutputFormat) {
       // TODO: Deduplicate with Mp4Extractor.
-      // Zero the top three bytes of the array that we'll use to decode nal unit lengths, in case
+      // Zero the top three bytes of the array that we'll use to decodeC nal unit lengths, in case
       // they're only 1 or 2 bytes long.
       byte[] nalLengthData = nalLength.data;
       nalLengthData[0] = 0;

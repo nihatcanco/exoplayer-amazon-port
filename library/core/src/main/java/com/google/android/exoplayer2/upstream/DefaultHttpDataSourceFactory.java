@@ -20,20 +20,22 @@ import com.google.android.exoplayer2.upstream.HttpDataSource.BaseFactory;
 import com.google.android.exoplayer2.upstream.HttpDataSource.Factory;
 import com.google.android.exoplayer2.util.Assertions;
 
-/** A {@link Factory} that produces {@link DefaultHttpDataSource} instances. */
+/**
+ * A {@link Factory} that produces {@link DefaultHttpDataSource} instances.
+ */
 public final class DefaultHttpDataSourceFactory extends BaseFactory {
 
   private final String userAgent;
-  private final @Nullable TransferListener listener;
+  private final @Nullable
+  TransferListener listener;
   private final int connectTimeoutMillis;
   private final int readTimeoutMillis;
   private final boolean allowCrossProtocolRedirects;
 
   /**
-   * Constructs a DefaultHttpDataSourceFactory. Sets {@link
-   * DefaultHttpDataSource#DEFAULT_CONNECT_TIMEOUT_MILLIS} as the connection timeout, {@link
-   * DefaultHttpDataSource#DEFAULT_READ_TIMEOUT_MILLIS} as the read timeout and disables
-   * cross-protocol redirects.
+   * Constructs a DefaultHttpDataSourceFactory. Sets {@link DefaultHttpDataSource#DEFAULT_CONNECT_TIMEOUT_MILLIS}
+   * as the connection timeout, {@link DefaultHttpDataSource#DEFAULT_READ_TIMEOUT_MILLIS} as the
+   * read timeout and disables cross-protocol redirects.
    *
    * @param userAgent The User-Agent string that should be used.
    */
@@ -42,10 +44,9 @@ public final class DefaultHttpDataSourceFactory extends BaseFactory {
   }
 
   /**
-   * Constructs a DefaultHttpDataSourceFactory. Sets {@link
-   * DefaultHttpDataSource#DEFAULT_CONNECT_TIMEOUT_MILLIS} as the connection timeout, {@link
-   * DefaultHttpDataSource#DEFAULT_READ_TIMEOUT_MILLIS} as the read timeout and disables
-   * cross-protocol redirects.
+   * Constructs a DefaultHttpDataSourceFactory. Sets {@link DefaultHttpDataSource#DEFAULT_CONNECT_TIMEOUT_MILLIS}
+   * as the connection timeout, {@link DefaultHttpDataSource#DEFAULT_READ_TIMEOUT_MILLIS} as the
+   * read timeout and disables cross-protocol redirects.
    *
    * @param userAgent The User-Agent string that should be used.
    * @param listener An optional listener.
@@ -59,11 +60,11 @@ public final class DefaultHttpDataSourceFactory extends BaseFactory {
   /**
    * @param userAgent The User-Agent string that should be used.
    * @param connectTimeoutMillis The connection timeout that should be used when requesting remote
-   *     data, in milliseconds. A timeout of zero is interpreted as an infinite timeout.
+   * data, in milliseconds. A timeout of zero is interpreted as an infinite timeout.
    * @param readTimeoutMillis The read timeout that should be used when requesting remote data, in
-   *     milliseconds. A timeout of zero is interpreted as an infinite timeout.
+   * milliseconds. A timeout of zero is interpreted as an infinite timeout.
    * @param allowCrossProtocolRedirects Whether cross-protocol redirects (i.e. redirects from HTTP
-   *     to HTTPS and vice versa) are enabled.
+   * to HTTPS and vice versa) are enabled.
    */
   public DefaultHttpDataSourceFactory(
       String userAgent,
@@ -82,11 +83,11 @@ public final class DefaultHttpDataSourceFactory extends BaseFactory {
    * @param userAgent The User-Agent string that should be used.
    * @param listener An optional listener.
    * @param connectTimeoutMillis The connection timeout that should be used when requesting remote
-   *     data, in milliseconds. A timeout of zero is interpreted as an infinite timeout.
+   * data, in milliseconds. A timeout of zero is interpreted as an infinite timeout.
    * @param readTimeoutMillis The read timeout that should be used when requesting remote data, in
-   *     milliseconds. A timeout of zero is interpreted as an infinite timeout.
+   * milliseconds. A timeout of zero is interpreted as an infinite timeout.
    * @param allowCrossProtocolRedirects Whether cross-protocol redirects (i.e. redirects from HTTP
-   *     to HTTPS and vice versa) are enabled.
+   * to HTTPS and vice versa) are enabled.
    */
   public DefaultHttpDataSourceFactory(
       String userAgent,
@@ -117,4 +118,10 @@ public final class DefaultHttpDataSourceFactory extends BaseFactory {
     }
     return dataSource;
   }
+
+  @Override
+  public DataSource createDataSource() {
+    return super.createDataSource();
+  }
+
 }

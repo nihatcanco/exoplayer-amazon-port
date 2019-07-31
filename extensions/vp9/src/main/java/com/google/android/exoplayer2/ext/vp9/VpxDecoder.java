@@ -52,7 +52,7 @@ import java.nio.ByteBuffer;
    *     content. Maybe null and can be ignored if decoder does not handle encrypted content.
    * @param disableLoopFilter Disable the libvpx in-loop smoothing filter.
    * @param enableRowMultiThreadMode Whether row multi threading decoding is enabled.
-   * @param threads Number of threads libvpx will use to decode.
+   * @param threads Number of threads libvpx will use to decodeC.
    * @throws VpxDecoderException Thrown if an exception occurs when initializing the decoder.
    */
   public VpxDecoder(
@@ -70,7 +70,7 @@ import java.nio.ByteBuffer;
     }
     this.exoMediaCrypto = exoMediaCrypto;
     if (exoMediaCrypto != null && !VpxLibrary.vpxIsSecureDecodeSupported()) {
-      throw new VpxDecoderException("Vpx decoder does not support secure decode.");
+      throw new VpxDecoderException("Vpx decoder does not support secure decodeC.");
     }
     vpxDecContext = vpxInit(disableLoopFilter, enableRowMultiThreadMode, threads);
     if (vpxDecContext == 0) {
@@ -116,7 +116,7 @@ import java.nio.ByteBuffer;
 
   @Override
   protected VpxDecoderException createUnexpectedDecodeException(Throwable error) {
-    return new VpxDecoderException("Unexpected decode error", error);
+    return new VpxDecoderException("Unexpected decodeC error", error);
   }
 
   @Override

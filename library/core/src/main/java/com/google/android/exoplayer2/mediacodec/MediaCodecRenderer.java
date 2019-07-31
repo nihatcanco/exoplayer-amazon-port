@@ -59,7 +59,7 @@ import java.util.List;
 
 import com.google.android.exoplayer2.util.Logger;
 /**
- * An abstract renderer that uses {@link MediaCodec} to decode samples for rendering.
+ * An abstract renderer that uses {@link MediaCodec} to decodeC samples for rendering.
  */
 public abstract class MediaCodecRenderer extends BaseRenderer {
 
@@ -178,7 +178,7 @@ public abstract class MediaCodecRenderer extends BaseRenderer {
    * output frames that are ready to be rendered.
    * <p>
    * This allows codec hotswapping to be performed seamlessly, without interrupting the playback of
-   * other renderers, provided the new codec is able to decode some frames within this time period.
+   * other renderers, provided the new codec is able to decodeC some frames within this time period.
    */
   private static final long MAX_CODEC_HOTSWAP_TIME_MS = 1000;
 
@@ -440,7 +440,7 @@ public abstract class MediaCodecRenderer extends BaseRenderer {
       throws DecoderQueryException;
 
   /**
-   * Returns a list of decoders that can decode media in the specified format, in priority order.
+   * Returns a list of decoders that can decodeC media in the specified format, in priority order.
    *
    * @param mediaCodecSelector The decoder selector.
    * @param format The format for which a decoder is required.
@@ -1774,7 +1774,7 @@ public abstract class MediaCodecRenderer extends BaseRenderer {
         || Util.MODEL.startsWith("SM-A520") || Util.MODEL.startsWith("SM-J700"))) {
       return ADAPTATION_WORKAROUND_MODE_ALWAYS;
     } else if (Util.SDK_INT < 24
-        && ("OMX.Nvidia.h264.decode".equals(name) || "OMX.Nvidia.h264.decode.secure".equals(name))
+        && ("OMX.Nvidia.h264.decodeC".equals(name) || "OMX.Nvidia.h264.decodeC.secure".equals(name))
         && ("flounder".equals(Util.DEVICE) || "flounder_lte".equals(Util.DEVICE)
         || "grouper".equals(Util.DEVICE) || "tilapia".equals(Util.DEVICE))) {
       return ADAPTATION_WORKAROUND_MODE_SAME_RESOLUTION;

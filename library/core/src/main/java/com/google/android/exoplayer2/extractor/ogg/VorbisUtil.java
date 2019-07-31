@@ -159,7 +159,7 @@ import java.util.Arrays;
 
   /**
    * This method reads the modes which are located at the very end of the vorbis setup header.
-   * That's why we need to partially decode or at least read the entire setup header to know
+   * That's why we need to partially decodeC or at least read the entire setup header to know
    * where to start reading the modes.
    *
    * @see <a href="https://www.xiph.org/vorbis/doc/Vorbis_I_spec.html#x1-650004.2.4">

@@ -112,7 +112,7 @@ import java.util.PriorityQueue;
 
       // check if we have any caption updates to report
       if (isNewSubtitleDataAvailable()) {
-        // Even if the subtitle is decode-only; we need to generate it to consume the data so it
+        // Even if the subtitle is decodeC-only; we need to generate it to consume the data so it
         // isn't accidentally prepended to the next subtitle
         Subtitle subtitle = createSubtitle();
         if (!inputBuffer.isDecodeOnly()) {

@@ -19,6 +19,9 @@ import android.text.TextUtils;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.text.Cue;
 import com.google.android.exoplayer2.text.SimpleSubtitleDecoder;
+import com.google.android.exoplayer2.text.SubtitleDecoderException;
+import com.google.android.exoplayer2.text.SubtitleInputBuffer;
+import com.google.android.exoplayer2.text.SubtitleOutputBuffer;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.LongArray;
@@ -72,7 +75,7 @@ public final class SsaDecoder extends SimpleSubtitleDecoder {
   }
 
   @Override
-  protected SsaSubtitle decode(byte[] bytes, int length, boolean reset) {
+  protected SsaSubtitle decodeC(byte[] bytes, int length, boolean reset) {
     ArrayList<Cue> cues = new ArrayList<>();
     LongArray cueTimesUs = new LongArray();
 
@@ -222,6 +225,13 @@ public final class SsaDecoder extends SimpleSubtitleDecoder {
     timestampUs += Long.parseLong(matcher.group(3)) * C.MICROS_PER_SECOND;
     timestampUs += Long.parseLong(matcher.group(4)) * 10000; // 100ths of a second.
     return timestampUs;
+  }
+
+  @SuppressWarnings("ByteBufferBackingArray")
+  @Override
+  protected SubtitleDecoderException decode(SubtitleInputBuffer inputBuffer,
+      SubtitleOutputBuffer outputBuffer, boolean reset) {
+    return super.decode(inputBuffer, outputBuffer, reset);
   }
 
 }

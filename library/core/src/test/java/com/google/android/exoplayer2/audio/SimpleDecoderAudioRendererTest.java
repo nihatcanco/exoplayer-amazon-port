@@ -129,7 +129,7 @@ public class SimpleDecoderAudioRendererTest {
 
     @Override
     protected AudioDecoderException createUnexpectedDecodeException(Throwable error) {
-      return new AudioDecoderException("Unexpected decode error", error);
+      return new AudioDecoderException("Unexpected decodeC error", error);
     }
 
     @Override

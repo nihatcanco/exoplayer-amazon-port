@@ -1402,7 +1402,7 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
     // implementation causes ExoPlayer's reported playback position to drift out of sync. Captions
     // also lose sync [Internal: b/26453592]. Even after M, the devices may apply post processing
     // operations that can modify frame output timestamps, which is incompatible with ExoPlayer's
-    // logic for skipping decode-only frames.
+    // logic for skipping decodeC-only frames.
     return "NVIDIA".equals(Util.MANUFACTURER);
   }
 

@@ -20,6 +20,8 @@ import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.text.Cue;
 import com.google.android.exoplayer2.text.SimpleSubtitleDecoder;
 import com.google.android.exoplayer2.text.SubtitleDecoderException;
+import com.google.android.exoplayer2.text.SubtitleInputBuffer;
+import com.google.android.exoplayer2.text.SubtitleOutputBuffer;
 import com.google.android.exoplayer2.util.ColorParser;
 import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.Util;
@@ -102,7 +104,7 @@ public final class TtmlDecoder extends SimpleSubtitleDecoder {
   }
 
   @Override
-  protected TtmlSubtitle decode(byte[] bytes, int length, boolean reset)
+  protected TtmlSubtitle decodeC(byte[] bytes, int length, boolean reset)
       throws SubtitleDecoderException {
     try {
       XmlPullParser xmlParser = xmlParserFactory.newPullParser();
@@ -167,7 +169,7 @@ public final class TtmlDecoder extends SimpleSubtitleDecoder {
       }
       return ttmlSubtitle;
     } catch (XmlPullParserException xppe) {
-      throw new SubtitleDecoderException("Unable to decode source", xppe);
+      throw new SubtitleDecoderException("Unable to decodeC source", xppe);
     } catch (IOException e) {
       throw new IllegalStateException("Unexpected error when reading input.", e);
     }
@@ -750,5 +752,12 @@ public final class TtmlDecoder extends SimpleSubtitleDecoder {
       this.width = width;
       this.height = height;
     }
+  }
+
+  @SuppressWarnings("ByteBufferBackingArray")
+  @Override
+  protected SubtitleDecoderException decode(SubtitleInputBuffer inputBuffer,
+      SubtitleOutputBuffer outputBuffer, boolean reset) {
+    return super.decode(inputBuffer, outputBuffer, reset);
   }
 }

@@ -73,7 +73,7 @@ import java.util.List;
     }
     this.exoMediaCrypto = exoMediaCrypto;
     if (exoMediaCrypto != null && !OpusLibrary.opusIsSecureDecodeSupported()) {
-      throw new OpusDecoderException("Opus decoder does not support secure decode.");
+      throw new OpusDecoderException("Opus decoder does not support secure decodeC.");
     }
     byte[] headerBytes = initializationData.get(0);
     if (headerBytes.length < 19) {
@@ -146,7 +146,7 @@ import java.util.List;
 
   @Override
   protected OpusDecoderException createUnexpectedDecodeException(Throwable error) {
-    return new OpusDecoderException("Unexpected decode error", error);
+    return new OpusDecoderException("Unexpected decodeC error", error);
   }
 
   @Override

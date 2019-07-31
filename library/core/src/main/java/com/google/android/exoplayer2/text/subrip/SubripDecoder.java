@@ -21,6 +21,9 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import com.google.android.exoplayer2.text.Cue;
 import com.google.android.exoplayer2.text.SimpleSubtitleDecoder;
+import com.google.android.exoplayer2.text.SubtitleDecoderException;
+import com.google.android.exoplayer2.text.SubtitleInputBuffer;
+import com.google.android.exoplayer2.text.SubtitleOutputBuffer;
 import com.google.android.exoplayer2.util.Log;
 import com.google.android.exoplayer2.util.LongArray;
 import com.google.android.exoplayer2.util.ParsableByteArray;
@@ -68,7 +71,7 @@ public final class SubripDecoder extends SimpleSubtitleDecoder {
   }
 
   @Override
-  protected SubripSubtitle decode(byte[] bytes, int length, boolean reset) {
+  protected SubripSubtitle decodeC(byte[] bytes, int length, boolean reset) {
     ArrayList<Cue> cues = new ArrayList<>();
     LongArray cueTimesUs = new LongArray();
     ParsableByteArray subripData = new ParsableByteArray(bytes, length);
@@ -253,5 +256,12 @@ public final class SubripDecoder extends SimpleSubtitleDecoder {
         // Should never happen.
         throw new IllegalArgumentException();
     }
+  }
+
+  @SuppressWarnings("ByteBufferBackingArray")
+  @Override
+  protected SubtitleDecoderException decode(SubtitleInputBuffer inputBuffer,
+      SubtitleOutputBuffer outputBuffer, boolean reset) {
+    return super.decode(inputBuffer, outputBuffer, reset);
   }
 }

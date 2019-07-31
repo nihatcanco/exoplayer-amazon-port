@@ -38,7 +38,7 @@ public final class Id3Peeker {
    * Peeks ID3 data from the input and parses the first ID3 tag.
    *
    * @param input The {@link ExtractorInput} from which data should be peeked.
-   * @param id3FramePredicate Determines which ID3 frames are decoded. May be null to decode all
+   * @param id3FramePredicate Determines which ID3 frames are decoded. May be null to decodeC all
    *     frames.
    * @return The first ID3 tag decoded into a {@link Metadata} object. May be null if ID3 tag is not
    *     present in the input.

@@ -70,7 +70,7 @@ import java.util.ArrayList;
       return -1;
     }
 
-    // ... we need to decode the block size
+    // ... we need to decodeC the block size
     int packetBlockSize = decodeBlockSize(packet.data[0], vorbisSetup);
     // a packet contains samples produced from overlapping the previous and current frame data
     // (https://www.xiph.org/vorbis/doc/Vorbis_I_spec.html#x1-350001.3.2)
@@ -125,7 +125,7 @@ import java.util.ArrayList;
     byte[] setupHeaderData = new byte[scratch.limit()];
     // raw data of vorbis setup header has to be passed to decoder as CSD buffer #2
     System.arraycopy(scratch.data, 0, setupHeaderData, 0, scratch.limit());
-    // partially decode setup header to get the modes
+    // partially decodeC setup header to get the modes
     Mode[] modes = VorbisUtil.readVorbisModes(scratch, vorbisIdHeader.channels);
     // we need the ilog of modes all the time when extracting, so we compute it once
     int iLogModes = VorbisUtil.iLog(modes.length - 1);

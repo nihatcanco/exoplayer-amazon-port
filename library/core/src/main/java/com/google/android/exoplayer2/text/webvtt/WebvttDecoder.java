@@ -19,6 +19,8 @@ import android.text.TextUtils;
 import com.google.android.exoplayer2.ParserException;
 import com.google.android.exoplayer2.text.SimpleSubtitleDecoder;
 import com.google.android.exoplayer2.text.SubtitleDecoderException;
+import com.google.android.exoplayer2.text.SubtitleInputBuffer;
+import com.google.android.exoplayer2.text.SubtitleOutputBuffer;
 import com.google.android.exoplayer2.util.ParsableByteArray;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +57,7 @@ public final class WebvttDecoder extends SimpleSubtitleDecoder {
   }
 
   @Override
-  protected WebvttSubtitle decode(byte[] bytes, int length, boolean reset)
+  protected WebvttSubtitle decodeC(byte[] bytes, int length, boolean reset)
       throws SubtitleDecoderException {
     parsableWebvttData.reset(bytes, length);
     // Initialization for consistent starting state.
@@ -122,6 +124,13 @@ public final class WebvttDecoder extends SimpleSubtitleDecoder {
 
   private static void skipComment(ParsableByteArray parsableWebvttData) {
     while (!TextUtils.isEmpty(parsableWebvttData.readLine())) {}
+  }
+
+  @SuppressWarnings("ByteBufferBackingArray")
+  @Override
+  protected SubtitleDecoderException decode(SubtitleInputBuffer inputBuffer,
+      SubtitleOutputBuffer outputBuffer, boolean reset) {
+    return super.decode(inputBuffer, outputBuffer, reset);
   }
 
 }

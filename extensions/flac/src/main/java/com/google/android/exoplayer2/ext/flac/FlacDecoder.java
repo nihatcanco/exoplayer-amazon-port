@@ -90,7 +90,7 @@ import java.util.List;
 
   @Override
   protected FlacDecoderException createUnexpectedDecodeException(Throwable error) {
-    return new FlacDecoderException("Unexpected decode error", error);
+    return new FlacDecoderException("Unexpected decodeC error", error);
   }
 
   @Override
