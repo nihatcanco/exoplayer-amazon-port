@@ -41,7 +41,7 @@ public interface TimeBar {
   /**
    * @see View#isEnabled()
    */
-  void setEnabled(boolean enabled);
+  void setEnabledA(boolean enabled);
 
   /**
    * Sets the position increment for key presses and accessibility actions, in milliseconds.

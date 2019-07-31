@@ -460,7 +460,7 @@ public class DefaultTimeBar extends View implements TimeBar {
   // View methods.
 
   @Override
-  public void setEnabled(boolean enabled) {
+  public void setEnabledA(boolean enabled) {
     super.setEnabled(enabled);
     if (scrubbing && !enabled) {
       stopScrubbing(/* canceled= */ true);

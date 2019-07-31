@@ -716,7 +716,7 @@ public class PlayerControlView extends FrameLayout {
     setButtonEnabled(enableFastForward, fastForwardButton);
     setButtonEnabled(enableNext, nextButton);
     if (timeBar != null) {
-      timeBar.setEnabled(enableSeeking);
+      timeBar.setEnabledA(enableSeeking);
     }
   }
 
