@@ -15,7 +15,9 @@
  */
 package com.google.android.exoplayer2.audio;
 
+import android.annotation.TargetApi;
 import android.media.*;
+import android.os.Build;
 import com.google.android.exoplayer2.util.Logger;
 import android.os.ConditionVariable;
 import android.os.HandlerThread;
@@ -59,6 +61,7 @@ public final class DolbyPassthroughAudioTrack extends android.media.AudioTrack {
   private int nextBufferIndex = 0;
   private final Logger log = new Logger(Logger.Module.Audio, TAG);
 
+  @TargetApi(Build.VERSION_CODES.LOLLIPOP)
   public DolbyPassthroughAudioTrack(android.media.AudioAttributes attributes, AudioFormat format, int bufferSizeInBytes,
                     int mode, int sessionId) {
     super(attributes, format, bufferSizeInBytes, mode, sessionId);
