@@ -28,11 +28,13 @@ import com.google.android.exoplayer2.PlayerMessage.Target;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.source.MediaSource;
+import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.testutil.ActionSchedule.ActionNode;
 import com.google.android.exoplayer2.testutil.ActionSchedule.PlayerRunnable;
 import com.google.android.exoplayer2.testutil.ActionSchedule.PlayerTarget;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector.Parameters;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.util.ConditionVariable;
 import com.google.android.exoplayer2.util.HandlerWrapper;
 import com.google.android.exoplayer2.util.Log;
@@ -583,6 +585,52 @@ public abstract class Action {
                 nextAction.schedule(player, trackSelector, surface, handler);
               }
             }
+
+            @Override
+            public void onTracksChanged(TrackGroupArray trackGroups,
+                TrackSelectionArray trackSelections) {
+
+            }
+
+            @Override
+            public void onLoadingChanged(boolean isLoading) {
+
+            }
+
+            @Override
+            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+
+            }
+
+            @Override
+            public void onRepeatModeChanged(int repeatMode) {
+
+            }
+
+            @Override
+            public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+            }
+
+            @Override
+            public void onPlayerError(ExoPlaybackException error) {
+
+            }
+
+            @Override
+            public void onPositionDiscontinuity(int reason) {
+
+            }
+
+            @Override
+            public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+            }
+
+            @Override
+            public void onSeekProcessed() {
+
+            }
           };
       player.addListener(listener);
       if (expectedTimeline != null && player.getCurrentTimeline().equals(expectedTimeline)) {
@@ -623,9 +671,56 @@ public abstract class Action {
       player.addListener(
           new Player.EventListener() {
             @Override
+            public void onTimelineChanged(Timeline timeline, @Nullable Object manifest,
+                int reason) {
+
+            }
+
+            @Override
+            public void onTracksChanged(TrackGroupArray trackGroups,
+                TrackSelectionArray trackSelections) {
+
+            }
+
+            @Override
+            public void onLoadingChanged(boolean isLoading) {
+
+            }
+
+            @Override
+            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+
+            }
+
+            @Override
+            public void onRepeatModeChanged(int repeatMode) {
+
+            }
+
+            @Override
+            public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+            }
+
+            @Override
+            public void onPlayerError(ExoPlaybackException error) {
+
+            }
+
+            @Override
             public void onPositionDiscontinuity(@Player.DiscontinuityReason int reason) {
               player.removeListener(this);
               nextAction.schedule(player, trackSelector, surface, handler);
+            }
+
+            @Override
+            public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+            }
+
+            @Override
+            public void onSeekProcessed() {
+
             }
           });
     }
@@ -669,11 +764,58 @@ public abstract class Action {
         player.addListener(
             new Player.EventListener() {
               @Override
+              public void onTimelineChanged(Timeline timeline, @Nullable Object manifest,
+                  int reason) {
+
+              }
+
+              @Override
+              public void onTracksChanged(TrackGroupArray trackGroups,
+                  TrackSelectionArray trackSelections) {
+
+              }
+
+              @Override
+              public void onLoadingChanged(boolean isLoading) {
+
+              }
+
+              @Override
               public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
                 if (targetPlaybackState == playbackState) {
                   player.removeListener(this);
                   nextAction.schedule(player, trackSelector, surface, handler);
                 }
+              }
+
+              @Override
+              public void onRepeatModeChanged(int repeatMode) {
+
+              }
+
+              @Override
+              public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+              }
+
+              @Override
+              public void onPlayerError(ExoPlaybackException error) {
+
+              }
+
+              @Override
+              public void onPositionDiscontinuity(int reason) {
+
+              }
+
+              @Override
+              public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+              }
+
+              @Override
+              public void onSeekProcessed() {
+
               }
             });
       }
@@ -719,11 +861,58 @@ public abstract class Action {
         player.addListener(
             new Player.EventListener() {
               @Override
+              public void onTimelineChanged(Timeline timeline, @Nullable Object manifest,
+                  int reason) {
+
+              }
+
+              @Override
+              public void onTracksChanged(TrackGroupArray trackGroups,
+                  TrackSelectionArray trackSelections) {
+
+              }
+
+              @Override
               public void onLoadingChanged(boolean isLoading) {
                 if (targetIsLoading == isLoading) {
                   player.removeListener(this);
                   nextAction.schedule(player, trackSelector, surface, handler);
                 }
+              }
+
+              @Override
+              public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+
+              }
+
+              @Override
+              public void onRepeatModeChanged(int repeatMode) {
+
+              }
+
+              @Override
+              public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+              }
+
+              @Override
+              public void onPlayerError(ExoPlaybackException error) {
+
+              }
+
+              @Override
+              public void onPositionDiscontinuity(int reason) {
+
+              }
+
+              @Override
+              public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+              }
+
+              @Override
+              public void onSeekProcessed() {
+
               }
             });
       }
@@ -760,6 +949,53 @@ public abstract class Action {
       }
       player.addListener(
           new Player.EventListener() {
+            @Override
+            public void onTimelineChanged(Timeline timeline, @Nullable Object manifest,
+                int reason) {
+
+            }
+
+            @Override
+            public void onTracksChanged(TrackGroupArray trackGroups,
+                TrackSelectionArray trackSelections) {
+
+            }
+
+            @Override
+            public void onLoadingChanged(boolean isLoading) {
+
+            }
+
+            @Override
+            public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+
+            }
+
+            @Override
+            public void onRepeatModeChanged(int repeatMode) {
+
+            }
+
+            @Override
+            public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+            }
+
+            @Override
+            public void onPlayerError(ExoPlaybackException error) {
+
+            }
+
+            @Override
+            public void onPositionDiscontinuity(int reason) {
+
+            }
+
+            @Override
+            public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+            }
+
             @Override
             public void onSeekProcessed() {
               player.removeListener(this);

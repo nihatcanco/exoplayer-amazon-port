@@ -47,10 +47,12 @@ import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ControlDispatcher;
 import com.google.android.exoplayer2.DefaultControlDispatcher;
 import com.google.android.exoplayer2.ExoPlaybackException;
+import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.PlaybackPreparer;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Player.DiscontinuityReason;
 import com.google.android.exoplayer2.Player.VideoComponent;
+import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.metadata.Metadata;
 import com.google.android.exoplayer2.metadata.id3.ApicFrame;
 import com.google.android.exoplayer2.source.TrackGroupArray;
@@ -1409,8 +1411,18 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
     }
 
     @Override
+    public void onTimelineChanged(Timeline timeline, @Nullable Object manifest, int reason) {
+
+    }
+
+    @Override
     public void onTracksChanged(TrackGroupArray tracks, TrackSelectionArray selections) {
       updateForCurrentTrackSelections(/* isNewPlayer= */ false);
+    }
+
+    @Override
+    public void onLoadingChanged(boolean isLoading) {
+
     }
 
     // Player.EventListener implementation
@@ -1427,10 +1439,35 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
     }
 
     @Override
+    public void onRepeatModeChanged(int repeatMode) {
+
+    }
+
+    @Override
+    public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+    }
+
+    @Override
+    public void onPlayerError(ExoPlaybackException error) {
+
+    }
+
+    @Override
     public void onPositionDiscontinuity(@DiscontinuityReason int reason) {
       if (isPlayingAd() && controllerHideDuringAds) {
         hideController();
       }
+    }
+
+    @Override
+    public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+    }
+
+    @Override
+    public void onSeekProcessed() {
+
     }
 
     // OnLayoutChangeListener implementation

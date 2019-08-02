@@ -25,6 +25,7 @@ import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.LoadControl;
+import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Renderer;
 import com.google.android.exoplayer2.RenderersFactory;
@@ -589,12 +590,27 @@ public final class ExoPlayerTestRunner implements Player.EventListener, ActionSc
   }
 
   @Override
+  public void onLoadingChanged(boolean isLoading) {
+
+  }
+
+  @Override
   public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
     playerWasPrepared |= playbackState != Player.STATE_IDLE;
     if (playbackState == Player.STATE_ENDED
         || (playbackState == Player.STATE_IDLE && playerWasPrepared)) {
       endedCountDownLatch.countDown();
     }
+  }
+
+  @Override
+  public void onRepeatModeChanged(int repeatMode) {
+
+  }
+
+  @Override
+  public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
   }
 
   @Override
@@ -612,6 +628,16 @@ public final class ExoPlayerTestRunner implements Player.EventListener, ActionSc
       // Ignore seek or internal discontinuities within a period.
       periodIndices.add(currentIndex);
     }
+  }
+
+  @Override
+  public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+  }
+
+  @Override
+  public void onSeekProcessed() {
+
   }
 
   // ActionSchedule.Callback

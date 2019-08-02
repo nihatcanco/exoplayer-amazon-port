@@ -336,8 +336,8 @@ public interface Player {
      * @param manifest The latest manifest. May be null.
      * @param reason The {@link TimelineChangeReason} responsible for this timeline change.
      */
-    default void onTimelineChanged(
-        Timeline timeline, @Nullable Object manifest, @TimelineChangeReason int reason) {}
+    void onTimelineChanged(
+        Timeline timeline, @Nullable Object manifest, @TimelineChangeReason int reason);
 
     /**
      * Called when the available or selected tracks change.
@@ -346,15 +346,15 @@ public interface Player {
      * @param trackSelections The track selections for each renderer. Never null and always of
      *     length {@link #getRendererCount()}, but may contain null elements.
      */
-    default void onTracksChanged(
-        TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {}
+    void onTracksChanged(
+        TrackGroupArray trackGroups, TrackSelectionArray trackSelections);
 
     /**
      * Called when the player starts or stops loading the source.
      *
      * @param isLoading Whether the source is currently being loaded.
      */
-    default void onLoadingChanged(boolean isLoading) {}
+    void onLoadingChanged(boolean isLoading);
 
     /**
      * Called when the value returned from either {@link #getPlayWhenReady()} or {@link
@@ -363,21 +363,21 @@ public interface Player {
      * @param playWhenReady Whether playback will proceed when ready.
      * @param playbackState One of the {@code STATE} constants.
      */
-    default void onPlayerStateChanged(boolean playWhenReady, int playbackState) {}
+    void onPlayerStateChanged(boolean playWhenReady, int playbackState);
 
     /**
      * Called when the value of {@link #getRepeatMode()} changes.
      *
      * @param repeatMode The {@link RepeatMode} used for playback.
      */
-    default void onRepeatModeChanged(@RepeatMode int repeatMode) {}
+    void onRepeatModeChanged(@RepeatMode int repeatMode);
 
     /**
      * Called when the value of {@link #getShuffleModeEnabled()} changes.
      *
      * @param shuffleModeEnabled Whether shuffling of windows is enabled.
      */
-    default void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {}
+    void onShuffleModeEnabledChanged(boolean shuffleModeEnabled);
 
     /**
      * Called when an error occurs. The playback state will transition to {@link #STATE_IDLE}
@@ -386,7 +386,7 @@ public interface Player {
      *
      * @param error The error.
      */
-    default void onPlayerError(ExoPlaybackException error) {}
+    void onPlayerError(ExoPlaybackException error);
 
     /**
      * Called when a position discontinuity occurs without a change to the timeline. A position
@@ -401,7 +401,7 @@ public interface Player {
      *
      * @param reason The {@link DiscontinuityReason} responsible for the discontinuity.
      */
-    default void onPositionDiscontinuity(@DiscontinuityReason int reason) {}
+    void onPositionDiscontinuity(@DiscontinuityReason int reason);
 
     /**
      * Called when the current playback parameters change. The playback parameters may change due to
@@ -411,14 +411,14 @@ public interface Player {
      *
      * @param playbackParameters The playback parameters.
      */
-    default void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {}
+    void onPlaybackParametersChanged(PlaybackParameters playbackParameters);
 
     /**
      * Called when all pending seek requests have been processed by the player. This is guaranteed
      * to happen after any necessary changes to the player state were reported to {@link
      * #onPlayerStateChanged(boolean, int)}.
      */
-    default void onSeekProcessed() {}
+    void onSeekProcessed();
   }
 
   /**

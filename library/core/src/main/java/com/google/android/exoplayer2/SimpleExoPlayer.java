@@ -1460,6 +1460,16 @@ public class SimpleExoPlayer extends BasePlayer
     // Player.EventListener implementation.
 
     @Override
+    public void onTimelineChanged(Timeline timeline, @Nullable Object manifest, int reason) {
+
+    }
+
+    @Override
+    public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+
+    }
+
+    @Override
     public void onLoadingChanged(boolean isLoading) {
       if (priorityTaskManager != null) {
         if (isLoading && !isPriorityTaskManagerRegistered) {
@@ -1470,6 +1480,41 @@ public class SimpleExoPlayer extends BasePlayer
           isPriorityTaskManagerRegistered = false;
         }
       }
+    }
+
+    @Override
+    public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+
+    }
+
+    @Override
+    public void onRepeatModeChanged(int repeatMode) {
+
+    }
+
+    @Override
+    public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+    }
+
+    @Override
+    public void onPlayerError(ExoPlaybackException error) {
+
+    }
+
+    @Override
+    public void onPositionDiscontinuity(int reason) {
+
+    }
+
+    @Override
+    public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+    }
+
+    @Override
+    public void onSeekProcessed() {
+
     }
   }
 }

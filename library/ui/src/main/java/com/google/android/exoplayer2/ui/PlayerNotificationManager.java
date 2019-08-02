@@ -36,10 +36,13 @@ import android.support.v4.media.session.MediaSessionCompat;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ControlDispatcher;
 import com.google.android.exoplayer2.DefaultControlDispatcher;
+import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.PlaybackPreparer;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Timeline;
+import com.google.android.exoplayer2.source.TrackGroupArray;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.NotificationUtil;
 import com.google.android.exoplayer2.util.Util;
@@ -1290,8 +1293,23 @@ public class PlayerNotificationManager {
     }
 
     @Override
+    public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+
+    }
+
+    @Override
+    public void onLoadingChanged(boolean isLoading) {
+
+    }
+
+    @Override
     public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
       startOrUpdateNotification();
+    }
+
+    @Override
+    public void onSeekProcessed() {
+
     }
 
     @Override
@@ -1302,6 +1320,16 @@ public class PlayerNotificationManager {
     @Override
     public void onRepeatModeChanged(int repeatMode) {
       startOrUpdateNotification();
+    }
+
+    @Override
+    public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+    }
+
+    @Override
+    public void onPlayerError(ExoPlaybackException error) {
+
     }
   }
 

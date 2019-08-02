@@ -32,10 +32,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.android.exoplayer2.C;
+import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerLibraryInfo;
+import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.PlaybackPreparer;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Timeline;
+import com.google.android.exoplayer2.source.TrackGroupArray;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.RepeatModeUtil;
 import com.google.android.exoplayer2.util.Util;
@@ -1148,9 +1152,24 @@ public class PlayerControlView extends FrameLayout {
     }
 
     @Override
+    public void onPlayerError(ExoPlaybackException error) {
+
+    }
+
+    @Override
     public void onPositionDiscontinuity(@Player.DiscontinuityReason int reason) {
       updateNavigation();
       updateTimeline();
+    }
+
+    @Override
+    public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+    }
+
+    @Override
+    public void onSeekProcessed() {
+
     }
 
     @Override
@@ -1158,6 +1177,16 @@ public class PlayerControlView extends FrameLayout {
         Timeline timeline, @Nullable Object manifest, @Player.TimelineChangeReason int reason) {
       updateNavigation();
       updateTimeline();
+    }
+
+    @Override
+    public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+
+    }
+
+    @Override
+    public void onLoadingChanged(boolean isLoading) {
+
     }
 
     @Override

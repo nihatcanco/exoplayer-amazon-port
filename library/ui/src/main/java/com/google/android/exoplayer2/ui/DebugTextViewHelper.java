@@ -18,10 +18,16 @@ package com.google.android.exoplayer2.ui;
 import android.annotation.SuppressLint;
 import android.os.Looper;
 import android.widget.TextView;
+import androidx.annotation.Nullable;
+import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.Format;
+import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
+import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.decoder.DecoderCounters;
+import com.google.android.exoplayer2.source.TrackGroupArray;
+import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.util.Assertions;
 import java.util.Locale;
 
@@ -79,13 +85,53 @@ public class DebugTextViewHelper implements Player.EventListener, Runnable {
   // Player.EventListener implementation.
 
   @Override
+  public void onTimelineChanged(Timeline timeline, @Nullable Object manifest, int reason) {
+
+  }
+
+  @Override
+  public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+
+  }
+
+  @Override
+  public void onLoadingChanged(boolean isLoading) {
+
+  }
+
+  @Override
   public final void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
     updateAndPost();
   }
 
   @Override
+  public void onRepeatModeChanged(int repeatMode) {
+
+  }
+
+  @Override
+  public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+  }
+
+  @Override
+  public void onPlayerError(ExoPlaybackException error) {
+
+  }
+
+  @Override
   public final void onPositionDiscontinuity(@Player.DiscontinuityReason int reason) {
     updateAndPost();
+  }
+
+  @Override
+  public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+  }
+
+  @Override
+  public void onSeekProcessed() {
+
   }
 
   // Runnable implementation.

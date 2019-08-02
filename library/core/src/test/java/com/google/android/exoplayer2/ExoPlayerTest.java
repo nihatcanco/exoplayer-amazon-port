@@ -510,8 +510,49 @@ public final class ExoPlayerTest {
           private int currentPlaybackState = Player.STATE_IDLE;
 
           @Override
+          public void onTimelineChanged(Timeline timeline, @Nullable Object manifest, int reason) {
+
+          }
+
+          @Override
+          public void onTracksChanged(TrackGroupArray trackGroups,
+              TrackSelectionArray trackSelections) {
+
+          }
+
+          @Override
+          public void onLoadingChanged(boolean isLoading) {
+
+          }
+
+          @Override
           public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
             currentPlaybackState = playbackState;
+          }
+
+          @Override
+          public void onRepeatModeChanged(int repeatMode) {
+
+          }
+
+          @Override
+          public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+          }
+
+          @Override
+          public void onPlayerError(ExoPlaybackException error) {
+
+          }
+
+          @Override
+          public void onPositionDiscontinuity(int reason) {
+
+          }
+
+          @Override
+          public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
           }
 
           @Override
@@ -556,6 +597,52 @@ public final class ExoPlayerTest {
     final boolean[] onSeekProcessedCalled = new boolean[1];
     EventListener listener =
         new EventListener() {
+          @Override
+          public void onTimelineChanged(Timeline timeline, @Nullable Object manifest, int reason) {
+
+          }
+
+          @Override
+          public void onTracksChanged(TrackGroupArray trackGroups,
+              TrackSelectionArray trackSelections) {
+
+          }
+
+          @Override
+          public void onLoadingChanged(boolean isLoading) {
+
+          }
+
+          @Override
+          public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+
+          }
+
+          @Override
+          public void onRepeatModeChanged(int repeatMode) {
+
+          }
+
+          @Override
+          public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+          }
+
+          @Override
+          public void onPlayerError(ExoPlaybackException error) {
+
+          }
+
+          @Override
+          public void onPositionDiscontinuity(int reason) {
+
+          }
+
+          @Override
+          public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+          }
+
           @Override
           public void onSeekProcessed() {
             onSeekProcessedCalled[0] = true;
@@ -2114,18 +2201,110 @@ public final class ExoPlayerTest {
     final EventListener eventListener1 =
         new EventListener() {
           @Override
+          public void onTimelineChanged(Timeline timeline, @Nullable Object manifest, int reason) {
+
+          }
+
+          @Override
+          public void onTracksChanged(TrackGroupArray trackGroups,
+              TrackSelectionArray trackSelections) {
+
+          }
+
+          @Override
+          public void onLoadingChanged(boolean isLoading) {
+
+          }
+
+          @Override
           public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
             eventListener1States.add(playbackState);
             if (playbackState == Player.STATE_READY) {
               playerReference.get().stop(/* reset= */ true);
             }
           }
+
+          @Override
+          public void onRepeatModeChanged(int repeatMode) {
+
+          }
+
+          @Override
+          public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+          }
+
+          @Override
+          public void onPlayerError(ExoPlaybackException error) {
+
+          }
+
+          @Override
+          public void onPositionDiscontinuity(int reason) {
+
+          }
+
+          @Override
+          public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+          }
+
+          @Override
+          public void onSeekProcessed() {
+
+          }
         };
     final EventListener eventListener2 =
         new EventListener() {
           @Override
+          public void onTimelineChanged(Timeline timeline, @Nullable Object manifest, int reason) {
+
+          }
+
+          @Override
+          public void onTracksChanged(TrackGroupArray trackGroups,
+              TrackSelectionArray trackSelections) {
+
+          }
+
+          @Override
+          public void onLoadingChanged(boolean isLoading) {
+
+          }
+
+          @Override
           public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
             eventListener2States.add(playbackState);
+          }
+
+          @Override
+          public void onRepeatModeChanged(int repeatMode) {
+
+          }
+
+          @Override
+          public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+          }
+
+          @Override
+          public void onPlayerError(ExoPlaybackException error) {
+
+          }
+
+          @Override
+          public void onPositionDiscontinuity(int reason) {
+
+          }
+
+          @Override
+          public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+          }
+
+          @Override
+          public void onSeekProcessed() {
+
           }
         };
     ActionSchedule actionSchedule =
@@ -2171,12 +2350,53 @@ public final class ExoPlayerTest {
           }
 
           @Override
+          public void onTracksChanged(TrackGroupArray trackGroups,
+              TrackSelectionArray trackSelections) {
+
+          }
+
+          @Override
+          public void onLoadingChanged(boolean isLoading) {
+
+          }
+
+          @Override
           public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
             eventListenerPlayWhenReady.add(playWhenReady);
             eventListenerStates.add(playbackState);
             if (playbackState == Player.STATE_READY) {
               playerReference.get().stop(/* reset= */ true);
             }
+          }
+
+          @Override
+          public void onRepeatModeChanged(int repeatMode) {
+
+          }
+
+          @Override
+          public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+          }
+
+          @Override
+          public void onPlayerError(ExoPlaybackException error) {
+
+          }
+
+          @Override
+          public void onPositionDiscontinuity(int reason) {
+
+          }
+
+          @Override
+          public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+          }
+
+          @Override
+          public void onSeekProcessed() {
+
           }
         };
     ActionSchedule actionSchedule =
@@ -2220,10 +2440,41 @@ public final class ExoPlayerTest {
     EventListener eventListener =
         new EventListener() {
           @Override
+          public void onTimelineChanged(Timeline timeline, @Nullable Object manifest, int reason) {
+
+          }
+
+          @Override
+          public void onTracksChanged(TrackGroupArray trackGroups,
+              TrackSelectionArray trackSelections) {
+
+          }
+
+          @Override
+          public void onLoadingChanged(boolean isLoading) {
+
+          }
+
+          @Override
           public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
             if (playbackState == Player.STATE_READY && clockAtStartMs.get() == C.TIME_UNSET) {
               clockAtStartMs.set(clock.elapsedRealtime());
             }
+          }
+
+          @Override
+          public void onRepeatModeChanged(int repeatMode) {
+
+          }
+
+          @Override
+          public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+          }
+
+          @Override
+          public void onPlayerError(ExoPlaybackException error) {
+
           }
 
           @Override
@@ -2232,6 +2483,16 @@ public final class ExoPlayerTest {
               positionAtDiscontinuityMs.set(playerReference.get().getCurrentPosition());
               clockAtDiscontinuityMs.set(clock.elapsedRealtime());
             }
+          }
+
+          @Override
+          public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+          }
+
+          @Override
+          public void onSeekProcessed() {
+
           }
         };
     ActionSchedule actionSchedule =
@@ -2298,10 +2559,56 @@ public final class ExoPlayerTest {
         .setEventListener(
             new EventListener() {
               @Override
+              public void onTimelineChanged(Timeline timeline, @Nullable Object manifest,
+                  int reason) {
+
+              }
+
+              @Override
               public void onTracksChanged(
                   TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
                 trackGroupsList.add(trackGroups);
                 trackSelectionsList.add(trackSelections);
+              }
+
+              @Override
+              public void onLoadingChanged(boolean isLoading) {
+
+              }
+
+              @Override
+              public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+
+              }
+
+              @Override
+              public void onRepeatModeChanged(int repeatMode) {
+
+              }
+
+              @Override
+              public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+              }
+
+              @Override
+              public void onPlayerError(ExoPlaybackException error) {
+
+              }
+
+              @Override
+              public void onPositionDiscontinuity(int reason) {
+
+              }
+
+              @Override
+              public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+              }
+
+              @Override
+              public void onSeekProcessed() {
+
               }
             })
         .build(context)
@@ -2573,6 +2880,42 @@ public final class ExoPlayerTest {
     EventListener eventListener =
         new EventListener() {
           @Override
+          public void onTimelineChanged(Timeline timeline, @Nullable Object manifest, int reason) {
+
+          }
+
+          @Override
+          public void onTracksChanged(TrackGroupArray trackGroups,
+              TrackSelectionArray trackSelections) {
+
+          }
+
+          @Override
+          public void onLoadingChanged(boolean isLoading) {
+
+          }
+
+          @Override
+          public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
+
+          }
+
+          @Override
+          public void onRepeatModeChanged(int repeatMode) {
+
+          }
+
+          @Override
+          public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
+          }
+
+          @Override
+          public void onPlayerError(ExoPlaybackException error) {
+
+          }
+
+          @Override
           public void onPositionDiscontinuity(@DiscontinuityReason int reason) {
             if (reason == Player.DISCONTINUITY_REASON_PERIOD_TRANSITION) {
               if (bufferedPositionAtFirstDiscontinuityMs.get() == C.TIME_UNSET) {
@@ -2580,6 +2923,16 @@ public final class ExoPlayerTest {
                     playerReference.get().getBufferedPosition());
               }
             }
+          }
+
+          @Override
+          public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+          }
+
+          @Override
+          public void onSeekProcessed() {
+
           }
         };
     ActionSchedule actionSchedule =
