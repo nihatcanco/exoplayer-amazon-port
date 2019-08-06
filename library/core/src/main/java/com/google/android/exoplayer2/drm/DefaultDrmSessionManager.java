@@ -192,7 +192,7 @@ public class DefaultDrmSessionManager<T extends ExoMediaCrypto> implements DrmSe
    * @param callback Performs key and provisioning requests.
    * @param optionalKeyRequestParameters An optional map of parameters to pass as the last argument
    *     to {@link ExoMediaDrm#getKeyRequest(byte[], List, int, HashMap)}. May be null.
-   * @param multiSession A boolean that specify whether multiple key session support is enabled.
+   * @param multiSession A boolean that specify whether multiple key session support is enabledA.
    *     Default is false.
    */
   public DefaultDrmSessionManager(
@@ -216,7 +216,7 @@ public class DefaultDrmSessionManager<T extends ExoMediaCrypto> implements DrmSe
    * @param callback Performs key and provisioning requests.
    * @param optionalKeyRequestParameters An optional map of parameters to pass as the last argument
    *     to {@link ExoMediaDrm#getKeyRequest(byte[], List, int, HashMap)}. May be null.
-   * @param multiSession A boolean that specify whether multiple key session support is enabled.
+   * @param multiSession A boolean that specify whether multiple key session support is enabledA.
    *     Default is false.
    * @param initialDrmRequestRetryCount The number of times to retry for initial provisioning and
    *     key request before reporting error.

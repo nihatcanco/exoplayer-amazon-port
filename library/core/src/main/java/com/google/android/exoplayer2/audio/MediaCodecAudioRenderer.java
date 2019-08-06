@@ -421,13 +421,13 @@ public class MediaCodecAudioRenderer extends MediaCodecRenderer implements Media
   @Override
   protected void onCodecInitialized(String name, long initializedTimestampMs,
       long initializationDurationMs) {
-    eventDispatcher.decoderInitialized(name, initializedTimestampMs, initializationDurationMs);
+    eventDispatcher.decoderInitializedA(name, initializedTimestampMs, initializationDurationMs);
   }
 
   @Override
   protected void onInputFormatChanged(Format newFormat) throws ExoPlaybackException {
     super.onInputFormatChanged(newFormat);
-    eventDispatcher.inputFormatChanged(newFormat);
+    eventDispatcher.inputFormatChangedA(newFormat);
     // If the input format is anything other than PCM then we assume that the audio decoder will
     // output 16-bit PCM.
     pcmEncoding = MimeTypes.AUDIO_RAW.equals(newFormat.sampleMimeType) ? newFormat.pcmEncoding
@@ -485,7 +485,7 @@ public class MediaCodecAudioRenderer extends MediaCodecRenderer implements Media
    * order to spatialize the audio channels. For this use case, any {@link Virtualizer} instances
    * should be released in {@link #onDisabled()} (if not before).
    *
-   * @see AudioSink.Listener#onAudioSessionId(int)
+   * @see AudioSink.Listener#onAudioSessionIdA(int)
    */
   protected void onAudioSessionId(int audioSessionId) {
     // Do nothing.
@@ -509,7 +509,7 @@ public class MediaCodecAudioRenderer extends MediaCodecRenderer implements Media
   @Override
   protected void onEnabled(boolean joining) throws ExoPlaybackException {
     super.onEnabled(joining);
-    eventDispatcher.enabled(decoderCounters);
+    eventDispatcher.enabledA(decoderCounters);
     int tunnelingAudioSessionId = getConfiguration().tunnelingAudioSessionId;
     if (tunnelingAudioSessionId != C.AUDIO_SESSION_ID_UNSET) {
       audioSink.enableTunnelingV21(tunnelingAudioSessionId);
@@ -568,7 +568,7 @@ public class MediaCodecAudioRenderer extends MediaCodecRenderer implements Media
       try {
         super.onDisabled();
       } finally {
-        eventDispatcher.disabled(decoderCounters);
+        eventDispatcher.disabledA(decoderCounters);
       }
     }
   }
@@ -881,8 +881,8 @@ public class MediaCodecAudioRenderer extends MediaCodecRenderer implements Media
   private final class AudioSinkListener implements AudioSink.Listener {
 
     @Override
-    public void onAudioSessionId(int audioSessionId) {
-      eventDispatcher.audioSessionId(audioSessionId);
+    public void onAudioSessionIdA(int audioSessionId) {
+      eventDispatcher.audioSessionIdA(audioSessionId);
       MediaCodecAudioRenderer.this.onAudioSessionId(audioSessionId);
     }
 
@@ -895,7 +895,7 @@ public class MediaCodecAudioRenderer extends MediaCodecRenderer implements Media
 
     @Override
     public void onUnderrun(int bufferSize, long bufferSizeMs, long elapsedSinceLastFeedMs) {
-      eventDispatcher.audioTrackUnderrun(bufferSize, bufferSizeMs, elapsedSinceLastFeedMs);
+      eventDispatcher.audioTrackUnderrunA(bufferSize, bufferSizeMs, elapsedSinceLastFeedMs);
       onAudioTrackUnderrun(bufferSize, bufferSizeMs, elapsedSinceLastFeedMs);
     }
 

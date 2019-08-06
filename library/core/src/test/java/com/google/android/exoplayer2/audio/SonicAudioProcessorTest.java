@@ -46,7 +46,7 @@ public final class SonicAudioProcessorTest {
     sonicAudioProcessor.configure(48000, 2, C.ENCODING_PCM_16BIT);
     assertThat(sonicAudioProcessor.getOutputSampleRateHz()).isEqualTo(48000);
     assertThat(sonicAudioProcessor.isActive()).isFalse();
-    // When reconfigure with 44.1 kHz input, resampling is enabled again.
+    // When reconfigure with 44.1 kHz input, resampling is enabledA again.
     sonicAudioProcessor.configure(44100, 2, C.ENCODING_PCM_16BIT);
     assertThat(sonicAudioProcessor.getOutputSampleRateHz()).isEqualTo(48000);
     assertThat(sonicAudioProcessor.isActive()).isTrue();

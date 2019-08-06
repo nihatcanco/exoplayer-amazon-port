@@ -34,6 +34,8 @@ import com.google.android.exoplayer2.source.MediaSource.MediaPeriodId;
 import com.google.android.exoplayer2.source.ProgressiveMediaSource;
 import com.google.android.exoplayer2.source.TrackGroup;
 import com.google.android.exoplayer2.source.TrackGroupArray;
+import com.google.android.exoplayer2.source.chunk.MediaChunk;
+import com.google.android.exoplayer2.source.chunk.MediaChunkIterator;
 import com.google.android.exoplayer2.trackselection.BaseTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector.Parameters;
@@ -69,14 +71,14 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
  * <p>A typical usage of DownloadHelper follows these steps:
  *
  * <ol>
- *   <li>Build the helper using one of the {@code forXXX} methods.
- *   <li>Prepare the helper using {@link #prepare(Callback)} and wait for the callback.
- *   <li>Optional: Inspect the selected tracks using {@link #getMappedTrackInfo(int)} and {@link
- *       #getTrackSelections(int, int)}, and make adjustments using {@link
- *       #clearTrackSelections(int)}, {@link #replaceTrackSelections(int, Parameters)} and {@link
- *       #addTrackSelection(int, Parameters)}.
- *   <li>Create a download request for the selected track using {@link #getDownloadRequest(byte[])}.
- *   <li>Release the helper using {@link #release()}.
+ * <li>Build the helper using one of the {@code forXXX} methods.
+ * <li>Prepare the helper using {@link #prepare(Callback)} and wait for the callback.
+ * <li>Optional: Inspect the selected tracks using {@link #getMappedTrackInfo(int)} and {@link
+ * #getTrackSelections(int, int)}, and make adjustments using {@link #clearTrackSelections(int)},
+ * {@link #replaceTrackSelections(int, Parameters)} and {@link #addTrackSelection(int,
+ * Parameters)}.
+ * <li>Create a download request for the selected track using {@link #getDownloadRequest(byte[])}.
+ * <li>Release the helper using {@link #release()}.
  * </ol>
  */
 public final class DownloadHelper {
@@ -88,7 +90,9 @@ public final class DownloadHelper {
   public static final DefaultTrackSelector.Parameters DEFAULT_TRACK_SELECTOR_PARAMETERS =
       new DefaultTrackSelector.ParametersBuilder().setForceHighestSupportedBitrate(true).build();
 
-  /** A callback to be notified when the {@link DownloadHelper} is prepared. */
+  /**
+   * A callback to be notified when the {@link DownloadHelper} is prepared.
+   */
   public interface Callback {
 
     /**
@@ -148,7 +152,7 @@ public final class DownloadHelper {
    * @param uri A manifest {@link Uri}.
    * @param dataSourceFactory A {@link DataSource.Factory} used to load the manifest.
    * @param renderersFactory A {@link RenderersFactory} creating the renderers for which tracks are
-   *     selected.
+   * selected.
    * @return A {@link DownloadHelper} for DASH streams.
    * @throws IllegalStateException If the DASH module is missing.
    */
@@ -168,11 +172,11 @@ public final class DownloadHelper {
    * @param uri A manifest {@link Uri}.
    * @param dataSourceFactory A {@link DataSource.Factory} used to load the manifest.
    * @param renderersFactory A {@link RenderersFactory} creating the renderers for which tracks are
-   *     selected.
+   * selected.
    * @param drmSessionManager An optional {@link DrmSessionManager} used by the renderers created by
-   *     {@code renderersFactory}.
+   * {@code renderersFactory}.
    * @param trackSelectorParameters {@link DefaultTrackSelector.Parameters} for selecting tracks for
-   *     downloading.
+   * downloading.
    * @return A {@link DownloadHelper} for DASH streams.
    * @throws IllegalStateException If the DASH module is missing.
    */
@@ -197,7 +201,7 @@ public final class DownloadHelper {
    * @param uri A playlist {@link Uri}.
    * @param dataSourceFactory A {@link DataSource.Factory} used to load the playlist.
    * @param renderersFactory A {@link RenderersFactory} creating the renderers for which tracks are
-   *     selected.
+   * selected.
    * @return A {@link DownloadHelper} for HLS streams.
    * @throws IllegalStateException If the HLS module is missing.
    */
@@ -217,11 +221,11 @@ public final class DownloadHelper {
    * @param uri A playlist {@link Uri}.
    * @param dataSourceFactory A {@link DataSource.Factory} used to load the playlist.
    * @param renderersFactory A {@link RenderersFactory} creating the renderers for which tracks are
-   *     selected.
+   * selected.
    * @param drmSessionManager An optional {@link DrmSessionManager} used by the renderers created by
-   *     {@code renderersFactory}.
+   * {@code renderersFactory}.
    * @param trackSelectorParameters {@link DefaultTrackSelector.Parameters} for selecting tracks for
-   *     downloading.
+   * downloading.
    * @return A {@link DownloadHelper} for HLS streams.
    * @throws IllegalStateException If the HLS module is missing.
    */
@@ -246,7 +250,7 @@ public final class DownloadHelper {
    * @param uri A manifest {@link Uri}.
    * @param dataSourceFactory A {@link DataSource.Factory} used to load the manifest.
    * @param renderersFactory A {@link RenderersFactory} creating the renderers for which tracks are
-   *     selected.
+   * selected.
    * @return A {@link DownloadHelper} for SmoothStreaming streams.
    * @throws IllegalStateException If the SmoothStreaming module is missing.
    */
@@ -266,11 +270,11 @@ public final class DownloadHelper {
    * @param uri A manifest {@link Uri}.
    * @param dataSourceFactory A {@link DataSource.Factory} used to load the manifest.
    * @param renderersFactory A {@link RenderersFactory} creating the renderers for which tracks are
-   *     selected.
+   * selected.
    * @param drmSessionManager An optional {@link DrmSessionManager} used by the renderers created by
-   *     {@code renderersFactory}.
+   * {@code renderersFactory}.
    * @param trackSelectorParameters {@link DefaultTrackSelector.Parameters} for selecting tracks for
-   *     downloading.
+   * downloading.
    * @return A {@link DownloadHelper} for SmoothStreaming streams.
    * @throws IllegalStateException If the SmoothStreaming module is missing.
    */
@@ -322,8 +326,10 @@ public final class DownloadHelper {
 
   private final String downloadType;
   private final Uri uri;
-  @Nullable private final String cacheKey;
-  @Nullable private final MediaSource mediaSource;
+  @Nullable
+  private final String cacheKey;
+  @Nullable
+  private final MediaSource mediaSource;
   private final DefaultTrackSelector trackSelector;
   private final RendererCapabilities[] rendererCapabilities;
   private final SparseIntArray scratchSet;
@@ -344,11 +350,11 @@ public final class DownloadHelper {
    * @param uri A {@link Uri}.
    * @param cacheKey An optional cache key.
    * @param mediaSource A {@link MediaSource} for which tracks are selected, or null if no track
-   *     selection needs to be made.
+   * selection needs to be made.
    * @param trackSelectorParameters {@link DefaultTrackSelector.Parameters} for selecting tracks for
-   *     downloading.
+   * downloading.
    * @param rendererCapabilities The {@link RendererCapabilities} of the renderers for which tracks
-   *     are selected.
+   * are selected.
    */
   public DownloadHelper(
       String downloadType,
@@ -365,7 +371,8 @@ public final class DownloadHelper {
     this.rendererCapabilities = rendererCapabilities;
     this.scratchSet = new SparseIntArray();
     trackSelector.setParameters(trackSelectorParameters);
-    trackSelector.init(/* listener= */ () -> {}, new DummyBandwidthMeter());
+    trackSelector.init(/* listener= */ () -> {
+    }, new DummyBandwidthMeter());
     callbackHandler = new Handler(Util.getLooper());
   }
 
@@ -385,7 +392,9 @@ public final class DownloadHelper {
     }
   }
 
-  /** Releases the helper and all resources it is holding. */
+  /**
+   * Releases the helper and all resources it is holding.
+   */
   public void release() {
     if (mediaPreparer != null) {
       mediaPreparer.release();
@@ -425,7 +434,7 @@ public final class DownloadHelper {
    *
    * @param periodIndex The period index.
    * @return The track groups for the period. May be {@link TrackGroupArray#EMPTY} for single stream
-   *     content.
+   * content.
    */
   public TrackGroupArray getTrackGroups(int periodIndex) {
     assertPreparedWithMedia();
@@ -476,7 +485,7 @@ public final class DownloadHelper {
    *
    * @param periodIndex The period index for which the track selection is replaced.
    * @param trackSelectorParameters The {@link DefaultTrackSelector.Parameters} to obtain the new
-   *     selection of tracks.
+   * selection of tracks.
    */
   public void replaceTrackSelections(
       int periodIndex, DefaultTrackSelector.Parameters trackSelectorParameters) {
@@ -490,7 +499,7 @@ public final class DownloadHelper {
    *
    * @param periodIndex The period index this track selection is added for.
    * @param trackSelectorParameters The {@link DefaultTrackSelector.Parameters} to obtain the new
-   *     selection of tracks.
+   * selection of tracks.
    */
   public void addTrackSelection(
       int periodIndex, DefaultTrackSelector.Parameters trackSelectorParameters) {
@@ -505,7 +514,7 @@ public final class DownloadHelper {
    * used instead. Must not be called until after preparation completes.
    *
    * @param languages A list of audio languages for which tracks should be added to the download
-   *     selection, as IETF BCP 47 conformant tags.
+   * selection, as IETF BCP 47 conformant tags.
    */
   public void addAudioLanguagesToSelection(String... languages) {
     assertPreparedWithMedia();
@@ -516,7 +525,7 @@ public final class DownloadHelper {
       int rendererCount = mappedTrackInfo.getRendererCount();
       for (int rendererIndex = 0; rendererIndex < rendererCount; rendererIndex++) {
         if (mappedTrackInfo.getRendererType(rendererIndex) != C.TRACK_TYPE_AUDIO) {
-          parametersBuilder.setRendererDisabled(rendererIndex, /* disabled= */ true);
+          parametersBuilder.setRendererDisabled(rendererIndex, /* disabledA= */ true);
         }
       }
       for (String language : languages) {
@@ -531,10 +540,9 @@ public final class DownloadHelper {
    * called until after preparation completes.
    *
    * @param selectUndeterminedTextLanguage Whether a text track with undetermined language should be
-   *     selected for downloading if no track with one of the specified {@code languages} is
-   *     available.
+   * selected for downloading if no track with one of the specified {@code languages} is available.
    * @param languages A list of text languages for which tracks should be added to the download
-   *     selection, as IETF BCP 47 conformant tags.
+   * selection, as IETF BCP 47 conformant tags.
    */
   public void addTextLanguagesToSelection(
       boolean selectUndeterminedTextLanguage, String... languages) {
@@ -546,7 +554,7 @@ public final class DownloadHelper {
       int rendererCount = mappedTrackInfo.getRendererCount();
       for (int rendererIndex = 0; rendererIndex < rendererCount; rendererIndex++) {
         if (mappedTrackInfo.getRendererType(rendererIndex) != C.TRACK_TYPE_TEXT) {
-          parametersBuilder.setRendererDisabled(rendererIndex, /* disabled= */ true);
+          parametersBuilder.setRendererDisabled(rendererIndex, /* disabledA= */ true);
         }
       }
       parametersBuilder.setSelectUndeterminedTextLanguage(selectUndeterminedTextLanguage);
@@ -564,9 +572,9 @@ public final class DownloadHelper {
    * @param periodIndex The period index the track selection is added for.
    * @param rendererIndex The renderer index the track selection is added for.
    * @param trackSelectorParameters The {@link DefaultTrackSelector.Parameters} to obtain the new
-   *     selection of tracks.
+   * selection of tracks.
    * @param overrides A list of {@link SelectionOverride SelectionOverrides} to apply to the {@code
-   *     trackSelectorParameters}. If empty, {@code trackSelectorParameters} are used as they are.
+   * trackSelectorParameters}. If empty, {@code trackSelectorParameters} are used as they are.
    */
   public void addTrackSelectionForSingleRenderer(
       int periodIndex,
@@ -576,7 +584,7 @@ public final class DownloadHelper {
     assertPreparedWithMedia();
     DefaultTrackSelector.ParametersBuilder builder = trackSelectorParameters.buildUpon();
     for (int i = 0; i < mappedTrackInfos[periodIndex].getRendererCount(); i++) {
-      builder.setRendererDisabled(/* rendererIndex= */ i, /* disabled= */ i != rendererIndex);
+      builder.setRendererDisabled(/* rendererIndex= */ i, /* disabledA= */ i != rendererIndex);
     }
     if (overrides.isEmpty()) {
       addTrackSelection(periodIndex, builder.build());
@@ -591,7 +599,8 @@ public final class DownloadHelper {
 
   /**
    * Builds a {@link DownloadRequest} for downloading the selected tracks. Must not be called until
-   * after preparation completes. The uri of the {@link DownloadRequest} will be used as content id.
+   * after preparation completes. The uri of the {@link DownloadRequest} will be used as content
+   * id.
    *
    * @param data Application provided data to store in {@link DownloadRequest#data}.
    * @return The built {@link DownloadRequest}.
@@ -666,26 +675,26 @@ public final class DownloadHelper {
   }
 
   @RequiresNonNull({
-    "trackGroupArrays",
-    "mappedTrackInfos",
-    "trackSelectionsByPeriodAndRenderer",
-    "immutableTrackSelectionsByPeriodAndRenderer",
-    "mediaPreparer",
-    "mediaPreparer.timeline",
-    "mediaPreparer.mediaPeriods"
+      "trackGroupArrays",
+      "mappedTrackInfos",
+      "trackSelectionsByPeriodAndRenderer",
+      "immutableTrackSelectionsByPeriodAndRenderer",
+      "mediaPreparer",
+      "mediaPreparer.timeline",
+      "mediaPreparer.mediaPeriods"
   })
   private void setPreparedWithMedia() {
     isPreparedWithMedia = true;
   }
 
   @EnsuresNonNull({
-    "trackGroupArrays",
-    "mappedTrackInfos",
-    "trackSelectionsByPeriodAndRenderer",
-    "immutableTrackSelectionsByPeriodAndRenderer",
-    "mediaPreparer",
-    "mediaPreparer.timeline",
-    "mediaPreparer.mediaPeriods"
+      "trackGroupArrays",
+      "mappedTrackInfos",
+      "trackSelectionsByPeriodAndRenderer",
+      "immutableTrackSelectionsByPeriodAndRenderer",
+      "mediaPreparer",
+      "mediaPreparer.timeline",
+      "mediaPreparer.mediaPeriods"
   })
   @SuppressWarnings("nullness:contracts.postcondition.not.satisfied")
   private void assertPreparedWithMedia() {
@@ -699,10 +708,10 @@ public final class DownloadHelper {
   // Intentional reference comparison of track group instances.
   @SuppressWarnings("ReferenceEquality")
   @RequiresNonNull({
-    "trackGroupArrays",
-    "trackSelectionsByPeriodAndRenderer",
-    "mediaPreparer",
-    "mediaPreparer.timeline"
+      "trackGroupArrays",
+      "trackSelectionsByPeriodAndRenderer",
+      "mediaPreparer",
+      "mediaPreparer.timeline"
   })
   private TrackSelectorResult runTrackSelection(int periodIndex) {
     try {
@@ -773,9 +782,13 @@ public final class DownloadHelper {
   }
 
   private static final class MediaSourceFactory {
-    @Nullable private final Constructor<?> constructor;
-    @Nullable private final Method setStreamKeysMethod;
-    @Nullable private final Method createMethod;
+
+    @Nullable
+    private final Constructor<?> constructor;
+    @Nullable
+    private final Method setStreamKeysMethod;
+    @Nullable
+    private final Method createMethod;
 
     public MediaSourceFactory(
         @Nullable Constructor<?> constructor,
@@ -822,7 +835,8 @@ public final class DownloadHelper {
     private final Handler downloadHelperHandler;
     private final ArrayList<MediaPeriod> pendingMediaPeriods;
 
-    @Nullable public Object manifest;
+    @Nullable
+    public Object manifest;
     public @MonotonicNonNull Timeline timeline;
     public MediaPeriod @MonotonicNonNull [] mediaPeriods;
 
@@ -964,6 +978,12 @@ public final class DownloadHelper {
     private static final class Factory implements TrackSelection.Factory {
 
       @Override
+      public TrackSelection createTrackSelection(TrackGroup group, BandwidthMeter bandwidthMeter,
+          int... tracks) {
+        throw new UnsupportedOperationException();
+      }
+
+      @Override
       public @NullableType TrackSelection[] createTrackSelections(
           @NullableType Definition[] definitions, BandwidthMeter bandwidthMeter) {
         @NullableType TrackSelection[] selections = new TrackSelection[definitions.length];
@@ -995,6 +1015,24 @@ public final class DownloadHelper {
     @Override
     public Object getSelectionData() {
       return null;
+    }
+
+    @Override
+    public void onDiscontinuity() {
+
+    }
+
+    @Override
+    public void updateSelectedTrack(long playbackPositionUs, long bufferedDurationUs,
+        long availableDurationUs) {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void updateSelectedTrack(long playbackPositionUs, long bufferedDurationUs,
+        long availableDurationUs, List<? extends MediaChunk> queue,
+        MediaChunkIterator[] mediaChunkIterators) {
+      updateSelectedTrack(playbackPositionUs, bufferedDurationUs, availableDurationUs);
     }
   }
 

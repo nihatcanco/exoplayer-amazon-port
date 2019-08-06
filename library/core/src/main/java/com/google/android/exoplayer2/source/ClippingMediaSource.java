@@ -160,7 +160,7 @@ public final class ClippingMediaSource extends CompositeMediaSource<Void> {
    *     start of the window in {@code mediaSource}'s timeline. If {@code relativeToDefaultPosition}
    *     is {@code true}, this position is relative to the default position in the window in {@code
    *     mediaSource}'s timeline.
-   * @param enableInitialDiscontinuity Whether the initial discontinuity should be enabled.
+   * @param enableInitialDiscontinuity Whether the initial discontinuity should be enabledA.
    * @param allowDynamicClippingUpdates Whether the clipping of active media periods moves with a
    *     live window. If {@code false}, playback ends when it reaches {@code endPositionUs} in the
    *     last reported live window at the time a media period was created.

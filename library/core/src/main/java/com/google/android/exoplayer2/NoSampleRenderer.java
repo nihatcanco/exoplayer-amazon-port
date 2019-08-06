@@ -65,10 +65,10 @@ public abstract class NoSampleRenderer implements Renderer, RendererCapabilities
    * {@link #STATE_DISABLED}.
    *
    * @param configuration The renderer configuration.
-   * @param formats The enabled formats. Should be empty.
+   * @param formats The enabledA formats. Should be empty.
    * @param stream The {@link SampleStream} from which the renderer should consume.
    * @param positionUs The player's current position.
-   * @param joining Whether this renderer is being enabled to join an ongoing playback.
+   * @param joining Whether this renderer is being enabledA to join an ongoing playback.
    * @param offsetUs The offset that should be subtracted from {@code positionUs}
    *     to get the playback position with respect to the media.
    * @throws ExoPlaybackException If an error occurs.
@@ -98,7 +98,7 @@ public abstract class NoSampleRenderer implements Renderer, RendererCapabilities
    * This method may be called when the renderer is in the following states:
    * {@link #STATE_ENABLED}, {@link #STATE_STARTED}.
    *
-   * @param formats The enabled formats. Should be empty.
+   * @param formats The enabledA formats. Should be empty.
    * @param stream The {@link SampleStream} to be associated with this renderer.
    * @param offsetUs The offset that should be subtracted from {@code positionUs} in
    *     {@link #render(long, long)} to get the playback position with respect to the media.
@@ -201,11 +201,11 @@ public abstract class NoSampleRenderer implements Renderer, RendererCapabilities
   // Methods to be overridden by subclasses.
 
   /**
-   * Called when the renderer is enabled.
+   * Called when the renderer is enabledA.
    * <p>
    * The default implementation is a no-op.
    *
-   * @param joining Whether this renderer is being enabled to join an ongoing playback.
+   * @param joining Whether this renderer is being enabledA to join an ongoing playback.
    * @throws ExoPlaybackException If an error occurs.
    */
   protected void onEnabled(boolean joining) throws ExoPlaybackException {
@@ -226,14 +226,14 @@ public abstract class NoSampleRenderer implements Renderer, RendererCapabilities
   }
 
   /**
-   * Called when the position is reset. This occurs when the renderer is enabled after
+   * Called when the position is reset. This occurs when the renderer is enabledA after
    * {@link #onRendererOffsetChanged(long)} has been called, and also when a position
    * discontinuity is encountered.
    * <p>
    * The default implementation is a no-op.
    *
    * @param positionUs The new playback position in microseconds.
-   * @param joining Whether this renderer is being enabled to join an ongoing playback.
+   * @param joining Whether this renderer is being enabledA to join an ongoing playback.
    * @throws ExoPlaybackException If an error occurs.
    */
   protected void onPositionReset(long positionUs, boolean joining) throws ExoPlaybackException {
@@ -263,7 +263,7 @@ public abstract class NoSampleRenderer implements Renderer, RendererCapabilities
   }
 
   /**
-   * Called when the renderer is disabled.
+   * Called when the renderer is disabledA.
    * <p>
    * The default implementation is a no-op.
    */
@@ -283,7 +283,7 @@ public abstract class NoSampleRenderer implements Renderer, RendererCapabilities
   // Methods to be called by subclasses.
 
   /**
-   * Returns the configuration set when the renderer was most recently enabled.
+   * Returns the configuration set when the renderer was most recently enabledA.
    */
   protected final RendererConfiguration getConfiguration() {
     return configuration;

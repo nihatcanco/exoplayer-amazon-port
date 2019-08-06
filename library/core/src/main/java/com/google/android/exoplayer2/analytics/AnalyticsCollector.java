@@ -181,8 +181,8 @@ public class AnalyticsCollector
   // AudioRendererEventListener implementation.
 
   @Override
-  public final void onAudioEnabled(DecoderCounters counters) {
-    // The renderers are only enabled after we changed the playing media period.
+  public final void onAudioEnabledB(DecoderCounters counters) {
+    // The renderers are only enabledA after we changed the playing media period.
     EventTime eventTime = generatePlayingMediaPeriodEventTime();
     for (AnalyticsListener listener : listeners) {
       listener.onDecoderEnabled(eventTime, C.TRACK_TYPE_AUDIO, counters);
@@ -190,7 +190,7 @@ public class AnalyticsCollector
   }
 
   @Override
-  public final void onAudioDecoderInitialized(
+  public final void onAudioDecoderInitializedB(
       String decoderName, long initializedTimestampMs, long initializationDurationMs) {
     EventTime eventTime = generateReadingMediaPeriodEventTime();
     for (AnalyticsListener listener : listeners) {
@@ -200,7 +200,7 @@ public class AnalyticsCollector
   }
 
   @Override
-  public final void onAudioInputFormatChanged(Format format) {
+  public final void onAudioInputFormatChangedB(Format format) {
     EventTime eventTime = generateReadingMediaPeriodEventTime();
     for (AnalyticsListener listener : listeners) {
       listener.onDecoderInputFormatChanged(eventTime, C.TRACK_TYPE_AUDIO, format);
@@ -208,7 +208,7 @@ public class AnalyticsCollector
   }
 
   @Override
-  public final void onAudioSinkUnderrun(
+  public final void onAudioSinkUnderrunB(
       int bufferSize, long bufferSizeMs, long elapsedSinceLastFeedMs) {
     EventTime eventTime = generateReadingMediaPeriodEventTime();
     for (AnalyticsListener listener : listeners) {
@@ -217,8 +217,8 @@ public class AnalyticsCollector
   }
 
   @Override
-  public final void onAudioDisabled(DecoderCounters counters) {
-    // The renderers are disabled after we changed the playing media period on the playback thread
+  public final void onAudioDisabledB(DecoderCounters counters) {
+    // The renderers are disabledA after we changed the playing media period on the playback thread
     // but before this change is reported to the app thread.
     EventTime eventTime = generateLastReportedPlayingMediaPeriodEventTime();
     for (AnalyticsListener listener : listeners) {
@@ -229,18 +229,23 @@ public class AnalyticsCollector
   // AudioListener implementation.
 
   @Override
-  public final void onAudioSessionId(int audioSessionId) {
+  public final void onAudioSessionIdB(int audioSessionId) {
     EventTime eventTime = generateReadingMediaPeriodEventTime();
     for (AnalyticsListener listener : listeners) {
-      listener.onAudioSessionId(eventTime, audioSessionId);
+      listener.onAudioSessionIdA(eventTime, audioSessionId);
     }
+  }
+
+  @Override
+  public void onAudioSessionId(int audioSessionId) {
+
   }
 
   @Override
   public void onAudioAttributesChanged(AudioAttributes audioAttributes) {
     EventTime eventTime = generateReadingMediaPeriodEventTime();
     for (AnalyticsListener listener : listeners) {
-      listener.onAudioAttributesChanged(eventTime, audioAttributes);
+      listener.onAudioAttributesChangedA(eventTime, audioAttributes);
     }
   }
 
@@ -248,7 +253,7 @@ public class AnalyticsCollector
   public void onVolumeChanged(float audioVolume) {
     EventTime eventTime = generateReadingMediaPeriodEventTime();
     for (AnalyticsListener listener : listeners) {
-      listener.onVolumeChanged(eventTime, audioVolume);
+      listener.onVolumeChangedA(eventTime, audioVolume);
     }
   }
 
@@ -256,7 +261,7 @@ public class AnalyticsCollector
 
   @Override
   public final void onVideoEnabled(DecoderCounters counters) {
-    // The renderers are only enabled after we changed the playing media period.
+    // The renderers are only enabledA after we changed the playing media period.
     EventTime eventTime = generatePlayingMediaPeriodEventTime();
     for (AnalyticsListener listener : listeners) {
       listener.onDecoderEnabled(eventTime, C.TRACK_TYPE_VIDEO, counters);
@@ -291,7 +296,7 @@ public class AnalyticsCollector
 
   @Override
   public final void onVideoDisabled(DecoderCounters counters) {
-    // The renderers are disabled after we changed the playing media period on the playback thread
+    // The renderers are disabledA after we changed the playing media period on the playback thread
     // but before this change is reported to the app thread.
     EventTime eventTime = generateLastReportedPlayingMediaPeriodEventTime();
     for (AnalyticsListener listener : listeners) {
@@ -300,7 +305,7 @@ public class AnalyticsCollector
   }
 
   @Override
-  public final void onRenderedFirstFrame(@Nullable Surface surface) {
+  public final void onRenderedFirstFrameA(@Nullable Surface surface) {
     EventTime eventTime = generateReadingMediaPeriodEventTime();
     for (AnalyticsListener listener : listeners) {
       listener.onRenderedFirstFrame(eventTime, surface);
@@ -310,25 +315,31 @@ public class AnalyticsCollector
   // VideoListener implementation.
 
   @Override
-  public final void onRenderedFirstFrame() {
-    // Do nothing. Already reported in VideoRendererEventListener.onRenderedFirstFrame.
+  public final void onRenderedFirstFrameB() {
+    // Do nothing. Already reported in VideoRendererEventListener.onRenderedFirstFrameA.
   }
 
   @Override
-  public final void onVideoSizeChanged(
+  public final void onVideoSizeChangedA(
       int width, int height, int unappliedRotationDegrees, float pixelWidthHeightRatio) {
     EventTime eventTime = generateReadingMediaPeriodEventTime();
     for (AnalyticsListener listener : listeners) {
-      listener.onVideoSizeChanged(
+      listener.onVideoSizeChangedA(
           eventTime, width, height, unappliedRotationDegrees, pixelWidthHeightRatio);
     }
+  }
+
+  @Override
+  public void onVideoSizeChanged(int width, int height, int unappliedRotationDegrees,
+      float pixelWidthHeightRatio) {
+
   }
 
   @Override
   public void onSurfaceSizeChanged(int width, int height) {
     EventTime eventTime = generateReadingMediaPeriodEventTime();
     for (AnalyticsListener listener : listeners) {
-      listener.onSurfaceSizeChanged(eventTime, width, height);
+      listener.onSurfaceSizeChangedA(eventTime, width, height);
     }
   }
 

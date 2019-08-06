@@ -27,7 +27,6 @@ import androidx.annotation.Nullable;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.PlaybackParameters;
-import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.util.AmazonQuirks;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.Log;
@@ -47,7 +46,7 @@ import java.util.Collections;
  * Plays audio data. The implementation delegates to an {@link AudioTrack} and handles playback
  * position smoothing, non-blocking writes and reconfiguration.
  * <p>
- * If tunneling mode is enabled, care must be taken that audio processors do not output buffers with
+ * If tunneling mode is enabledA, care must be taken that audio processors do not output buffers with
  * a different duration than their input, and buffer processors must produce output corresponding to
  * their last input immediately after that input is queued. This means that, for example, speed
  * adjustment is not possible while using tunneling.
@@ -560,7 +559,7 @@ public final class DefaultAudioSink implements AudioSink {
     if (this.audioSessionId != audioSessionId) {
       this.audioSessionId = audioSessionId;
       if (listener != null) {
-        listener.onAudioSessionId(audioSessionId);
+        listener.onAudioSessionIdA(audioSessionId);
       }
     }
 

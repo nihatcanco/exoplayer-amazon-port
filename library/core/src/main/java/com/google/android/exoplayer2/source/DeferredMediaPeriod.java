@@ -18,10 +18,13 @@ package com.google.android.exoplayer2.source;
 import androidx.annotation.Nullable;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.SeekParameters;
+import com.google.android.exoplayer2.offline.StreamKey;
 import com.google.android.exoplayer2.source.MediaSource.MediaPeriodId;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.upstream.Allocator;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Media period that wraps a media source and defers calling its {@link
@@ -151,6 +154,11 @@ public final class DeferredMediaPeriod implements MediaPeriod, MediaPeriod.Callb
   @Override
   public TrackGroupArray getTrackGroups() {
     return mediaPeriod.getTrackGroups();
+  }
+
+  @Override
+  public List<StreamKey> getStreamKeys(List<TrackSelection> trackSelections) {
+    return Collections.emptyList();
   }
 
   @Override

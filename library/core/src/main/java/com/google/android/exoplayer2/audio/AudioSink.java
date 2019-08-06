@@ -28,8 +28,10 @@ import java.nio.ByteBuffer;
  * <p>Before starting playback, specify the input audio format by calling {@link #configure(int,
  * int, int, int, int[], int, int)}.
  *
- * <p>Call {@link #handleBuffer(ByteBuffer, long)} to write data, and {@link #handleDiscontinuity()}
- * when the data being fed is discontinuous. Call {@link #play()} to start playing the written data.
+ * <p>Call {@link #handleBuffer(ByteBuffer, long)} to write data, and {@link
+ * #handleDiscontinuity()}
+ * when the data being fed is discontinuous. Call {@link #play()} to start playing the written
+ * data.
  *
  * <p>Call {@link #configure(int, int, int, int, int[], int, int)} whenever the input format
  * changes. The sink will be reinitialized on the next call to {@link #handleBuffer(ByteBuffer,
@@ -61,7 +63,7 @@ public interface AudioSink {
      *
      * @param audioSessionId The newly generated audio session's identifier.
      */
-    void onAudioSessionId(int audioSessionId);
+    void onAudioSessionIdA(int audioSessionId);
 
     /**
      * Called when the audio sink handles a buffer whose timestamp is discontinuous with the last
@@ -77,8 +79,8 @@ public interface AudioSink {
      *
      * @param bufferSize The size of the sink's buffer, in bytes.
      * @param bufferSizeMs The size of the sink's buffer, in milliseconds, if it is configured for
-     *     PCM output. {@link C#TIME_UNSET} if it is configured for encoded audio output, as the
-     *     buffered media can have a variable bitrate so the duration may be unknown.
+     * PCM output. {@link C#TIME_UNSET} if it is configured for encoded audio output, as the
+     * buffered media can have a variable bitrate so the duration may be unknown.
      * @param elapsedSinceLastFeedMs The time since the sink was last fed data, in milliseconds.
      */
     void onUnderrun(int bufferSize, long bufferSizeMs, long elapsedSinceLastFeedMs);
@@ -138,8 +140,8 @@ public interface AudioSink {
 
     /**
      * The error value returned from the sink implementation. If the sink writes to a platform
-     * {@link AudioTrack}, this will be the error value returned from
-     * {@link AudioTrack#write(byte[], int, int)} or {@link AudioTrack#write(ByteBuffer, int, int)}.
+     * {@link AudioTrack}, this will be the error value returned from {@link
+     * AudioTrack#write(byte[], int, int)} or {@link AudioTrack#write(ByteBuffer, int, int)}.
      * Otherwise, the meaning of the error code depends on the sink implementation.
      */
     public final int errorCode;
@@ -176,8 +178,8 @@ public interface AudioSink {
   boolean supportsOutput(int channelCount, @C.Encoding int encoding);
 
   /**
-   * Returns the playback position in the stream starting at zero, in microseconds, or
-   * {@link #CURRENT_POSITION_NOT_SET} if it is not yet available.
+   * Returns the playback position in the stream starting at zero, in microseconds, or {@link
+   * #CURRENT_POSITION_NOT_SET} if it is not yet available.
    *
    * @param sourceEnded Specify {@code true} if no more input buffers will be provided.
    * @return The playback position relative to the start of playback, in microseconds.
@@ -191,16 +193,16 @@ public interface AudioSink {
    * @param inputChannelCount The number of channels.
    * @param inputSampleRate The sample rate in Hz.
    * @param specifiedBufferSize A specific size for the playback buffer in bytes, or 0 to infer a
-   *     suitable buffer size.
+   * suitable buffer size.
    * @param outputChannels A mapping from input to output channels that is applied to this sink's
-   *     input as a preprocessing step, if handling PCM input. Specify {@code null} to leave the
-   *     input unchanged. Otherwise, the element at index {@code i} specifies index of the input
-   *     channel to map to output channel {@code i} when preprocessing input buffers. After the map
-   *     is applied the audio data will have {@code outputChannels.length} channels.
+   * input as a preprocessing step, if handling PCM input. Specify {@code null} to leave the input
+   * unchanged. Otherwise, the element at index {@code i} specifies index of the input channel to
+   * map to output channel {@code i} when preprocessing input buffers. After the map is applied the
+   * audio data will have {@code outputChannels.length} channels.
    * @param trimStartFrames The number of audio frames to trim from the start of data written to the
-   *     sink after this call.
+   * sink after this call.
    * @param trimEndFrames The number of audio frames to trim from data written to the sink
-   *     immediately preceding the next call to {@link #flush()} or this method.
+   * immediately preceding the next call to {@link #flush()} or this method.
    * @throws ConfigurationException If an error occurs configuring the sink.
    */
   void configure(
@@ -218,7 +220,9 @@ public interface AudioSink {
    */
   void play();
 
-  /** Signals to the sink that the next buffer may be discontinuous with the previous buffer. */
+  /**
+   * Signals to the sink that the next buffer may be discontinuous with the previous buffer.
+   */
   void handleDiscontinuity();
 
   /**
@@ -242,14 +246,16 @@ public interface AudioSink {
       throws InitializationException, WriteException;
 
   /**
-   * Processes any remaining data. {@link #isEnded()} will return {@code true} when no data remains.
+   * Processes any remaining data. {@link #isEnded()} will return {@code true} when no data
+   * remains.
    *
    * @throws WriteException If an error occurs draining data to the sink.
    */
   void playToEndOfStream() throws WriteException;
 
   /**
-   * Returns whether {@link #playToEndOfStream} has been called and all buffers have been processed.
+   * Returns whether {@link #playToEndOfStream} has been called and all buffers have been
+   * processed.
    */
   boolean isEnded();
 
@@ -284,14 +290,18 @@ public interface AudioSink {
    */
   void setAudioAttributes(AudioAttributes audioAttributes);
 
-  /** Sets the audio session id. */
+  /**
+   * Sets the audio session id.
+   */
   void setAudioSessionId(int audioSessionId);
 
-  /** Sets the auxiliary effect. */
+  /**
+   * Sets the auxiliary effect.
+   */
   void setAuxEffectInfo(AuxEffectInfo auxEffectInfo);
 
   /**
-   * Enables tunneling, if possible. The sink is reset if tunneling was previously disabled or if
+   * Enables tunneling, if possible. The sink is reset if tunneling was previously disabledA or if
    * the audio session id has changed. Enabling tunneling is only possible if the sink is based on a
    * platform {@link AudioTrack}, and requires platform API version 21 onwards.
    *
@@ -301,7 +311,7 @@ public interface AudioSink {
   void enableTunnelingV21(int tunnelingAudioSessionId);
 
   /**
-   * Disables tunneling. If tunneling was previously enabled then the sink is reset and any audio
+   * Disables tunneling. If tunneling was previously enabledA then the sink is reset and any audio
    * session id is cleared.
    */
   void disableTunneling();
@@ -325,6 +335,8 @@ public interface AudioSink {
    */
   void flush();
 
-  /** Resets the renderer, releasing any resources that it currently holds. */
+  /**
+   * Resets the renderer, releasing any resources that it currently holds.
+   */
   void reset();
 }

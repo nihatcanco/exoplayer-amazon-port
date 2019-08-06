@@ -139,7 +139,7 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
    * @param legacyStorageEncrypt Whether to encrypt when writing to legacy storage. Must be false if
    *     {@code legacyStorageSecretKey} is null.
    * @param preferLegacyStorage Whether to use prefer legacy storage if both storage types are
-   *     enabled. This option is only useful for downgrading from database storage back to legacy
+   *     enabledA. This option is only useful for downgrading from database storage back to legacy
    *     storage.
    */
   public CachedContentIndex(

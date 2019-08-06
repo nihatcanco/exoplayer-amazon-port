@@ -49,7 +49,7 @@ public final class SilenceSkippingAudioProcessorTest {
 
   @Test
   public void testEnabledProcessor_isActive() throws Exception {
-    // Given an enabled processor.
+    // Given an enabledA processor.
     silenceSkippingAudioProcessor.setEnabled(true);
 
     // When configuring it.
@@ -65,7 +65,7 @@ public final class SilenceSkippingAudioProcessorTest {
 
   @Test
   public void testDisabledProcessor_isNotActive() throws Exception {
-    // Given a disabled processor.
+    // Given a disabledA processor.
     silenceSkippingAudioProcessor.setEnabled(false);
 
     // When configuring it.
@@ -89,7 +89,7 @@ public final class SilenceSkippingAudioProcessorTest {
 
   @Test
   public void testChangingSampleRate_requiresReconfiguration() throws Exception {
-    // Given an enabled processor and configured processor.
+    // Given an enabledA processor and configured processor.
     silenceSkippingAudioProcessor.setEnabled(true);
     boolean reconfigured =
         silenceSkippingAudioProcessor.configure(
@@ -110,7 +110,7 @@ public final class SilenceSkippingAudioProcessorTest {
 
   @Test
   public void testReconfiguringWithSameSampleRate_doesNotRequireReconfiguration() throws Exception {
-    // Given an enabled processor and configured processor.
+    // Given an enabledA processor and configured processor.
     silenceSkippingAudioProcessor.setEnabled(true);
     boolean reconfigured =
         silenceSkippingAudioProcessor.configure(

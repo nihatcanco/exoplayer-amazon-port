@@ -242,7 +242,7 @@ public final class DefaultTrackSelectorTest {
         .isEqualTo(result.rendererConfigurations);
   }
 
-  /** Tests that a disabled renderer can be enabled again. */
+  /** Tests that a disabledA renderer can be enabledA again. */
   @Test
   public void testSelectTracksWithClearedDisabledRenderer() throws ExoPlaybackException {
     trackSelector.setParameters(
@@ -257,7 +257,7 @@ public final class DefaultTrackSelectorTest {
         .isEqualTo(result.rendererConfigurations);
   }
 
-  /** Tests a no-sample renderer is enabled without a track selection by default. */
+  /** Tests a no-sample renderer is enabledA without a track selection by default. */
   @Test
   public void testSelectTracksWithNoSampleRenderer() throws ExoPlaybackException {
     TrackSelectorResult result =
@@ -910,7 +910,7 @@ public final class DefaultTrackSelectorTest {
     result = trackSelector.selectTracks(textRendererCapabilities, trackGroups, periodId, TIMELINE);
     assertFixedSelection(result.selections.get(0), trackGroups, defaultOnly);
 
-    // Default flags are disabled and no language preference is provided, so no text track is
+    // Default flags are disabledA and no language preference is provided, so no text track is
     // selected.
     trackGroups = wrapFormats(defaultOnly, noFlag, forcedOnly, forcedDefault);
     trackSelector.setParameters(
@@ -921,7 +921,7 @@ public final class DefaultTrackSelectorTest {
     result = trackSelector.selectTracks(textRendererCapabilities, trackGroups, periodId, TIMELINE);
     assertNoSelection(result.selections.get(0));
 
-    // All selection flags are disabled and there is no language preference, so nothing should be
+    // All selection flags are disabledA and there is no language preference, so nothing should be
     // selected.
     trackGroups = wrapFormats(forcedOnly, forcedDefault, defaultOnly, noFlag);
     trackSelector.setParameters(
@@ -940,7 +940,7 @@ public final class DefaultTrackSelectorTest {
     result = trackSelector.selectTracks(textRendererCapabilities, trackGroups, periodId, TIMELINE);
     assertFixedSelection(result.selections.get(0), trackGroups, forcedDefault);
 
-    // Same as above, but the default flag is disabled. If multiple tracks match the preferred
+    // Same as above, but the default flag is disabledA. If multiple tracks match the preferred
     // language, those not flagged as forced are preferred, as they likely include the contents of
     // forced subtitles.
     trackGroups = wrapFormats(noFlag, forcedOnly, forcedDefault, defaultOnly);

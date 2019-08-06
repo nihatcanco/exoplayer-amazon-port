@@ -840,7 +840,7 @@ public abstract class DownloadService extends Service {
       downloadManager.addListener(this);
       if (scheduler != null) {
         Requirements requirements = downloadManager.getRequirements();
-        setSchedulerEnabled(/* enabled= */ !requirements.checkRequirements(context), requirements);
+        setSchedulerEnabled(/* enabledA= */ !requirements.checkRequirements(context), requirements);
       }
     }
 
@@ -894,7 +894,7 @@ public abstract class DownloadService extends Service {
         }
       }
       if (scheduler != null) {
-        setSchedulerEnabled(/* enabled= */ !requirementsMet, requirements);
+        setSchedulerEnabled(/* enabledA= */ !requirementsMet, requirements);
       }
     }
 

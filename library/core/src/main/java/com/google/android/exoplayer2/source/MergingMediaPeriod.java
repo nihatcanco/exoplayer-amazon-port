@@ -17,12 +17,14 @@ package com.google.android.exoplayer2.source;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.SeekParameters;
+import com.google.android.exoplayer2.offline.StreamKey;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.util.Assertions;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.IdentityHashMap;
+import java.util.List;
 
 /**
  * Merges multiple {@link MediaPeriod}s.
@@ -73,6 +75,11 @@ import java.util.IdentityHashMap;
   }
 
   @Override
+  public List<StreamKey> getStreamKeys(List<TrackSelection> trackSelections) {
+    return Collections.emptyList();
+  }
+
+  @Override
   public long selectTracks(TrackSelection[] selections, boolean[] mayRetainStreamFlags,
       SampleStream[] streams, boolean[] streamResetFlags, long positionUs) {
     // Map each selection and stream onto a child period index.
@@ -108,7 +115,7 @@ import java.util.IdentityHashMap;
       if (i == 0) {
         positionUs = selectPositionUs;
       } else if (selectPositionUs != positionUs) {
-        throw new IllegalStateException("Children enabled at different positions.");
+        throw new IllegalStateException("Children enabledA at different positions.");
       }
       boolean periodEnabled = false;
       for (int j = 0; j < selections.length; j++) {
@@ -177,7 +184,7 @@ import java.util.IdentityHashMap;
         throw new IllegalStateException("Child reported discontinuity.");
       }
     }
-    // It must be possible to seek enabled periods to the new position, if there is one.
+    // It must be possible to seek enabledA periods to the new position, if there is one.
     if (positionUs != C.TIME_UNSET) {
       for (MediaPeriod enabledPeriod : enabledPeriods) {
         if (enabledPeriod != periods[0]

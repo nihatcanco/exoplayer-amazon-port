@@ -948,12 +948,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
   private void sendMessageToTargetThread(final PlayerMessage message) {
     Handler handler = message.getHandler();
     handler.post(
-        () -> {
-          try {
-            deliverMessage(message);
-          } catch (ExoPlaybackException e) {
-            Log.e(TAG, "Unexpected error delivering message on external thread.", e);
-            throw new RuntimeException(e);
+        new Runnable() {
+          @Override
+          public void run() {
+            try {
+              ExoPlayerImplInternal.this.deliverMessage(message);
+            } catch (ExoPlaybackException e) {
+              Log.e(TAG, "Unexpected error delivering message on external thread.", e);
+              throw new RuntimeException(e);
+            }
           }
         });
   }
@@ -1202,7 +1205,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
   private boolean shouldTransitionToReadyState(boolean renderersReadyOrEnded) {
     if (enabledRenderers.length == 0) {
-      // If there are no enabled renderers, determine whether we're ready based on the timeline.
+      // If there are no enabledA renderers, determine whether we're ready based on the timeline.
       return isTimelineReady();
     }
     if (!renderersReadyOrEnded) {
@@ -1355,7 +1358,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
     for (int i = 0; i < renderers.length; i++) {
       if (renderers[i].getState() == Renderer.STATE_DISABLED
           || renderers[i].getStream() != readingHolder.sampleStreams[i]) {
-        // Ignore disabled renderers and renderers with sample streams from previous periods.
+        // Ignore disabledA renderers and renderers with sample streams from previous periods.
         continue;
       }
       long readingPositionUs = renderers[i].getReadingPositionUs();
@@ -1502,7 +1505,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
     while (playWhenReady
         && playingPeriodHolder != readingPeriodHolder
         && rendererPositionUs >= playingPeriodHolder.getNext().getStartPositionRendererTime()) {
-      // All enabled renderers' streams have been read to the end, and the playback position reached
+      // All enabledA renderers' streams have been read to the end, and the playback position reached
       // the end of the playing period, so advance playback to the next period.
       if (advancedPlayingPeriod) {
         // If we advance more than one period at a time, notify listeners after each update.
@@ -1572,10 +1575,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
       Renderer renderer = renderers[i];
       boolean rendererWasEnabled = oldTrackSelectorResult.isRendererEnabled(i);
       if (!rendererWasEnabled) {
-        // The renderer was disabled and will be enabled when we play the next period.
+        // The renderer was disabledA and will be enabledA when we play the next period.
       } else if (initialDiscontinuity) {
         // The new period starts with a discontinuity, so the renderer will play out all data then
-        // be disabled and re-enabled when it starts playing the next period.
+        // be disabledA and re-enabledA when it starts playing the next period.
         renderer.setCurrentStreamFinal();
       } else if (!renderer.isCurrentStreamFinal()) {
         TrackSelection newSelection = newTrackSelectorResult.selections.get(i);
@@ -1594,7 +1597,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
           renderer.replaceStream(formats, readingPeriodHolder.sampleStreams[i],
               readingPeriodHolder.getRendererOffset());
         } else {
-          // The renderer will be disabled when transitioning to playing the next period, because
+          // The renderer will be disabledA when transitioning to playing the next period, because
           // there's no new selection, or because a configuration change is required, or because
           // it's a no-sample renderer for which rendererOffsetUs should be updated only when
           // starting to play the next period. Mark the SampleStream as final to play out any
@@ -1702,7 +1705,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
           && (!newPlayingPeriodHolder.getTrackSelectorResult().isRendererEnabled(i)
               || (renderer.isCurrentStreamFinal()
                   && renderer.getStream() == oldPlayingPeriodHolder.sampleStreams[i]))) {
-        // The renderer should be disabled before playing the next period, either because it's not
+        // The renderer should be disabledA before playing the next period, either because it's not
         // needed to play the next period, or because we need to re-enable it as its current stream
         // is final and it's not reading ahead.
         disableRenderer(renderer);
@@ -1720,8 +1723,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
     enabledRenderers = new Renderer[totalEnabledRendererCount];
     int enabledRendererCount = 0;
     TrackSelectorResult trackSelectorResult = queue.getPlayingPeriod().getTrackSelectorResult();
-    // Reset all disabled renderers before enabling any new ones. This makes sure resources released
-    // by the disabled renderers will be available to renderers that are being enabled.
+    // Reset all disabledA renderers before enabling any new ones. This makes sure resources released
+    // by the disabledA renderers will be available to renderers that are being enabledA.
     for (int i = 0; i < renderers.length; i++) {
       if (!trackSelectorResult.isRendererEnabled(i)) {
         renderers[i].reset();
@@ -1749,7 +1752,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
       Format[] formats = getFormats(newSelection);
       // The renderer needs enabling with its new track selection.
       boolean playing = playWhenReady && playbackInfo.playbackState == Player.STATE_READY;
-      // Consider as joining only if the renderer was previously disabled.
+      // Consider as joining only if the renderer was previously disabledA.
       boolean joining = !wasRendererEnabled && playing;
       // Enable the renderer.
       renderer.enable(rendererConfiguration, formats,

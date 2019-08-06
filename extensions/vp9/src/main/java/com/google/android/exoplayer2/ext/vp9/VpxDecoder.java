@@ -51,7 +51,7 @@ import java.nio.ByteBuffer;
    * @param exoMediaCrypto The {@link ExoMediaCrypto} object required for decoding encrypted
    *     content. Maybe null and can be ignored if decoder does not handle encrypted content.
    * @param disableLoopFilter Disable the libvpx in-loop smoothing filter.
-   * @param enableRowMultiThreadMode Whether row multi threading decoding is enabled.
+   * @param enableRowMultiThreadMode Whether row multi threading decoding is enabledA.
    * @param threads Number of threads libvpx will use to decodeC.
    * @throws VpxDecoderException Thrown if an exception occurs when initializing the decoder.
    */

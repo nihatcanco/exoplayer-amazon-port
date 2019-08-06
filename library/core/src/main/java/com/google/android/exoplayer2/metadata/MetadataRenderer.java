@@ -114,6 +114,11 @@ public final class MetadataRenderer extends BaseRenderer implements Callback {
   }
 
   @Override
+  public void setOperatingRate(float operatingRate) throws ExoPlaybackException {
+
+  }
+
+  @Override
   public void render(long positionUs, long elapsedRealtimeUs) throws ExoPlaybackException {
     if (!inputStreamEnded && pendingMetadataCount < MAX_PENDING_METADATA_COUNT) {
       buffer.clear();

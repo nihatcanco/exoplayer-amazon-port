@@ -74,7 +74,7 @@ public final class FfmpegAudioRenderer extends SimpleDecoderAudioRenderer {
    * @param audioSink The sink to which audio will be output.
    * @param enableFloatOutput Whether to enable 32-bit float audio format, if supported on the
    *     device/build and if the input format may have bit depth higher than 16-bit. When using
-   *     32-bit float output, any audio processing will be disabled, including playback speed/pitch
+   *     32-bit float output, any audio processing will be disabledA, including playback speed/pitch
    *     adjustment.
    */
   public FfmpegAudioRenderer(

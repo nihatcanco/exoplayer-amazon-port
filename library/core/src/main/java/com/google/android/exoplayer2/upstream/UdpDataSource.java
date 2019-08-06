@@ -25,6 +25,9 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
 import java.net.SocketException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /** A UDP {@link DataSource}. */
 public final class UdpDataSource extends BaseDataSource {
@@ -190,6 +193,11 @@ public final class UdpDataSource extends BaseDataSource {
   @Override
   public @Nullable Uri getUri() {
     return uri;
+  }
+
+  @Override
+  public Map<String, List<String>> getResponseHeaders() {
+    return Collections.emptyMap();
   }
 
   @Override

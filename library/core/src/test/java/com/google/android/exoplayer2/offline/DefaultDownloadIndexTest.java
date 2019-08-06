@@ -138,9 +138,9 @@ public class DefaultDownloadIndexTest {
 
     try (DownloadCursor cursor = downloadIndex.getDownloads()) {
       assertThat(cursor.getCount()).isEqualTo(2);
-      cursor.moveToNext();
+      cursor.moveToPosition(cursor.getPosition() + 1);
       assertEqual(cursor.getDownload(), download2);
-      cursor.moveToNext();
+      cursor.moveToPosition(cursor.getPosition() + 1);
       assertEqual(cursor.getDownload(), download1);
     }
   }
@@ -161,9 +161,9 @@ public class DefaultDownloadIndexTest {
     try (DownloadCursor cursor =
         downloadIndex.getDownloads(Download.STATE_REMOVING, Download.STATE_COMPLETED)) {
       assertThat(cursor.getCount()).isEqualTo(2);
-      cursor.moveToNext();
+      cursor.moveToPosition(cursor.getPosition() + 1);
       assertEqual(cursor.getDownload(), download1);
-      cursor.moveToNext();
+      cursor.moveToPosition(cursor.getPosition() + 1);
       assertEqual(cursor.getDownload(), download3);
     }
   }

@@ -87,89 +87,89 @@ import java.util.List;
  * The following attributes can be set on a PlayerView when used in a layout XML file:
  *
  * <ul>
- *   <li><b>{@code use_artwork}</b> - Whether artwork is used if available in audio streams.
- *       <ul>
- *         <li>Corresponding method: {@link #setUseArtwork(boolean)}
- *         <li>Default: {@code true}
- *       </ul>
- *   <li><b>{@code default_artwork}</b> - Default artwork to use if no artwork available in audio
- *       streams.
- *       <ul>
- *         <li>Corresponding method: {@link #setDefaultArtwork(Drawable)}
- *         <li>Default: {@code null}
- *       </ul>
- *   <li><b>{@code use_controller}</b> - Whether the playback controls can be shown.
- *       <ul>
- *         <li>Corresponding method: {@link #setUseController(boolean)}
- *         <li>Default: {@code true}
- *       </ul>
- *   <li><b>{@code hide_on_touch}</b> - Whether the playback controls are hidden by touch events.
- *       <ul>
- *         <li>Corresponding method: {@link #setControllerHideOnTouch(boolean)}
- *         <li>Default: {@code true}
- *       </ul>
- *   <li><b>{@code auto_show}</b> - Whether the playback controls are automatically shown when
- *       playback starts, pauses, ends, or fails. If set to false, the playback controls can be
- *       manually operated with {@link #showController()} and {@link #hideController()}.
- *       <ul>
- *         <li>Corresponding method: {@link #setControllerAutoShow(boolean)}
- *         <li>Default: {@code true}
- *       </ul>
- *   <li><b>{@code hide_during_ads}</b> - Whether the playback controls are hidden during ads.
- *       Controls are always shown during ads if they are enabled and the player is paused.
- *       <ul>
- *         <li>Corresponding method: {@link #setControllerHideDuringAds(boolean)}
- *         <li>Default: {@code true}
- *       </ul>
- *   <li><b>{@code show_buffering}</b> - Whether the buffering spinner is displayed when the player
- *       is buffering. Valid values are {@code never}, {@code when_playing} and {@code always}.
- *       <ul>
- *         <li>Corresponding method: {@link #setShowBuffering(int)}
- *         <li>Default: {@code never}
- *       </ul>
- *   <li><b>{@code resize_mode}</b> - Controls how video and album art is resized within the view.
- *       Valid values are {@code fit}, {@code fixed_width}, {@code fixed_height} and {@code fill}.
- *       <ul>
- *         <li>Corresponding method: {@link #setResizeMode(int)}
- *         <li>Default: {@code fit}
- *       </ul>
- *   <li><b>{@code surface_type}</b> - The type of surface view used for video playbacks. Valid
- *       values are {@code surface_view}, {@code texture_view}, {@code spherical_view} and {@code
- *       none}. Using {@code none} is recommended for audio only applications, since creating the
- *       surface can be expensive. Using {@code surface_view} is recommended for video applications.
- *       Note, TextureView can only be used in a hardware accelerated window. When rendered in
- *       software, TextureView will draw nothing.
- *       <ul>
- *         <li>Corresponding method: None
- *         <li>Default: {@code surface_view}
- *       </ul>
- *   <li><b>{@code shutter_background_color}</b> - The background color of the {@code exo_shutter}
- *       view.
- *       <ul>
- *         <li>Corresponding method: {@link #setShutterBackgroundColor(int)}
- *         <li>Default: {@code unset}
- *       </ul>
- *   <li><b>{@code keep_content_on_player_reset}</b> - Whether the currently displayed video frame
- *       or media artwork is kept visible when the player is reset.
- *       <ul>
- *         <li>Corresponding method: {@link #setKeepContentOnPlayerReset(boolean)}
- *         <li>Default: {@code false}
- *       </ul>
- *   <li><b>{@code player_layout_id}</b> - Specifies the id of the layout to be inflated. See below
- *       for more details.
- *       <ul>
- *         <li>Corresponding method: None
- *         <li>Default: {@code R.layout.exo_player_view}
- *       </ul>
- *   <li><b>{@code controller_layout_id}</b> - Specifies the id of the layout resource to be
- *       inflated by the child {@link PlayerControlView}. See below for more details.
- *       <ul>
- *         <li>Corresponding method: None
- *         <li>Default: {@code R.layout.exo_player_control_view}
- *       </ul>
- *   <li>All attributes that can be set on a {@link PlayerControlView} can also be set on a
- *       PlayerView, and will be propagated to the inflated {@link PlayerControlView} unless the
- *       layout is overridden to specify a custom {@code exo_controller} (see below).
+ * <li><b>{@code use_artwork}</b> - Whether artwork is used if available in audio streams.
+ * <ul>
+ * <li>Corresponding method: {@link #setUseArtwork(boolean)}
+ * <li>Default: {@code true}
+ * </ul>
+ * <li><b>{@code default_artwork}</b> - Default artwork to use if no artwork available in audio
+ * streams.
+ * <ul>
+ * <li>Corresponding method: {@link #setDefaultArtwork(Drawable)}
+ * <li>Default: {@code null}
+ * </ul>
+ * <li><b>{@code use_controller}</b> - Whether the playback controls can be shown.
+ * <ul>
+ * <li>Corresponding method: {@link #setUseController(boolean)}
+ * <li>Default: {@code true}
+ * </ul>
+ * <li><b>{@code hide_on_touch}</b> - Whether the playback controls are hidden by touch events.
+ * <ul>
+ * <li>Corresponding method: {@link #setControllerHideOnTouch(boolean)}
+ * <li>Default: {@code true}
+ * </ul>
+ * <li><b>{@code auto_show}</b> - Whether the playback controls are automatically shown when
+ * playback starts, pauses, ends, or fails. If set to false, the playback controls can be manually
+ * operated with {@link #showController()} and {@link #hideController()}.
+ * <ul>
+ * <li>Corresponding method: {@link #setControllerAutoShow(boolean)}
+ * <li>Default: {@code true}
+ * </ul>
+ * <li><b>{@code hide_during_ads}</b> - Whether the playback controls are hidden during ads.
+ * Controls are always shown during ads if they are enabledA and the player is paused.
+ * <ul>
+ * <li>Corresponding method: {@link #setControllerHideDuringAds(boolean)}
+ * <li>Default: {@code true}
+ * </ul>
+ * <li><b>{@code show_buffering}</b> - Whether the buffering spinner is displayed when the player
+ * is buffering. Valid values are {@code never}, {@code when_playing} and {@code always}.
+ * <ul>
+ * <li>Corresponding method: {@link #setShowBuffering(int)}
+ * <li>Default: {@code never}
+ * </ul>
+ * <li><b>{@code resize_mode}</b> - Controls how video and album art is resized within the view.
+ * Valid values are {@code fit}, {@code fixed_width}, {@code fixed_height} and {@code fill}.
+ * <ul>
+ * <li>Corresponding method: {@link #setResizeMode(int)}
+ * <li>Default: {@code fit}
+ * </ul>
+ * <li><b>{@code surface_type}</b> - The type of surface view used for video playbacks. Valid
+ * values are {@code surface_view}, {@code texture_view}, {@code spherical_view} and {@code none}.
+ * Using {@code none} is recommended for audio only applications, since creating the surface can be
+ * expensive. Using {@code surface_view} is recommended for video applications. Note, TextureView
+ * can only be used in a hardware accelerated window. When rendered in software, TextureView will
+ * draw nothing.
+ * <ul>
+ * <li>Corresponding method: None
+ * <li>Default: {@code surface_view}
+ * </ul>
+ * <li><b>{@code shutter_background_color}</b> - The background color of the {@code exo_shutter}
+ * view.
+ * <ul>
+ * <li>Corresponding method: {@link #setShutterBackgroundColor(int)}
+ * <li>Default: {@code unset}
+ * </ul>
+ * <li><b>{@code keep_content_on_player_reset}</b> - Whether the currently displayed video frame
+ * or media artwork is kept visible when the player is reset.
+ * <ul>
+ * <li>Corresponding method: {@link #setKeepContentOnPlayerReset(boolean)}
+ * <li>Default: {@code false}
+ * </ul>
+ * <li><b>{@code player_layout_id}</b> - Specifies the id of the layout to be inflated. See below
+ * for more details.
+ * <ul>
+ * <li>Corresponding method: None
+ * <li>Default: {@code R.layout.exo_player_view}
+ * </ul>
+ * <li><b>{@code controller_layout_id}</b> - Specifies the id of the layout resource to be
+ * inflated by the child {@link PlayerControlView}. See below for more details.
+ * <ul>
+ * <li>Corresponding method: None
+ * <li>Default: {@code R.layout.exo_player_control_view}
+ * </ul>
+ * <li>All attributes that can be set on a {@link PlayerControlView} can also be set on a
+ * PlayerView, and will be propagated to the inflated {@link PlayerControlView} unless the layout is
+ * overridden to specify a custom {@code exo_controller} (see below).
  * </ul>
  *
  * <h3>Overriding the layout file</h3>
@@ -183,61 +183,62 @@ import java.util.List;
  * <p>
  *
  * <ul>
- *   <li><b>{@code exo_content_frame}</b> - A frame whose aspect ratio is resized based on the video
- *       or album art of the media being played, and the configured {@code resize_mode}. The video
- *       surface view is inflated into this frame as its first child.
- *       <ul>
- *         <li>Type: {@link AspectRatioFrameLayout}
- *       </ul>
- *   <li><b>{@code exo_shutter}</b> - A view that's made visible when video should be hidden. This
- *       view is typically an opaque view that covers the video surface, thereby obscuring it when
- *       visible. Obscuring the surface in this way also helps to prevent flicker at the start of
- *       playback when {@code surface_type="surface_view"}.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_buffering}</b> - A view that's made visible when the player is buffering.
- *       This view typically displays a buffering spinner or animation.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_subtitles}</b> - Displays subtitles.
- *       <ul>
- *         <li>Type: {@link SubtitleView}
- *       </ul>
- *   <li><b>{@code exo_artwork}</b> - Displays album art.
- *       <ul>
- *         <li>Type: {@link ImageView}
- *       </ul>
- *   <li><b>{@code exo_error_message}</b> - Displays an error message to the user if playback fails.
- *       <ul>
- *         <li>Type: {@link TextView}
- *       </ul>
- *   <li><b>{@code exo_controller_placeholder}</b> - A placeholder that's replaced with the inflated
- *       {@link PlayerControlView}. Ignored if an {@code exo_controller} view exists.
- *       <ul>
- *         <li>Type: {@link View}
- *       </ul>
- *   <li><b>{@code exo_controller}</b> - An already inflated {@link PlayerControlView}. Allows use
- *       of a custom extension of {@link PlayerControlView}. Note that attributes such as {@code
- *       rewind_increment} will not be automatically propagated through to this instance. If a view
- *       exists with this id, any {@code exo_controller_placeholder} view will be ignored.
- *       <ul>
- *         <li>Type: {@link PlayerControlView}
- *       </ul>
- *   <li><b>{@code exo_ad_overlay}</b> - A {@link FrameLayout} positioned on top of the player which
- *       is used to show ad UI (if applicable).
- *       <ul>
- *         <li>Type: {@link FrameLayout}
- *       </ul>
- *   <li><b>{@code exo_overlay}</b> - A {@link FrameLayout} positioned on top of the player which
- *       the app can access via {@link #getOverlayFrameLayout()}, provided for convenience.
- *       <ul>
- *         <li>Type: {@link FrameLayout}
- *       </ul>
+ * <li><b>{@code exo_content_frame}</b> - A frame whose aspect ratio is resized based on the video
+ * or album art of the media being played, and the configured {@code resize_mode}. The video surface
+ * view is inflated into this frame as its first child.
+ * <ul>
+ * <li>Type: {@link AspectRatioFrameLayout}
+ * </ul>
+ * <li><b>{@code exo_shutter}</b> - A view that's made visible when video should be hidden. This
+ * view is typically an opaque view that covers the video surface, thereby obscuring it when
+ * visible. Obscuring the surface in this way also helps to prevent flicker at the start of playback
+ * when {@code surface_type="surface_view"}.
+ * <ul>
+ * <li>Type: {@link View}
+ * </ul>
+ * <li><b>{@code exo_buffering}</b> - A view that's made visible when the player is buffering.
+ * This view typically displays a buffering spinner or animation.
+ * <ul>
+ * <li>Type: {@link View}
+ * </ul>
+ * <li><b>{@code exo_subtitles}</b> - Displays subtitles.
+ * <ul>
+ * <li>Type: {@link SubtitleView}
+ * </ul>
+ * <li><b>{@code exo_artwork}</b> - Displays album art.
+ * <ul>
+ * <li>Type: {@link ImageView}
+ * </ul>
+ * <li><b>{@code exo_error_message}</b> - Displays an error message to the user if playback fails.
+ * <ul>
+ * <li>Type: {@link TextView}
+ * </ul>
+ * <li><b>{@code exo_controller_placeholder}</b> - A placeholder that's replaced with the inflated
+ * {@link PlayerControlView}. Ignored if an {@code exo_controller} view exists.
+ * <ul>
+ * <li>Type: {@link View}
+ * </ul>
+ * <li><b>{@code exo_controller}</b> - An already inflated {@link PlayerControlView}. Allows use
+ * of a custom extension of {@link PlayerControlView}. Note that attributes such as {@code
+ * rewind_increment} will not be automatically propagated through to this instance. If a view exists
+ * with this id, any {@code exo_controller_placeholder} view will be ignored.
+ * <ul>
+ * <li>Type: {@link PlayerControlView}
+ * </ul>
+ * <li><b>{@code exo_ad_overlay}</b> - A {@link FrameLayout} positioned on top of the player which
+ * is used to show ad UI (if applicable).
+ * <ul>
+ * <li>Type: {@link FrameLayout}
+ * </ul>
+ * <li><b>{@code exo_overlay}</b> - A {@link FrameLayout} positioned on top of the player which
+ * the app can access via {@link #getOverlayFrameLayout()}, provided for convenience.
+ * <ul>
+ * <li>Type: {@link FrameLayout}
+ * </ul>
  * </ul>
  *
- * <p>All child views are optional and so can be omitted if not required, however where defined they
+ * <p>All child views are optional and so can be omitted if not required, however where defined
+ * they
  * must be of the expected type.
  *
  * <h3>Specifying a custom layout file</h3>
@@ -251,6 +252,7 @@ import java.util.List;
 public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider {
 
   // LINT.IfChange
+
   /**
    * Determines when the buffering view is shown. One of {@link #SHOW_BUFFERING_NEVER}, {@link
    * #SHOW_BUFFERING_WHEN_PLAYING} or {@link #SHOW_BUFFERING_ALWAYS}.
@@ -258,8 +260,13 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
   @Documented
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({SHOW_BUFFERING_NEVER, SHOW_BUFFERING_WHEN_PLAYING, SHOW_BUFFERING_ALWAYS})
-  public @interface ShowBuffering {}
-  /** The buffering view is never shown. */
+  public @interface ShowBuffering {
+
+  }
+
+  /**
+   * The buffering view is never shown.
+   */
   public static final int SHOW_BUFFERING_NEVER = 0;
   /**
    * The buffering view is shown when the player is in the {@link Player#STATE_BUFFERING buffering}
@@ -280,26 +287,37 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
   private static final int SURFACE_TYPE_MONO360_VIEW = 3;
   // LINT.ThenChange(../../../../../../res/values/attrs.xml)
 
-  @Nullable private final AspectRatioFrameLayout contentFrame;
+  @Nullable
+  private final AspectRatioFrameLayout contentFrame;
   private final View shutterView;
-  @Nullable private final View surfaceView;
+  @Nullable
+  private final View surfaceView;
   private final ImageView artworkView;
   private final SubtitleView subtitleView;
-  @Nullable private final View bufferingView;
-  @Nullable private final TextView errorMessageView;
-  @Nullable private final PlayerControlView controller;
+  @Nullable
+  private final View bufferingView;
+  @Nullable
+  private final TextView errorMessageView;
+  @Nullable
+  private final PlayerControlView controller;
   private final ComponentListener componentListener;
-  @Nullable private final FrameLayout adOverlayFrameLayout;
-  @Nullable private final FrameLayout overlayFrameLayout;
+  @Nullable
+  private final FrameLayout adOverlayFrameLayout;
+  @Nullable
+  private final FrameLayout overlayFrameLayout;
 
   private Player player;
   private boolean useController;
   private boolean useArtwork;
-  @Nullable private Drawable defaultArtwork;
-  private @ShowBuffering int showBuffering;
+  @Nullable
+  private Drawable defaultArtwork;
+  private @ShowBuffering
+  int showBuffering;
   private boolean keepContentOnPlayerReset;
-  @Nullable private ErrorMessageProvider<? super ExoPlaybackException> errorMessageProvider;
-  @Nullable private CharSequence customErrorMessage;
+  @Nullable
+  private ErrorMessageProvider<? super ExoPlaybackException> errorMessageProvider;
+  @Nullable
+  private CharSequence customErrorMessage;
   private int controllerShowTimeoutMs;
   private boolean controllerAutoShow;
   private boolean controllerHideDuringAds;
@@ -503,7 +521,9 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
     }
   }
 
-  /** Returns the player currently set on this view, or null if no player is set. */
+  /**
+   * Returns the player currently set on this view, or null if no player is set.
+   */
   public Player getPlayer() {
     return player;
   }
@@ -518,8 +538,8 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
    * more efficient and may allow for more seamless transitions.
    *
    * @param player The {@link Player} to use, or {@code null} to detach the current player. Only
-   *     players which are accessed on the main thread are supported ({@code
-   *     player.getApplicationLooper() == Looper.getMainLooper()}).
+   * players which are accessed on the main thread are supported ({@code
+   * player.getApplicationLooper() == Looper.getMainLooper()}).
    */
   public void setPlayer(@Nullable Player player) {
     Assertions.checkState(Looper.myLooper() == Looper.getMainLooper());
@@ -598,13 +618,18 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
     contentFrame.setResizeMode(resizeMode);
   }
 
-  /** Returns the {@link ResizeMode}. */
-  public @ResizeMode int getResizeMode() {
+  /**
+   * Returns the {@link ResizeMode}.
+   */
+  public @ResizeMode
+  int getResizeMode() {
     Assertions.checkState(contentFrame != null);
     return contentFrame.getResizeMode();
   }
 
-  /** Returns whether artwork is displayed if present in the media. */
+  /**
+   * Returns whether artwork is displayed if present in the media.
+   */
   public boolean getUseArtwork() {
     return useArtwork;
   }
@@ -622,8 +647,11 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
     }
   }
 
-  /** Returns the default artwork to display. */
-  public @Nullable Drawable getDefaultArtwork() {
+  /**
+   * Returns the default artwork to display.
+   */
+  public @Nullable
+  Drawable getDefaultArtwork() {
     return defaultArtwork;
   }
 
@@ -653,7 +681,9 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
     }
   }
 
-  /** Returns whether the playback controls can be shown. */
+  /**
+   * Returns whether the playback controls can be shown.
+   */
   public boolean getUseController() {
     return useController;
   }
@@ -696,18 +726,18 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
    * with {@code reset=true}, or the player being replaced or cleared by calling {@link
    * #setPlayer(Player)}.
    *
-   * <p>If enabled, the currently displayed video frame or media artwork will be kept visible until
+   * <p>If enabledA, the currently displayed video frame or media artwork will be kept visible until
    * the player set on the view has been successfully prepared with new media and loaded enough of
    * it to have determined the available tracks. Hence enabling this option allows transitioning
    * from playing one piece of media to another, or from using one player instance to another,
    * without clearing the view's content.
    *
-   * <p>If disabled, the currently displayed video frame or media artwork will be hidden as soon as
+   * <p>If disabledA, the currently displayed video frame or media artwork will be hidden as soon as
    * the player is reset. Note that the video frame is hidden by making {@code exo_shutter} visible.
    * Hence the video frame will not be hidden if using a custom layout that omits this view.
    *
    * @param keepContentOnPlayerReset Whether the currently displayed video frame or media artwork is
-   *     kept visible when the player is reset.
+   * kept visible when the player is reset.
    */
   public void setKeepContentOnPlayerReset(boolean keepContentOnPlayerReset) {
     if (this.keepContentOnPlayerReset != keepContentOnPlayerReset) {
@@ -720,8 +750,8 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
    * Sets whether a buffering spinner is displayed when the player is in the buffering state. The
    * buffering spinner is not displayed by default.
    *
-   * @deprecated Use {@link #setShowBuffering(int)}
    * @param showBuffering Whether the buffering icon is displayed
+   * @deprecated Use {@link #setShowBuffering(int)}
    */
   @Deprecated
   public void setShowBuffering(boolean showBuffering) {
@@ -733,8 +763,8 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
    * buffering spinner is not displayed by default.
    *
    * @param showBuffering The mode that defines when the buffering spinner is displayed. One of
-   *     {@link #SHOW_BUFFERING_NEVER}, {@link #SHOW_BUFFERING_WHEN_PLAYING} and
-   *     {@link #SHOW_BUFFERING_ALWAYS}.
+   * {@link #SHOW_BUFFERING_NEVER}, {@link #SHOW_BUFFERING_WHEN_PLAYING} and {@link
+   * #SHOW_BUFFERING_ALWAYS}.
    */
   public void setShowBuffering(@ShowBuffering int showBuffering) {
     if (this.showBuffering != showBuffering) {
@@ -785,7 +815,7 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
 
   /**
    * Called to process media key events. Any {@link KeyEvent} can be passed but only media key
-   * events will be handled. Does nothing if playback controls are disabled.
+   * events will be handled. Does nothing if playback controls are disabledA.
    *
    * @param event A key event.
    * @return Whether the key event was handled.
@@ -794,13 +824,15 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
     return useController && controller.dispatchMediaKeyEvent(event);
   }
 
-  /** Returns whether the controller is currently visible. */
+  /**
+   * Returns whether the controller is currently visible.
+   */
   public boolean isControllerVisible() {
     return controller != null && controller.isVisible();
   }
 
   /**
-   * Shows the playback controls. Does nothing if playback controls are disabled.
+   * Shows the playback controls. Does nothing if playback controls are disabledA.
    *
    * <p>The playback controls are automatically hidden during playback after {{@link
    * #getControllerShowTimeoutMs()}}. They are shown indefinitely when playback has not started yet,
@@ -810,7 +842,9 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
     showController(shouldShowControllerIndefinitely());
   }
 
-  /** Hides the playback controls. Does nothing if playback controls are disabled. */
+  /**
+   * Hides the playback controls. Does nothing if playback controls are disabledA.
+   */
   public void hideController() {
     if (controller != null) {
       controller.hide();
@@ -823,7 +857,7 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
    * progress.
    *
    * @return The timeout in milliseconds. A non-positive value will cause the controller to remain
-   *     visible indefinitely.
+   * visible indefinitely.
    */
   public int getControllerShowTimeoutMs() {
     return controllerShowTimeoutMs;
@@ -834,7 +868,7 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
    * duration of time has elapsed without user input and with playback or buffering in progress.
    *
    * @param controllerShowTimeoutMs The timeout in milliseconds. A non-positive value will cause the
-   *     controller to remain visible indefinitely.
+   * controller to remain visible indefinitely.
    */
   public void setControllerShowTimeoutMs(int controllerShowTimeoutMs) {
     Assertions.checkState(controller != null);
@@ -845,7 +879,9 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
     }
   }
 
-  /** Returns whether the playback controls are hidden by touch events. */
+  /**
+   * Returns whether the playback controls are hidden by touch events.
+   */
   public boolean getControllerHideOnTouch() {
     return controllerHideOnTouch;
   }
@@ -882,7 +918,7 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
 
   /**
    * Sets whether the playback controls are hidden when ads are playing. Controls are always shown
-   * during ads if they are enabled and the player is paused.
+   * during ads if they are enabledA and the player is paused.
    *
    * @param controllerHideDuringAds Whether the playback controls are hidden when ads are playing.
    */
@@ -914,7 +950,7 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
    * Sets the {@link ControlDispatcher}.
    *
    * @param controlDispatcher The {@link ControlDispatcher}, or null to use {@link
-   *     DefaultControlDispatcher}.
+   * DefaultControlDispatcher}.
    */
   public void setControlDispatcher(@Nullable ControlDispatcher controlDispatcher) {
     Assertions.checkState(controller != null);
@@ -925,7 +961,7 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
    * Sets the rewind increment in milliseconds.
    *
    * @param rewindMs The rewind increment in milliseconds. A non-positive value will cause the
-   *     rewind button to be disabled.
+   * rewind button to be disabledA.
    */
   public void setRewindIncrementMs(int rewindMs) {
     Assertions.checkState(controller != null);
@@ -936,7 +972,7 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
    * Sets the fast forward increment in milliseconds.
    *
    * @param fastForwardMs The fast forward increment in milliseconds. A non-positive value will
-   *     cause the fast forward button to be disabled.
+   * cause the fast forward button to be disabledA.
    */
   public void setFastForwardIncrementMs(int fastForwardMs) {
     Assertions.checkState(controller != null);
@@ -944,7 +980,7 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
   }
 
   /**
-   * Sets which repeat toggle modes are enabled.
+   * Sets which repeat toggle modes are enabledA.
    *
    * @param repeatToggleModes A set of {@link RepeatModeUtil.RepeatToggleModes}.
    */
@@ -979,9 +1015,9 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
    * markers are shown in addition to any ad markers for ads in the player's timeline.
    *
    * @param extraAdGroupTimesMs The millisecond timestamps of the extra ad markers to show, or
-   *     {@code null} to show no extra ad markers.
+   * {@code null} to show no extra ad markers.
    * @param extraPlayedAdGroups Whether each ad has been played, or {@code null} to show no extra ad
-   *     markers.
+   * markers.
    */
   public void setExtraAdGroupMarkers(
       @Nullable long[] extraAdGroupTimesMs, @Nullable boolean[] extraPlayedAdGroups) {
@@ -993,7 +1029,7 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
    * Set the {@link AspectRatioFrameLayout.AspectRatioListener}.
    *
    * @param listener The listener to be notified about aspect ratios changes of the video content or
-   *     the content frame.
+   * the content frame.
    */
   public void setAspectRatioListener(AspectRatioFrameLayout.AspectRatioListener listener) {
     Assertions.checkState(contentFrame != null);
@@ -1004,15 +1040,15 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
    * Gets the view onto which video is rendered. This is a:
    *
    * <ul>
-   *   <li>{@link SurfaceView} by default, or if the {@code surface_type} attribute is set to {@code
-   *       surface_view}.
-   *   <li>{@link TextureView} if {@code surface_type} is {@code texture_view}.
-   *   <li>{@link SphericalSurfaceView} if {@code surface_type} is {@code spherical_view}.
-   *   <li>{@code null} if {@code surface_type} is {@code none}.
+   * <li>{@link SurfaceView} by default, or if the {@code surface_type} attribute is set to {@code
+   * surface_view}.
+   * <li>{@link TextureView} if {@code surface_type} is {@code texture_view}.
+   * <li>{@link SphericalSurfaceView} if {@code surface_type} is {@code spherical_view}.
+   * <li>{@code null} if {@code surface_type} is {@code none}.
    * </ul>
    *
    * @return The {@link SurfaceView}, {@link TextureView}, {@link SphericalSurfaceView} or {@code
-   *     null}.
+   * null}.
    */
   public View getVideoSurfaceView() {
     return surfaceView;
@@ -1023,7 +1059,7 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
    * the player.
    *
    * @return The overlay {@link FrameLayout}, or {@code null} if the layout has been customized and
-   *     the overlay is not present.
+   * the overlay is not present.
    */
   @Nullable
   public FrameLayout getOverlayFrameLayout() {
@@ -1034,7 +1070,7 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
    * Gets the {@link SubtitleView}.
    *
    * @return The {@link SubtitleView}, or {@code null} if the layout has been customized and the
-   *     subtitle view is not present.
+   * subtitle view is not present.
    */
   public SubtitleView getSubtitleView() {
     return subtitleView;
@@ -1143,7 +1179,9 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
     return true;
   }
 
-  /** Shows the playback controls, but only if forced or shown indefinitely. */
+  /**
+   * Shows the playback controls, but only if forced or shown indefinitely.
+   */
   private void maybeShowController(boolean isForced) {
     if (isPlayingAd() && controllerHideDuringAds) {
       return;
@@ -1164,8 +1202,8 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
     int playbackState = player.getPlaybackState();
     return controllerAutoShow
         && (playbackState == Player.STATE_IDLE
-            || playbackState == Player.STATE_ENDED
-            || !player.getPlayWhenReady());
+        || playbackState == Player.STATE_ENDED
+        || !player.getPlayWhenReady());
   }
 
   private void showController(boolean showIndefinitely) {
@@ -1197,16 +1235,16 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
     TrackSelectionArray selections = player.getCurrentTrackSelections();
     for (int i = 0; i < selections.length; i++) {
       if (player.getRendererType(i) == C.TRACK_TYPE_VIDEO && selections.get(i) != null) {
-        // Video enabled so artwork must be hidden. If the shutter is closed, it will be opened in
-        // onRenderedFirstFrame().
+        // Video enabledA so artwork must be hidden. If the shutter is closed, it will be opened in
+        // onRenderedFirstFrameA().
         hideArtwork();
         return;
       }
     }
 
-    // Video disabled so the shutter must be closed.
+    // Video disabledA so the shutter must be closed.
     closeShutter();
-    // Display artwork if enabled and available, else hide it.
+    // Display artwork if enabledA and available, else hide it.
     if (useArtwork) {
       for (int i = 0; i < selections.length; i++) {
         TrackSelection selection = selections.get(i);
@@ -1223,7 +1261,7 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
         return;
       }
     }
-    // Artwork disabled or unavailable.
+    // Artwork disabledA or unavailable.
     hideArtwork();
   }
 
@@ -1273,7 +1311,7 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
           player != null
               && player.getPlaybackState() == Player.STATE_BUFFERING
               && (showBuffering == SHOW_BUFFERING_ALWAYS
-                  || (showBuffering == SHOW_BUFFERING_WHEN_PLAYING && player.getPlayWhenReady()));
+              || (showBuffering == SHOW_BUFFERING_WHEN_PLAYING && player.getPlayWhenReady()));
       bufferingView.setVisibility(showBufferingSpinner ? View.VISIBLE : View.GONE);
     }
   }
@@ -1318,7 +1356,9 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
     aspectRatioFrame.setResizeMode(resizeMode);
   }
 
-  /** Applies a texture rotation to a {@link TextureView}. */
+  /**
+   * Applies a texture rotation to a {@link TextureView}.
+   */
   private static void applyTextureViewRotation(TextureView textureView, int textureViewRotation) {
     float textureViewWidth = textureView.getWidth();
     float textureViewHeight = textureView.getHeight();
@@ -1358,11 +1398,11 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
 
   private final class ComponentListener
       implements Player.EventListener,
-          TextOutput,
-          VideoListener,
-          OnLayoutChangeListener,
-          SphericalSurfaceView.SurfaceListener,
-          SingleTapListener {
+      TextOutput,
+      VideoListener,
+      OnLayoutChangeListener,
+      SphericalSurfaceView.SurfaceListener,
+      SingleTapListener {
 
     // TextOutput implementation
 
@@ -1404,7 +1444,12 @@ public class PlayerView extends FrameLayout implements AdsLoader.AdViewProvider 
     }
 
     @Override
-    public void onRenderedFirstFrame() {
+    public void onSurfaceSizeChanged(int width, int height) {
+
+    }
+
+    @Override
+    public void onRenderedFirstFrameB() {
       if (shutterView != null) {
         shutterView.setVisibility(INVISIBLE);
       }

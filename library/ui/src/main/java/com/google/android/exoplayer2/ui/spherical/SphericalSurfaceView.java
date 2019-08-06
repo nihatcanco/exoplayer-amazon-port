@@ -194,14 +194,17 @@ public final class SphericalSurfaceView extends GLSurfaceView {
 
     // Post to make sure we occur in order with any onSurfaceTextureAvailable calls.
     mainHandler.post(
-        () -> {
-          if (surface != null) {
-            if (surfaceListener != null) {
-              surfaceListener.surfaceChanged(null);
+        new Runnable() {
+          @Override
+          public void run() {
+            if (surface != null) {
+              if (surfaceListener != null) {
+                surfaceListener.surfaceChanged(null);
+              }
+              releaseSurface(surfaceTexture, surface);
+              surfaceTexture = null;
+              surface = null;
             }
-            releaseSurface(surfaceTexture, surface);
-            surfaceTexture = null;
-            surface = null;
           }
         });
   }
@@ -209,15 +212,18 @@ public final class SphericalSurfaceView extends GLSurfaceView {
   // Called on GL thread.
   private void onSurfaceTextureAvailable(SurfaceTexture surfaceTexture) {
     mainHandler.post(
-        () -> {
-          SurfaceTexture oldSurfaceTexture = this.surfaceTexture;
-          Surface oldSurface = this.surface;
-          this.surfaceTexture = surfaceTexture;
-          this.surface = new Surface(surfaceTexture);
-          if (surfaceListener != null) {
-            surfaceListener.surfaceChanged(surface);
+        new Runnable() {
+          @Override
+          public void run() {
+            SurfaceTexture oldSurfaceTexture = SphericalSurfaceView.this.surfaceTexture;
+            Surface oldSurface = SphericalSurfaceView.this.surface;
+            SphericalSurfaceView.this.surfaceTexture = surfaceTexture;
+            SphericalSurfaceView.this.surface = new Surface(surfaceTexture);
+            if (surfaceListener != null) {
+              surfaceListener.surfaceChanged(surface);
+            }
+            releaseSurface(oldSurfaceTexture, oldSurface);
           }
-          releaseSurface(oldSurfaceTexture, oldSurface);
         });
   }
 

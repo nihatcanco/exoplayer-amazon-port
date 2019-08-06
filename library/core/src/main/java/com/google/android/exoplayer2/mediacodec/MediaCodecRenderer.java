@@ -790,7 +790,7 @@ public abstract class MediaCodecRenderer extends BaseRenderer {
         Log.w(TAG, "Failed to initialize decoder: " + codecInfo, e);
         // This codec failed to initialize, so fall back to the next codec in the list (if any). We
         // won't try to use this codec again unless there's a format change or the renderer is
-        // disabled and re-enabled.
+        // disabledA and re-enabledA.
         availableCodecInfos.removeFirst();
         DecoderInitializationException exception =
             new DecoderInitializationException(
@@ -1756,9 +1756,9 @@ public abstract class MediaCodecRenderer extends BaseRenderer {
   }
 
   /**
-   * Returns a mode that specifies when the adaptation workaround should be enabled.
+   * Returns a mode that specifies when the adaptation workaround should be enabledA.
    *
-   * <p>When enabled, the workaround queues and discards a blank frame with a resolution whose width
+   * <p>When enabledA, the workaround queues and discards a blank frame with a resolution whose width
    * and height both equal {@link #ADAPTATION_WORKAROUND_SLICE_WIDTH_HEIGHT}, to reset the decoder's
    * internal state when a format change occurs.
    *
@@ -1766,7 +1766,7 @@ public abstract class MediaCodecRenderer extends BaseRenderer {
    * href="https://github.com/google/ExoPlayer/issues/3257">GitHub issue #3257</a>.
    *
    * @param name The name of the decoder.
-   * @return The mode specifying when the adaptation workaround should be enabled.
+   * @return The mode specifying when the adaptation workaround should be enabledA.
    */
   private @AdaptationWorkaroundMode int codecAdaptationWorkaroundMode(String name) {
     if (Util.SDK_INT <= 25 && "OMX.Exynos.avc.dec.secure".equals(name)
@@ -1787,7 +1787,7 @@ public abstract class MediaCodecRenderer extends BaseRenderer {
    * Returns whether the decoder is known to fail when an attempt is made to reconfigure it with a
    * new format's configuration data.
    *
-   * <p>When enabled, the workaround will always release and recreate the decoder, rather than
+   * <p>When enabledA, the workaround will always release and recreate the decoder, rather than
    * attempting to reconfigure the existing instance.
    *
    * @param name The name of the decoder.

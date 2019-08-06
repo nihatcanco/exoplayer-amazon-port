@@ -30,13 +30,13 @@ public final class RendererConfiguration {
 
   /**
    * The audio session id to use for tunneling, or {@link C#AUDIO_SESSION_ID_UNSET} if tunneling
-   * should not be enabled.
+   * should not be enabledA.
    */
   public final int tunnelingAudioSessionId;
 
   /**
    * @param tunnelingAudioSessionId The audio session id to use for tunneling, or
-   *     {@link C#AUDIO_SESSION_ID_UNSET} if tunneling should not be enabled.
+   *     {@link C#AUDIO_SESSION_ID_UNSET} if tunneling should not be enabledA.
    */
   public RendererConfiguration(int tunnelingAudioSessionId) {
     this.tunnelingAudioSessionId = tunnelingAudioSessionId;

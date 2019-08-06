@@ -147,7 +147,7 @@ public final class AmazonQuirks {
      }
     /*
      * To disable snapping the frame release times to VSYNC call this function with true
-     * By default, snapping to VSYNC is enabled if this function is not called.
+     * By default, snapping to VSYNC is enabledA if this function is not called.
      */
     public static void disableSnappingToVsync(boolean disable) {
          isSnappingToVsyncDisabled = disable;

@@ -21,6 +21,9 @@ import com.google.android.exoplayer2.C;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /** A {@link DataSource} for reading local files. */
 public final class FileDataSource extends BaseDataSource {
@@ -105,6 +108,11 @@ public final class FileDataSource extends BaseDataSource {
   @Override
   public @Nullable Uri getUri() {
     return uri;
+  }
+
+  @Override
+  public Map<String, List<String>> getResponseHeaders() {
+    return Collections.emptyMap();
   }
 
   @Override

@@ -311,7 +311,7 @@ public abstract class SimpleDecoderAudioRenderer extends BaseRenderer implements
    * order to spatialize the audio channels. For this use case, any {@link Virtualizer} instances
    * should be released in {@link #onDisabled()} (if not before).
    *
-   * @see AudioSink.Listener#onAudioSessionId(int)
+   * @see AudioSink.Listener#onAudioSessionIdA(int)
    */
   protected void onAudioSessionId(int audioSessionId) {
     // Do nothing.
@@ -529,7 +529,7 @@ public abstract class SimpleDecoderAudioRenderer extends BaseRenderer implements
   @Override
   protected void onEnabled(boolean joining) throws ExoPlaybackException {
     decoderCounters = new DecoderCounters();
-    eventDispatcher.enabled(decoderCounters);
+    eventDispatcher.enabledA(decoderCounters);
     int tunnelingAudioSessionId = getConfiguration().tunnelingAudioSessionId;
     if (tunnelingAudioSessionId != C.AUDIO_SESSION_ID_UNSET) {
       audioSink.enableTunnelingV21(tunnelingAudioSessionId);
@@ -572,7 +572,7 @@ public abstract class SimpleDecoderAudioRenderer extends BaseRenderer implements
       releaseDecoder();
       audioSink.reset();
     } finally {
-      eventDispatcher.disabled(decoderCounters);
+      eventDispatcher.disabledA(decoderCounters);
     }
   }
 
@@ -624,7 +624,7 @@ public abstract class SimpleDecoderAudioRenderer extends BaseRenderer implements
       decoder = createDecoder(inputFormat, mediaCrypto);
       TraceUtil.endSection();
       long codecInitializedTimestamp = SystemClock.elapsedRealtime();
-      eventDispatcher.decoderInitialized(decoder.getName(), codecInitializedTimestamp,
+      eventDispatcher.decoderInitializedA(decoder.getName(), codecInitializedTimestamp,
           codecInitializedTimestamp - codecInitializingTimestamp);
       decoderCounters.decoderInitCount++;
     } catch (AudioDecoderException e) {
@@ -701,7 +701,7 @@ public abstract class SimpleDecoderAudioRenderer extends BaseRenderer implements
     encoderDelay = newFormat.encoderDelay;
     encoderPadding = newFormat.encoderPadding;
 
-    eventDispatcher.inputFormatChanged(newFormat);
+    eventDispatcher.inputFormatChangedA(newFormat);
   }
 
   private void onQueueInputBuffer(DecoderInputBuffer buffer) {
@@ -730,8 +730,8 @@ public abstract class SimpleDecoderAudioRenderer extends BaseRenderer implements
   private final class AudioSinkListener implements AudioSink.Listener {
 
     @Override
-    public void onAudioSessionId(int audioSessionId) {
-      eventDispatcher.audioSessionId(audioSessionId);
+    public void onAudioSessionIdA(int audioSessionId) {
+      eventDispatcher.audioSessionIdA(audioSessionId);
       SimpleDecoderAudioRenderer.this.onAudioSessionId(audioSessionId);
     }
 
@@ -744,7 +744,7 @@ public abstract class SimpleDecoderAudioRenderer extends BaseRenderer implements
 
     @Override
     public void onUnderrun(int bufferSize, long bufferSizeMs, long elapsedSinceLastFeedMs) {
-      eventDispatcher.audioTrackUnderrun(bufferSize, bufferSizeMs, elapsedSinceLastFeedMs);
+      eventDispatcher.audioTrackUnderrunA(bufferSize, bufferSizeMs, elapsedSinceLastFeedMs);
       onAudioTrackUnderrun(bufferSize, bufferSizeMs, elapsedSinceLastFeedMs);
     }
 

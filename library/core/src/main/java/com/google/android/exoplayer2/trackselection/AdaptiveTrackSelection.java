@@ -36,10 +36,13 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
  */
 public class AdaptiveTrackSelection extends BaseTrackSelection {
 
-  /** Factory for {@link AdaptiveTrackSelection} instances. */
+  /**
+   * Factory for {@link AdaptiveTrackSelection} instances.
+   */
   public static class Factory implements TrackSelection.Factory {
 
-    private final @Nullable BandwidthMeter bandwidthMeter;
+    private final @Nullable
+    BandwidthMeter bandwidthMeter;
     private final int minDurationForQualityIncreaseMs;
     private final int maxDurationForQualityDecreaseMs;
     private final int minDurationToRetainAfterDiscardMs;
@@ -51,7 +54,9 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
     private TrackBitrateEstimator trackBitrateEstimator;
     private boolean blockFixedTrackSelectionBandwidth;
 
-    /** Creates an adaptive track selection factory with default parameters. */
+    /**
+     * Creates an adaptive track selection factory with default parameters.
+     */
     public Factory() {
       this(
           DEFAULT_MIN_DURATION_FOR_QUALITY_INCREASE_MS,
@@ -65,7 +70,7 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
 
     /**
      * @deprecated Use {@link #Factory()} instead. Custom bandwidth meter should be directly passed
-     *     to the player in {@link ExoPlayerFactory}.
+     * to the player in {@link ExoPlayerFactory}.
      */
     @Deprecated
     @SuppressWarnings("deprecation")
@@ -85,16 +90,16 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
      * Creates an adaptive track selection factory.
      *
      * @param minDurationForQualityIncreaseMs The minimum duration of buffered data required for the
-     *     selected track to switch to one of higher quality.
+     * selected track to switch to one of higher quality.
      * @param maxDurationForQualityDecreaseMs The maximum duration of buffered data required for the
-     *     selected track to switch to one of lower quality.
+     * selected track to switch to one of lower quality.
      * @param minDurationToRetainAfterDiscardMs When switching to a track of significantly higher
-     *     quality, the selection may indicate that media already buffered at the lower quality can
-     *     be discarded to speed up the switch. This is the minimum duration of media that must be
-     *     retained at the lower quality.
+     * quality, the selection may indicate that media already buffered at the lower quality can be
+     * discarded to speed up the switch. This is the minimum duration of media that must be retained
+     * at the lower quality.
      * @param bandwidthFraction The fraction of the available bandwidth that the selection should
-     *     consider available for use. Setting to a value less than 1 is recommended to account for
-     *     inaccuracies in the bandwidth estimator.
+     * consider available for use. Setting to a value less than 1 is recommended to account for
+     * inaccuracies in the bandwidth estimator.
      */
     public Factory(
         int minDurationForQualityIncreaseMs,
@@ -113,7 +118,7 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
 
     /**
      * @deprecated Use {@link #Factory(int, int, int, float)} instead. Custom bandwidth meter should
-     *     be directly passed to the player in {@link ExoPlayerFactory}.
+     * be directly passed to the player in {@link ExoPlayerFactory}.
      */
     @Deprecated
     @SuppressWarnings("deprecation")
@@ -138,26 +143,25 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
      * Creates an adaptive track selection factory.
      *
      * @param minDurationForQualityIncreaseMs The minimum duration of buffered data required for the
-     *     selected track to switch to one of higher quality.
+     * selected track to switch to one of higher quality.
      * @param maxDurationForQualityDecreaseMs The maximum duration of buffered data required for the
-     *     selected track to switch to one of lower quality.
+     * selected track to switch to one of lower quality.
      * @param minDurationToRetainAfterDiscardMs When switching to a track of significantly higher
-     *     quality, the selection may indicate that media already buffered at the lower quality can
-     *     be discarded to speed up the switch. This is the minimum duration of media that must be
-     *     retained at the lower quality.
+     * quality, the selection may indicate that media already buffered at the lower quality can be
+     * discarded to speed up the switch. This is the minimum duration of media that must be retained
+     * at the lower quality.
      * @param bandwidthFraction The fraction of the available bandwidth that the selection should
-     *     consider available for use. Setting to a value less than 1 is recommended to account for
-     *     inaccuracies in the bandwidth estimator.
+     * consider available for use. Setting to a value less than 1 is recommended to account for
+     * inaccuracies in the bandwidth estimator.
      * @param bufferedFractionToLiveEdgeForQualityIncrease For live streaming, the fraction of the
-     *     duration from current playback position to the live edge that has to be buffered before
-     *     the selected track can be switched to one of higher quality. This parameter is only
-     *     applied when the playback position is closer to the live edge than {@code
-     *     minDurationForQualityIncreaseMs}, which would otherwise prevent switching to a higher
-     *     quality from happening.
+     * duration from current playback position to the live edge that has to be buffered before the
+     * selected track can be switched to one of higher quality. This parameter is only applied when
+     * the playback position is closer to the live edge than {@code minDurationForQualityIncreaseMs},
+     * which would otherwise prevent switching to a higher quality from happening.
      * @param minTimeBetweenBufferReevaluationMs The track selection may periodically reevaluate its
-     *     buffer and discard some chunks of lower quality to improve the playback quality if
-     *     network conditions have changed. This is the minimum duration between 2 consecutive
-     *     buffer reevaluation calls.
+     * buffer and discard some chunks of lower quality to improve the playback quality if network
+     * conditions have changed. This is the minimum duration between 2 consecutive buffer
+     * reevaluation calls.
      * @param clock A {@link Clock}.
      */
     @SuppressWarnings("deprecation")
@@ -182,7 +186,7 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
 
     /**
      * @deprecated Use {@link #Factory(int, int, int, float, float, long, Clock)} instead. Custom
-     *     bandwidth meter should be directly passed to the player in {@link ExoPlayerFactory}.
+     * bandwidth meter should be directly passed to the player in {@link ExoPlayerFactory}.
      */
     @Deprecated
     public Factory(
@@ -225,6 +229,12 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
      */
     public final void experimental_enableBlockFixedTrackSelectionBandwidth() {
       this.blockFixedTrackSelectionBandwidth = true;
+    }
+
+    @Override
+    public TrackSelection createTrackSelection(TrackGroup group, BandwidthMeter bandwidthMeter,
+        int... tracks) {
+      throw new UnsupportedOperationException();
     }
 
     @Override
@@ -332,7 +342,7 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
   /**
    * @param group The {@link TrackGroup}.
    * @param tracks The indices of the selected tracks within the {@link TrackGroup}. Must not be
-   *     empty. May be in any order.
+   * empty. May be in any order.
    * @param bandwidthMeter Provides an estimate of the currently available bandwidth.
    */
   public AdaptiveTrackSelection(TrackGroup group, int[] tracks,
@@ -353,29 +363,28 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
   /**
    * @param group The {@link TrackGroup}.
    * @param tracks The indices of the selected tracks within the {@link TrackGroup}. Must not be
-   *     empty. May be in any order.
+   * empty. May be in any order.
    * @param bandwidthMeter Provides an estimate of the currently available bandwidth.
    * @param minDurationForQualityIncreaseMs The minimum duration of buffered data required for the
-   *     selected track to switch to one of higher quality.
+   * selected track to switch to one of higher quality.
    * @param maxDurationForQualityDecreaseMs The maximum duration of buffered data required for the
-   *     selected track to switch to one of lower quality.
+   * selected track to switch to one of lower quality.
    * @param minDurationToRetainAfterDiscardMs When switching to a track of significantly higher
-   *     quality, the selection may indicate that media already buffered at the lower quality can be
-   *     discarded to speed up the switch. This is the minimum duration of media that must be
-   *     retained at the lower quality.
+   * quality, the selection may indicate that media already buffered at the lower quality can be
+   * discarded to speed up the switch. This is the minimum duration of media that must be retained
+   * at the lower quality.
    * @param bandwidthFraction The fraction of the available bandwidth that the selection should
-   *     consider available for use. Setting to a value less than 1 is recommended to account for
-   *     inaccuracies in the bandwidth estimator.
+   * consider available for use. Setting to a value less than 1 is recommended to account for
+   * inaccuracies in the bandwidth estimator.
    * @param bufferedFractionToLiveEdgeForQualityIncrease For live streaming, the fraction of the
-   *     duration from current playback position to the live edge that has to be buffered before the
-   *     selected track can be switched to one of higher quality. This parameter is only applied
-   *     when the playback position is closer to the live edge than {@code
-   *     minDurationForQualityIncreaseMs}, which would otherwise prevent switching to a higher
-   *     quality from happening.
+   * duration from current playback position to the live edge that has to be buffered before the
+   * selected track can be switched to one of higher quality. This parameter is only applied when
+   * the playback position is closer to the live edge than {@code minDurationForQualityIncreaseMs},
+   * which would otherwise prevent switching to a higher quality from happening.
    * @param minTimeBetweenBufferReevaluationMs The track selection may periodically reevaluate its
-   *     buffer and discard some chunks of lower quality to improve the playback quality if network
-   *     condition has changed. This is the minimum duration between 2 consecutive buffer
-   *     reevaluation calls.
+   * buffer and discard some chunks of lower quality to improve the playback quality if network
+   * condition has changed. This is the minimum duration between 2 consecutive buffer reevaluation
+   * calls.
    */
   public AdaptiveTrackSelection(
       TrackGroup group,
@@ -461,7 +470,7 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
    * Sets checkpoints to determine the allocation bandwidth based on the total bandwidth.
    *
    * @param allocationCheckpoints List of checkpoints. Each element must be a long[2], with [0]
-   *     being the total bandwidth and [1] being the allocated bandwidth.
+   * being the total bandwidth and [1] being the allocated bandwidth.
    */
   public void experimental_setBandwidthAllocationCheckpoints(long[][] allocationCheckpoints) {
     ((DefaultBandwidthProvider) bandwidthProvider)
@@ -476,6 +485,17 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
   @Override
   public void onPlaybackSpeed(float playbackSpeed) {
     this.playbackSpeed = playbackSpeed;
+  }
+
+  @Override
+  public void onDiscontinuity() {
+
+  }
+
+  @Override
+  public void updateSelectedTrack(long playbackPositionUs, long bufferedDurationUs,
+      long availableDurationUs) {
+    throw new UnsupportedOperationException();
   }
 
   @Override
@@ -537,7 +557,8 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
   }
 
   @Override
-  public @Nullable Object getSelectionData() {
+  public @Nullable
+  Object getSelectionData() {
     return null;
   }
 
@@ -585,11 +606,12 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
   }
 
   /**
-   * Called when updating the selected track to determine whether a candidate track can be selected.
+   * Called when updating the selected track to determine whether a candidate track can be
+   * selected.
    *
    * @param format The {@link Format} of the candidate track.
    * @param trackBitrate The estimated bitrate of the track. May differ from {@link Format#bitrate}
-   *     if a more accurate estimate of the current track bitrate is available.
+   * if a more accurate estimate of the current track bitrate is available.
    * @param playbackSpeed The current playback speed.
    * @param effectiveBitrate The bitrate available to this selection.
    * @return Whether this {@link Format} can be selected.
@@ -626,9 +648,9 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
    * Computes the ideal selected index ignoring buffer health.
    *
    * @param nowMs The current time in the timebase of {@link Clock#elapsedRealtime()}, or {@link
-   *     Long#MIN_VALUE} to ignore blacklisting.
+   * Long#MIN_VALUE} to ignore blacklisting.
    * @param trackBitrates The estimated track bitrates. May differ from format bitrates if more
-   *     accurate estimates of the current track bitrates are available.
+   * accurate estimates of the current track bitrates are available.
    */
   private int determineIdealSelectedIndex(long nowMs, int[] trackBitrates) {
     long effectiveBitrate = bandwidthProvider.getAllocatedBandwidth();
@@ -654,10 +676,14 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
         : minDurationForQualityIncreaseUs;
   }
 
-  /** Provides the allocated bandwidth. */
+  /**
+   * Provides the allocated bandwidth.
+   */
   private interface BandwidthProvider {
 
-    /** Returns the allocated bitrate. */
+    /**
+     * Returns the allocated bitrate.
+     */
     long getAllocatedBandwidth();
   }
 
@@ -668,7 +694,8 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
 
     private long nonAllocatableBandwidth;
 
-    @Nullable private long[][] allocationCheckpoints;
+    @Nullable
+    private long[][] allocationCheckpoints;
 
     /* package */ DefaultBandwidthProvider(BandwidthMeter bandwidthMeter, float bandwidthFraction) {
       this.bandwidthMeter = bandwidthMeter;
@@ -711,7 +738,7 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
    *
    * @param trackBitrates Array of [selectionIndex][trackIndex] -> trackBitrate.
    * @return Array of allocation checkpoints [selectionIndex][checkpointIndex][2] with [0]=total
-   *     bandwidth at checkpoint and [1]=allocated bandwidth at checkpoint.
+   * bandwidth at checkpoint and [1]=allocated bandwidth at checkpoint.
    */
   private static long[][][] getAllocationCheckpoints(long[][] trackBitrates) {
     // Algorithm:
@@ -751,7 +778,9 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
     return checkpoints;
   }
 
-  /** Converts all input values to Math.log(value). */
+  /**
+   * Converts all input values to Math.log(value).
+   */
   private static double[][] getLogArrayValues(long[][] values) {
     double[][] logValues = new double[values.length][];
     for (int i = 0; i < values.length; i++) {
@@ -785,7 +814,9 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
     return switchPoints;
   }
 
-  /** Returns total number of elements in a 2D array. */
+  /**
+   * Returns total number of elements in a 2D array.
+   */
   private static int countArrayElements(double[][] array) {
     int count = 0;
     for (double[] subArray : array) {
@@ -798,7 +829,7 @@ public class AdaptiveTrackSelection extends BaseTrackSelection {
    * Sets checkpoint bitrates.
    *
    * @param checkpoints Output checkpoints with [selectionIndex][checkpointIndex][2] where [0]=Total
-   *     bitrate and [1]=Allocated bitrate.
+   * bitrate and [1]=Allocated bitrate.
    * @param checkpointIndex The checkpoint index.
    * @param trackBitrates The track bitrates with [selectionIndex][trackIndex].
    * @param selectedTracks The indices of selected tracks for each selection for this checkpoint.

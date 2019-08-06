@@ -85,7 +85,7 @@ public final class TrackSelectionUtil {
    * @param parameters The current {@link DefaultTrackSelector.Parameters} to build upon.
    * @param rendererIndex The renderer index to update.
    * @param trackGroupArray The {@link TrackGroupArray} of the renderer.
-   * @param isDisabled Whether the renderer should be set disabled.
+   * @param isDisabled Whether the renderer should be set disabledA.
    * @param override An optional override for the renderer. If null, no override will be set and an
    *     existing override for this renderer will be cleared.
    * @return The updated {@link DefaultTrackSelector.Parameters}.

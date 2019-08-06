@@ -95,24 +95,27 @@ public final class TrackSelectionDialog extends DialogFragment {
         /* initialParameters = */ parameters,
         /* allowAdaptiveSelections =*/ true,
         /* allowMultipleOverrides= */ false,
-        /* onClickListener= */ (dialog, which) -> {
-          DefaultTrackSelector.ParametersBuilder builder = parameters.buildUpon();
-          for (int i = 0; i < mappedTrackInfo.getRendererCount(); i++) {
-            builder
-                .clearSelectionOverrides(/* rendererIndex= */ i)
-                .setRendererDisabled(
+        /* onClickListener= */ new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+            DefaultTrackSelector.ParametersBuilder builder = parameters.buildUpon();
+            for (int i = 0; i < mappedTrackInfo.getRendererCount(); i++) {
+              builder
+                  .clearSelectionOverrides(/* rendererIndex= */ i)
+                  .setRendererDisabled(
+                      /* rendererIndex= */ i,
+                      trackSelectionDialog.getIsDisabled(/* rendererIndex= */ i));
+              List<SelectionOverride> overrides =
+                  trackSelectionDialog.getOverrides(/* rendererIndex= */ i);
+              if (!overrides.isEmpty()) {
+                builder.setSelectionOverride(
                     /* rendererIndex= */ i,
-                    trackSelectionDialog.getIsDisabled(/* rendererIndex= */ i));
-            List<SelectionOverride> overrides =
-                trackSelectionDialog.getOverrides(/* rendererIndex= */ i);
-            if (!overrides.isEmpty()) {
-              builder.setSelectionOverride(
-                  /* rendererIndex= */ i,
-                  mappedTrackInfo.getTrackGroups(/* rendererIndex= */ i),
-                  overrides.get(0));
+                    mappedTrackInfo.getTrackGroups(/* rendererIndex= */ i),
+                    overrides.get(0));
+              }
             }
+            trackSelector.setParameters(builder);
           }
-          trackSelector.setParameters(builder);
         },
         onDismissListener);
     return trackSelectionDialog;
@@ -189,10 +192,10 @@ public final class TrackSelectionDialog extends DialogFragment {
   }
 
   /**
-   * Returns whether a renderer is disabled.
+   * Returns whether a renderer is disabledA.
    *
    * @param rendererIndex Renderer index.
-   * @return Whether the renderer is disabled.
+   * @return Whether the renderer is disabledA.
    */
   public boolean getIsDisabled(int rendererIndex) {
     TrackSelectionViewFragment rendererView = tabFragments.get(rendererIndex);
@@ -215,7 +218,7 @@ public final class TrackSelectionDialog extends DialogFragment {
   public Dialog onCreateDialog(Bundle savedInstanceState) {
     // We need to own the view to let tab layout work correctly on all API levels. We can't use
     // AlertDialog because it owns the view itself, so we use AppCompatDialog instead, themed using
-    // the AlertDialog theme overlay with force-enabled title.
+    // the AlertDialog theme overlay with force-enabledA title.
     AppCompatDialog dialog =
         new AppCompatDialog(getActivity(), R.style.TrackSelectionDialogThemeOverlay);
     dialog.setTitle(titleId);
@@ -241,11 +244,20 @@ public final class TrackSelectionDialog extends DialogFragment {
     viewPager.setAdapter(new FragmentAdapter(getChildFragmentManager()));
     tabLayout.setupWithViewPager(viewPager);
     tabLayout.setVisibility(tabFragments.size() > 1 ? View.VISIBLE : View.GONE);
-    cancelButton.setOnClickListener(view -> dismiss());
+    cancelButton.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        TrackSelectionDialog.this.dismiss();
+      }
+    });
     okButton.setOnClickListener(
-        view -> {
-          onClickListener.onClick(getDialog(), DialogInterface.BUTTON_POSITIVE);
-          dismiss();
+        new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            onClickListener
+                .onClick(TrackSelectionDialog.this.getDialog(), DialogInterface.BUTTON_POSITIVE);
+            TrackSelectionDialog.this.dismiss();
+          }
         });
     return dialogView;
   }

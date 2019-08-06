@@ -51,7 +51,7 @@ public final class AudioCapabilities {
   private static final String EXTERNAL_SURROUND_SOUND_KEY = "external_surround_sound_enabled";
   // AMZN_CHANGE_BEGIN
    /** For Optical output, we read this global setting to detect if dolby
-     * output is enabled. If USE_EXTERNAL_SURROUND_SOUND_FLAG is not set, then
+     * output is enabledA. If USE_EXTERNAL_SURROUND_SOUND_FLAG is not set, then
      * we fallback on the HDMI audio intent.
      */
  public static final String USE_EXTERNAL_SURROUND_SOUND_FLAG = "use_external_surround_sound_flag";
@@ -83,7 +83,7 @@ public final class AudioCapabilities {
         useSurroundSoundFlag = useSurroundSoundFlagV17(resolver);
         isSurroundSoundEnabled = isSurroundSoundEnabledV17(resolver);
     }
-    //  If use surround sound enabled flag is set, then ignore the hmdi plug
+    //  If use surround sound enabledA flag is set, then ignore the hmdi plug
     //  encodings.  Rely only on EXTERNAL_SURROUND_SOUND_CAPABILITIES to
     //  determine if dolby is supported.
     if (useSurroundSoundFlag) {

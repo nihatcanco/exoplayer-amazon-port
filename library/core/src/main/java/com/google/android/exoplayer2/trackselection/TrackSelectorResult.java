@@ -29,7 +29,7 @@ public final class TrackSelectorResult {
   public final int length;
   /**
    * A {@link RendererConfiguration} for each renderer. A null entry indicates the corresponding
-   * renderer should be disabled.
+   * renderer should be disabledA.
    */
   public final @NullableType RendererConfiguration[] rendererConfigurations;
   /**
@@ -44,7 +44,7 @@ public final class TrackSelectorResult {
 
   /**
    * @param rendererConfigurations A {@link RendererConfiguration} for each renderer. A null entry
-   *     indicates the corresponding renderer should be disabled.
+   *     indicates the corresponding renderer should be disabledA.
    * @param selections A {@link TrackSelectionArray} containing the selection for each renderer.
    * @param info An opaque object that will be returned to {@link
    *     TrackSelector#onSelectionActivated(Object)} should the selection be activated.
@@ -59,7 +59,7 @@ public final class TrackSelectorResult {
     length = rendererConfigurations.length;
   }
 
-  /** Returns whether the renderer at the specified index is enabled. */
+  /** Returns whether the renderer at the specified index is enabledA. */
   public boolean isRendererEnabled(int index) {
     return rendererConfigurations[index] != null;
   }

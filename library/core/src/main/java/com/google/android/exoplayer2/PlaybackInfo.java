@@ -154,7 +154,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelectorResult;
   /**
    * Returns dummy media period id for the first-to-be-played period of the current timeline.
    *
-   * @param shuffleModeEnabled Whether shuffle mode is enabled.
+   * @param shuffleModeEnabled Whether shuffle mode is enabledA.
    * @param window A writable {@link Timeline.Window}.
    * @return A dummy media period id for the first-to-be-played period of the current timeline.
    */

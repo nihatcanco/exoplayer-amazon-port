@@ -53,7 +53,7 @@ public interface AdsLoader {
      *
      * @param adPlaybackState The new ad playback state.
      */
-    default void onAdPlaybackState(AdPlaybackState adPlaybackState) {}
+    void onAdPlaybackState(AdPlaybackState adPlaybackState);
 
     /**
      * Called when there was an error loading ads.
@@ -61,13 +61,13 @@ public interface AdsLoader {
      * @param error The error.
      * @param dataSpec The data spec associated with the load error.
      */
-    default void onAdLoadError(AdLoadException error, DataSpec dataSpec) {}
+    void onAdLoadError(AdLoadException error, DataSpec dataSpec);
 
     /** Called when the user clicks through an ad (for example, following a 'learn more' link). */
-    default void onAdClicked() {}
+    void onAdClicked();
 
     /** Called when the user taps a non-clickthrough part of an ad. */
-    default void onAdTapped() {}
+    void onAdTapped();
   }
 
   /** Provides views for the ad UI. */

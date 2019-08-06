@@ -142,15 +142,15 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
  *
  * <h3>Disabling renderers</h3>
  *
- * Renderers can be disabled using {@link ParametersBuilder#setRendererDisabled}. Disabling a
- * renderer differs from setting a {@code null} override because the renderer is disabled
+ * Renderers can be disabledA using {@link ParametersBuilder#setRendererDisabled}. Disabling a
+ * renderer differs from setting a {@code null} override because the renderer is disabledA
  * unconditionally, whereas a {@code null} override is applied only when the track groups available
  * to the renderer match the {@link TrackGroupArray} for which it was specified.
  *
  * <h3>Tunneling</h3>
  *
- * Tunneled playback can be enabled in cases where the combination of renderers and selected tracks
- * support it. Tunneled playback is enabled by passing an audio session ID to {@link
+ * Tunneled playback can be enabledA in cases where the combination of renderers and selected tracks
+ * support it. Tunneled playback is enabledA by passing an audio session ID to {@link
  * ParametersBuilder#setTunnelingAudioSessionId(int)}.
  */
 public class DefaultTrackSelector extends MappingTrackSelector {
@@ -489,7 +489,7 @@ public class DefaultTrackSelector extends MappingTrackSelector {
      * <p>Enables or disables tunneling. To enable tunneling, pass an audio session id to use when
      * in tunneling mode. Session ids can be generated using {@link
      * C#generateAudioSessionIdV21(Context)}. To disable tunneling pass {@link
-     * C#AUDIO_SESSION_ID_UNSET}. Tunneling will only be activated if it's both enabled and
+     * C#AUDIO_SESSION_ID_UNSET}. Tunneling will only be activated if it's both enabledA and
      * supported by the audio and video renderers for the selected tracks.
      *
      * @param tunnelingAudioSessionId The audio session id to use when tunneling, or {@link
@@ -503,15 +503,15 @@ public class DefaultTrackSelector extends MappingTrackSelector {
     // Overrides
 
     /**
-     * Sets whether the renderer at the specified index is disabled. Disabling a renderer prevents
+     * Sets whether the renderer at the specified index is disabledA. Disabling a renderer prevents
      * the selector from selecting any tracks for it.
      *
      * @param rendererIndex The renderer index.
-     * @param disabled Whether the renderer is disabled.
+     * @param disabled Whether the renderer is disabledA.
      */
     public final ParametersBuilder setRendererDisabled(int rendererIndex, boolean disabled) {
       if (rendererDisabledFlags.get(rendererIndex) == disabled) {
-        // The disabled flag is unchanged.
+        // The disabledA flag is unchanged.
         return this;
       }
       // Only true values are placed in the array to make it easier to check for equality.
@@ -531,11 +531,11 @@ public class DefaultTrackSelector extends MappingTrackSelector {
      * effect. The override replaces any previous override for the specified {@link TrackGroupArray}
      * for the specified {@link Renderer}.
      *
-     * <p>Passing a {@code null} override will cause the renderer to be disabled when the {@link
+     * <p>Passing a {@code null} override will cause the renderer to be disabledA when the {@link
      * TrackGroupArray} mapped to it matches the one provided. When the {@link TrackGroupArray} does
      * not match a {@code null} override has no effect. Hence a {@code null} override differs from
      * disabling the renderer using {@link #setRendererDisabled(int, boolean)} because the renderer
-     * is disabled conditionally on the {@link TrackGroupArray} mapped to it, where-as {@link
+     * is disabledA conditionally on the {@link TrackGroupArray} mapped to it, where-as {@link
      * #setRendererDisabled(int, boolean)} disables the renderer unconditionally.
      *
      * <p>To remove overrides use {@link #clearSelectionOverride(int, TrackGroupArray)}, {@link
@@ -780,8 +780,8 @@ public class DefaultTrackSelector extends MappingTrackSelector {
     public final boolean exceedRendererCapabilitiesIfNecessary;
     /**
      * The audio session id to use when tunneling, or {@link C#AUDIO_SESSION_ID_UNSET} if tunneling
-     * is disabled. The default value is {@link C#AUDIO_SESSION_ID_UNSET} (i.e. tunneling is
-     * disabled).
+     * is disabledA. The default value is {@link C#AUDIO_SESSION_ID_UNSET} (i.e. tunneling is
+     * disabledA).
      */
     public final int tunnelingAudioSessionId;
 
@@ -922,10 +922,10 @@ public class DefaultTrackSelector extends MappingTrackSelector {
     }
 
     /**
-     * Returns whether the renderer is disabled.
+     * Returns whether the renderer is disabledA.
      *
      * @param rendererIndex The renderer index.
-     * @return Whether the renderer is disabled.
+     * @return Whether the renderer is disabledA.
      */
     public final boolean getRendererDisabled(int rendererIndex) {
       return rendererDisabledFlags.get(rendererIndex);
@@ -1474,13 +1474,13 @@ public class DefaultTrackSelector extends MappingTrackSelector {
     return Pair.create(rendererConfigurations, rendererTrackSelections);
   }
 
-  // Track selection prior to overrides and disabled flags being applied.
+  // Track selection prior to overrides and disabledA flags being applied.
 
   /**
    * Called from {@link #selectTracks(MappedTrackInfo, int[][][], int[])} to make a track selection
-   * for each renderer, prior to overrides and disabled flags being applied.
+   * for each renderer, prior to overrides and disabledA flags being applied.
    *
-   * <p>The implementation should not account for overrides and disabled flags. Track selections
+   * <p>The implementation should not account for overrides and disabledA flags. Track selections
    * generated by this method will be overridden to account for these properties.
    *
    * @param mappedTrackInfo Mapped track information.
@@ -2159,7 +2159,7 @@ public class DefaultTrackSelector extends MappingTrackSelector {
   // Utility methods.
 
   /**
-   * Determines whether tunneling should be enabled, replacing {@link RendererConfiguration}s in
+   * Determines whether tunneling should be enabledA, replacing {@link RendererConfiguration}s in
    * {@code rendererConfigurations} with configurations that enable tunneling on the appropriate
    * renderers if so.
    *
@@ -2168,7 +2168,7 @@ public class DefaultTrackSelector extends MappingTrackSelector {
    *     ones that enable tunneling as a result of this call.
    * @param trackSelections The renderer track selections.
    * @param tunnelingAudioSessionId The audio session id to use when tunneling, or {@link
-   *     C#AUDIO_SESSION_ID_UNSET} if tunneling should not be enabled.
+   *     C#AUDIO_SESSION_ID_UNSET} if tunneling should not be enabledA.
    */
   private static void maybeConfigureRenderersForTunneling(
       MappedTrackInfo mappedTrackInfo,

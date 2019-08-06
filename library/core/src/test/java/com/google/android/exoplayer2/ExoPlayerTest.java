@@ -776,7 +776,7 @@ public final class ExoPlayerTest {
 
     List<FakeTrackSelection> createdTrackSelections = trackSelector.getAllTrackSelections();
     int numSelectionsEnabled = 0;
-    // Assert that all tracks selection are disabled at the end of the playback.
+    // Assert that all tracks selection are disabledA at the end of the playback.
     for (FakeTrackSelection trackSelection : createdTrackSelections) {
       assertThat(trackSelection.isEnabled).isFalse();
       numSelectionsEnabled += trackSelection.enableCount;
@@ -805,7 +805,7 @@ public final class ExoPlayerTest {
 
     List<FakeTrackSelection> createdTrackSelections = trackSelector.getAllTrackSelections();
     int numSelectionsEnabled = 0;
-    // Assert that all tracks selection are disabled at the end of the playback.
+    // Assert that all tracks selection are disabledA at the end of the playback.
     for (FakeTrackSelection trackSelection : createdTrackSelections) {
       assertThat(trackSelection.isEnabled).isFalse();
       numSelectionsEnabled += trackSelection.enableCount;
@@ -843,13 +843,13 @@ public final class ExoPlayerTest {
 
     List<FakeTrackSelection> createdTrackSelections = trackSelector.getAllTrackSelections();
     int numSelectionsEnabled = 0;
-    // Assert that all tracks selection are disabled at the end of the playback.
+    // Assert that all tracks selection are disabledA at the end of the playback.
     for (FakeTrackSelection trackSelection : createdTrackSelections) {
       assertThat(trackSelection.isEnabled).isFalse();
       numSelectionsEnabled += trackSelection.enableCount;
     }
     // There are 2 renderers, and track selections are made twice. The second time one renderer is
-    // disabled, so only one out of the two track selections is enabled.
+    // disabledA, so only one out of the two track selections is enabledA.
     assertThat(createdTrackSelections).hasSize(3);
     assertThat(numSelectionsEnabled).isEqualTo(3);
   }
@@ -882,14 +882,14 @@ public final class ExoPlayerTest {
 
     List<FakeTrackSelection> createdTrackSelections = trackSelector.getAllTrackSelections();
     int numSelectionsEnabled = 0;
-    // Assert that all tracks selection are disabled at the end of the playback.
+    // Assert that all tracks selection are disabledA at the end of the playback.
     for (FakeTrackSelection trackSelection : createdTrackSelections) {
       assertThat(trackSelection.isEnabled).isFalse();
       numSelectionsEnabled += trackSelection.enableCount;
     }
     // There are 2 renderers, and track selections are made twice. The second time one renderer is
-    // disabled, and the selector re-uses the previous selection for the enabled renderer. So we
-    // expect two track selections, one of which will have been enabled twice.
+    // disabledA, and the selector re-uses the previous selection for the enabledA renderer. So we
+    // expect two track selections, one of which will have been enabledA twice.
     assertThat(createdTrackSelections).hasSize(2);
     assertThat(numSelectionsEnabled).isEqualTo(3);
   }

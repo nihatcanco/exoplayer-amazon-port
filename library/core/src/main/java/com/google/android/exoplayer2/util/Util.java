@@ -40,6 +40,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Parcel;
 import android.security.NetworkSecurityPolicy;
+import android.view.Surface;
 import androidx.annotation.Nullable;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
@@ -54,6 +55,7 @@ import com.google.android.exoplayer2.RendererCapabilities;
 import com.google.android.exoplayer2.RenderersFactory;
 import com.google.android.exoplayer2.SeekParameters;
 import com.google.android.exoplayer2.audio.AudioRendererEventListener;
+import com.google.android.exoplayer2.decoder.DecoderCounters;
 import com.google.android.exoplayer2.drm.DrmSessionManager;
 import com.google.android.exoplayer2.drm.FrameworkMediaCrypto;
 import com.google.android.exoplayer2.upstream.DataSource;
@@ -122,26 +124,29 @@ public final class Util {
   public static final String DEVICE_DEBUG_INFO = DEVICE + ", " + MODEL + ", " + MANUFACTURER + ", "
       + SDK_INT;
 
-  /** An empty byte array. */
+  /**
+   * An empty byte array.
+   */
   public static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
 
   private static final String TAG = "Util";
   private static final Pattern XS_DATE_TIME_PATTERN = Pattern.compile(
       "(\\d\\d\\d\\d)\\-(\\d\\d)\\-(\\d\\d)[Tt]"
-      + "(\\d\\d):(\\d\\d):(\\d\\d)([\\.,](\\d+))?"
-      + "([Zz]|((\\+|\\-)(\\d?\\d):?(\\d\\d)))?");
+          + "(\\d\\d):(\\d\\d):(\\d\\d)([\\.,](\\d+))?"
+          + "([Zz]|((\\+|\\-)(\\d?\\d):?(\\d\\d)))?");
   private static final Pattern XS_DURATION_PATTERN =
       Pattern.compile("^(-)?P(([0-9]*)Y)?(([0-9]*)M)?(([0-9]*)D)?"
           + "(T(([0-9]*)H)?(([0-9]*)M)?(([0-9.]*)S)?)?$");
   private static final Pattern ESCAPED_CHARACTER_PATTERN = Pattern.compile("%([A-Fa-f0-9]{2})");
 
-  private Util() {}
+  private Util() {
+  }
 
   /**
    * Converts the entirety of an {@link InputStream} to a byte array.
    *
    * @param inputStream the {@link InputStream} to be read. The input stream is not closed by this
-   *    method.
+   * method.
    * @return a byte array containing all of the inputStream's bytes.
    * @throws IOException if an error occurs reading from the stream.
    */
@@ -189,7 +194,7 @@ public final class Util {
       if (isLocalFileUri(uri)) {
         if (activity.checkSelfPermission(permission.READ_EXTERNAL_STORAGE)
             != PackageManager.PERMISSION_GRANTED) {
-          activity.requestPermissions(new String[] {permission.READ_EXTERNAL_STORAGE}, 0);
+          activity.requestPermissions(new String[]{permission.READ_EXTERNAL_STORAGE}, 0);
           return true;
         }
         break;
@@ -214,7 +219,7 @@ public final class Util {
     for (Uri uri : uris) {
       if ("http".equals(uri.getScheme())
           && !NetworkSecurityPolicy.getInstance()
-              .isCleartextTrafficPermitted(Assertions.checkNotNull(uri.getHost()))) {
+          .isCleartextTrafficPermitted(Assertions.checkNotNull(uri.getHost()))) {
         // The security policy prevents cleartext traffic.
         return false;
       }
@@ -272,7 +277,7 @@ public final class Util {
    * @param fromIndex The first index to be removed (inclusive).
    * @param toIndex The last index to be removed (exclusive).
    * @throws IllegalArgumentException If {@code fromIndex} &lt; 0, {@code toIndex} &gt; {@code
-   *     list.size()}, or {@code fromIndex} &gt; {@code toIndex}.
+   * list.size()}, or {@code fromIndex} &gt; {@code toIndex}.
    */
   public static <T> void removeRange(List<T> list, int fromIndex, int toIndex) {
     if (fromIndex < 0 || toIndex > list.size() || fromIndex > toIndex) {
@@ -294,7 +299,9 @@ public final class Util {
     return value;
   }
 
-  /** Casts a nullable type array to a non-null type array without runtime null check. */
+  /**
+   * Casts a nullable type array to a non-null type array without runtime null check.
+   */
   @SuppressWarnings({"contracts.postcondition.not.satisfied", "return.type.incompatible"})
   @EnsuresNonNull("#1")
   public static <T> T[] castNonNullTypeArray(@NullableType T[] value) {
@@ -442,9 +449,9 @@ public final class Util {
    * Returns a normalized IETF BCP 47 language tag for {@code language}.
    *
    * @param language A case-insensitive language code supported by {@link
-   *     Locale#forLanguageTag(String)}.
+   * Locale#forLanguageTag(String)}.
    * @return The all-lowercase normalized code, or null if the input was null, or {@code
-   *     language.toLowerCase()} if the language could not be normalized.
+   * language.toLowerCase()} if the language could not be normalized.
    */
   public static @PolyNull String normalizeLanguageCode(@PolyNull String language) {
     if (language == null) {
@@ -665,12 +672,12 @@ public final class Util {
    * @param array The array to search.
    * @param value The value being searched for.
    * @param inclusive If the value is present in the array, whether to return the corresponding
-   *     index. If false then the returned index corresponds to the largest element strictly less
-   *     than the value.
+   * index. If false then the returned index corresponds to the largest element strictly less than
+   * the value.
    * @param stayInBounds If true, then 0 will be returned in the case that the value is smaller than
-   *     the smallest element in the array. If false then -1 will be returned.
+   * the smallest element in the array. If false then -1 will be returned.
    * @return The index of the largest element in {@code array} that is less than (or optionally
-   *     equal to) {@code value}.
+   * equal to) {@code value}.
    */
   public static int binarySearchFloor(int[] array, int value, boolean inclusive,
       boolean stayInBounds) {
@@ -678,7 +685,8 @@ public final class Util {
     if (index < 0) {
       index = -(index + 2);
     } else {
-      while (--index >= 0 && array[index] == value) {}
+      while (--index >= 0 && array[index] == value) {
+      }
       if (inclusive) {
         index++;
       }
@@ -697,12 +705,12 @@ public final class Util {
    * @param array The array to search.
    * @param value The value being searched for.
    * @param inclusive If the value is present in the array, whether to return the corresponding
-   *     index. If false then the returned index corresponds to the largest element strictly less
-   *     than the value.
+   * index. If false then the returned index corresponds to the largest element strictly less than
+   * the value.
    * @param stayInBounds If true, then 0 will be returned in the case that the value is smaller than
-   *     the smallest element in the array. If false then -1 will be returned.
+   * the smallest element in the array. If false then -1 will be returned.
    * @return The index of the largest element in {@code array} that is less than (or optionally
-   *     equal to) {@code value}.
+   * equal to) {@code value}.
    */
   public static int binarySearchFloor(long[] array, long value, boolean inclusive,
       boolean stayInBounds) {
@@ -710,7 +718,8 @@ public final class Util {
     if (index < 0) {
       index = -(index + 2);
     } else {
-      while (--index >= 0 && array[index] == value) {}
+      while (--index >= 0 && array[index] == value) {
+      }
       if (inclusive) {
         index++;
       }
@@ -730,12 +739,12 @@ public final class Util {
    * @param list The list to search.
    * @param value The value being searched for.
    * @param inclusive If the value is present in the list, whether to return the corresponding
-   *     index. If false then the returned index corresponds to the largest element strictly less
-   *     than the value.
+   * index. If false then the returned index corresponds to the largest element strictly less than
+   * the value.
    * @param stayInBounds If true, then 0 will be returned in the case that the value is smaller than
-   *     the smallest element in the list. If false then -1 will be returned.
+   * the smallest element in the list. If false then -1 will be returned.
    * @return The index of the largest element in {@code list} that is less than (or optionally equal
-   *     to) {@code value}.
+   * to) {@code value}.
    */
   public static <T extends Comparable<? super T>> int binarySearchFloor(
       List<? extends Comparable<? super T>> list,
@@ -746,7 +755,8 @@ public final class Util {
     if (index < 0) {
       index = -(index + 2);
     } else {
-      while (--index >= 0 && list.get(index).compareTo(value) == 0) {}
+      while (--index >= 0 && list.get(index).compareTo(value) == 0) {
+      }
       if (inclusive) {
         index++;
       }
@@ -758,20 +768,21 @@ public final class Util {
    * Returns the index of the smallest element in {@code array} that is greater than (or optionally
    * equal to) a specified {@code value}.
    *
-   * <p>The search is performed using a binary search algorithm, so the array must be sorted. If the
+   * <p>The search is performed using a binary search algorithm, so the array must be sorted. If
+   * the
    * array contains multiple elements equal to {@code value} and {@code inclusive} is true, the
    * index of the last one will be returned.
    *
    * @param array The array to search.
    * @param value The value being searched for.
    * @param inclusive If the value is present in the array, whether to return the corresponding
-   *     index. If false then the returned index corresponds to the smallest element strictly
-   *     greater than the value.
+   * index. If false then the returned index corresponds to the smallest element strictly greater
+   * than the value.
    * @param stayInBounds If true, then {@code (a.length - 1)} will be returned in the case that the
-   *     value is greater than the largest element in the array. If false then {@code a.length} will
-   *     be returned.
+   * value is greater than the largest element in the array. If false then {@code a.length} will be
+   * returned.
    * @return The index of the smallest element in {@code array} that is greater than (or optionally
-   *     equal to) {@code value}.
+   * equal to) {@code value}.
    */
   public static int binarySearchCeil(
       int[] array, int value, boolean inclusive, boolean stayInBounds) {
@@ -779,7 +790,8 @@ public final class Util {
     if (index < 0) {
       index = ~index;
     } else {
-      while (++index < array.length && array[index] == value) {}
+      while (++index < array.length && array[index] == value) {
+      }
       if (inclusive) {
         index--;
       }
@@ -791,20 +803,21 @@ public final class Util {
    * Returns the index of the smallest element in {@code array} that is greater than (or optionally
    * equal to) a specified {@code value}.
    *
-   * <p>The search is performed using a binary search algorithm, so the array must be sorted. If the
+   * <p>The search is performed using a binary search algorithm, so the array must be sorted. If
+   * the
    * array contains multiple elements equal to {@code value} and {@code inclusive} is true, the
    * index of the last one will be returned.
    *
    * @param array The array to search.
    * @param value The value being searched for.
    * @param inclusive If the value is present in the array, whether to return the corresponding
-   *     index. If false then the returned index corresponds to the smallest element strictly
-   *     greater than the value.
+   * index. If false then the returned index corresponds to the smallest element strictly greater
+   * than the value.
    * @param stayInBounds If true, then {@code (a.length - 1)} will be returned in the case that the
-   *     value is greater than the largest element in the array. If false then {@code a.length} will
-   *     be returned.
+   * value is greater than the largest element in the array. If false then {@code a.length} will be
+   * returned.
    * @return The index of the smallest element in {@code array} that is greater than (or optionally
-   *     equal to) {@code value}.
+   * equal to) {@code value}.
    */
   public static int binarySearchCeil(
       long[] array, long value, boolean inclusive, boolean stayInBounds) {
@@ -812,7 +825,8 @@ public final class Util {
     if (index < 0) {
       index = ~index;
     } else {
-      while (++index < array.length && array[index] == value) {}
+      while (++index < array.length && array[index] == value) {
+      }
       if (inclusive) {
         index--;
       }
@@ -832,13 +846,13 @@ public final class Util {
    * @param list The list to search.
    * @param value The value being searched for.
    * @param inclusive If the value is present in the list, whether to return the corresponding
-   *     index. If false then the returned index corresponds to the smallest element strictly
-   *     greater than the value.
+   * index. If false then the returned index corresponds to the smallest element strictly greater
+   * than the value.
    * @param stayInBounds If true, then {@code (list.size() - 1)} will be returned in the case that
-   *     the value is greater than the largest element in the list. If false then {@code
-   *     list.size()} will be returned.
+   * the value is greater than the largest element in the list. If false then {@code list.size()}
+   * will be returned.
    * @return The index of the smallest element in {@code list} that is greater than (or optionally
-   *     equal to) {@code value}.
+   * equal to) {@code value}.
    */
   public static <T extends Comparable<? super T>> int binarySearchCeil(
       List<? extends Comparable<? super T>> list,
@@ -850,7 +864,8 @@ public final class Util {
       index = ~index;
     } else {
       int listSize = list.size();
-      while (++index < listSize && list.get(index).compareTo(value) == 0) {}
+      while (++index < listSize && list.get(index).compareTo(value) == 0) {
+      }
       if (inclusive) {
         index--;
       }
@@ -864,7 +879,7 @@ public final class Util {
    * @param left The left operand.
    * @param right The right operand.
    * @return 0, if left == right, a negative value if left &lt; right, or a positive value if left
-   *     &gt; right.
+   * &gt; right.
    */
   public static int compareLong(long left, long right) {
     return left < right ? -1 : left == right ? 0 : 1;
@@ -902,8 +917,8 @@ public final class Util {
   }
 
   /**
-   * Parses an xs:dateTime attribute value, returning the parsed timestamp in milliseconds since
-   * the epoch.
+   * Parses an xs:dateTime attribute value, returning the parsed timestamp in milliseconds since the
+   * epoch.
    *
    * @param value The attribute value to decodeC.
    * @return The parsed timestamp in milliseconds since the epoch.
@@ -934,11 +949,11 @@ public final class Util {
     dateTime.clear();
     // Note: The month value is 0-based, hence the -1 on group(2)
     dateTime.set(Integer.parseInt(matcher.group(1)),
-                 Integer.parseInt(matcher.group(2)) - 1,
-                 Integer.parseInt(matcher.group(3)),
-                 Integer.parseInt(matcher.group(4)),
-                 Integer.parseInt(matcher.group(5)),
-                 Integer.parseInt(matcher.group(6)));
+        Integer.parseInt(matcher.group(2)) - 1,
+        Integer.parseInt(matcher.group(3)),
+        Integer.parseInt(matcher.group(4)),
+        Integer.parseInt(matcher.group(5)),
+        Integer.parseInt(matcher.group(6)));
     if (!TextUtils.isEmpty(matcher.group(8))) {
       final BigDecimal bd = new BigDecimal("0." + matcher.group(8));
       // we care only for milliseconds, so movePointRight(3)
@@ -1067,7 +1082,7 @@ public final class Util {
    * @param seekParameters The {@link SeekParameters}.
    * @param firstSyncUs The first candidate seek point, in micrseconds.
    * @param secondSyncUs The second candidate seek point, in microseconds. May equal {@code
-   *     firstSyncUs} if there's only one candidate.
+   * firstSyncUs} if there's only one candidate.
    * @return The resolved seek position, in microseconds.
    */
   public static long resolveSeekPositionUs(
@@ -1192,9 +1207,10 @@ public final class Util {
    * @param codecs A codec sequence string, as defined in RFC 6381.
    * @param trackType One of {@link C}{@code .TRACK_TYPE_*}.
    * @return A copy of {@code codecs} without the codecs whose track type doesn't match {@code
-   *     trackType}.
+   * trackType}.
    */
-  public static @Nullable String getCodecsOfType(String codecs, int trackType) {
+  public static @Nullable
+  String getCodecsOfType(String codecs, int trackType) {
     String[] codecArray = splitCodecs(codecs);
     if (codecArray.length == 0) {
       return null;
@@ -1228,10 +1244,9 @@ public final class Util {
    * Converts a sample bit depth to a corresponding PCM encoding constant.
    *
    * @param bitDepth The bit depth. Supported values are 8, 16, 24 and 32.
-   * @return The corresponding encoding. One of {@link C#ENCODING_PCM_8BIT},
-   *     {@link C#ENCODING_PCM_16BIT}, {@link C#ENCODING_PCM_24BIT} and
-   *     {@link C#ENCODING_PCM_32BIT}. If the bit depth is unsupported then
-   *     {@link C#ENCODING_INVALID} is returned.
+   * @return The corresponding encoding. One of {@link C#ENCODING_PCM_8BIT}, {@link
+   * C#ENCODING_PCM_16BIT}, {@link C#ENCODING_PCM_24BIT} and {@link C#ENCODING_PCM_32BIT}. If the
+   * bit depth is unsupported then {@link C#ENCODING_INVALID} is returned.
    */
   @C.PcmEncoding
   public static int getPcmEncoding(int bitDepth) {
@@ -1279,7 +1294,7 @@ public final class Util {
    *
    * @param channelCount The number of channels in the input audio.
    * @return The channel configuration or {@link AudioFormat#CHANNEL_INVALID} if output is not
-   *     possible.
+   * possible.
    */
   public static int getAudioTrackChannelConfig(int channelCount) {
     switch (channelCount) {
@@ -1425,10 +1440,11 @@ public final class Util {
    * Derives a DRM {@link UUID} from {@code drmScheme}.
    *
    * @param drmScheme A UUID string, or {@code "widevine"}, {@code "playready"} or {@code
-   *     "clearkey"}.
+   * "clearkey"}.
    * @return The derived {@link UUID}, or {@code null} if one could not be derived.
    */
-  public static @Nullable UUID getDrmUuid(String drmScheme) {
+  public static @Nullable
+  UUID getDrmUuid(String drmScheme) {
     switch (toLowerInvariant(drmScheme)) {
       case "widevine":
         return C.WIDEVINE_UUID;
@@ -1547,8 +1563,8 @@ public final class Util {
    *
    * <p>For simplicity, this only handles common characters known to be illegal on FAT32:
    * &lt;, &gt;, :, ", /, \, |, ?, and *. % is also escaped since it is used as the escape
-   * character. Escaping is performed in a consistent way so that no collisions occur and
-   * {@link #unescapeFileName(String)} can be used to retrieve the original file name.
+   * character. Escaping is performed in a consistent way so that no collisions occur and {@link
+   * #unescapeFileName(String)} can be used to retrieve the original file name.
    *
    * @param fileName File name to be escaped.
    * @return An escaped file name which will be safe for use on at least FAT32 filesystems.
@@ -1607,9 +1623,10 @@ public final class Util {
    *
    * @param fileName File name to be unescaped.
    * @return The original value of the file name before it was escaped, or null if the escaped
-   *     fileName seems invalid.
+   * fileName seems invalid.
    */
-  public static @Nullable String unescapeFileName(String fileName) {
+  public static @Nullable
+  String unescapeFileName(String fileName) {
     int length = fileName.length();
     int percentCharacterCount = 0;
     for (int i = 0; i < length; i++) {
@@ -1641,8 +1658,8 @@ public final class Util {
   }
 
   /**
-   * A hacky method that always throws {@code t} even if {@code t} is a checked exception,
-   * and is not declared to be thrown.
+   * A hacky method that always throws {@code t} even if {@code t} is a checked exception, and is
+   * not declared to be thrown.
    */
   public static void sneakyThrow(Throwable t) {
     sneakyThrowInternal(t);
@@ -1653,7 +1670,9 @@ public final class Util {
     throw (T) t;
   }
 
-  /** Recursively deletes a directory and its content. */
+  /**
+   * Recursively deletes a directory and its content.
+   */
   public static void recursiveDelete(File fileOrDirectory) {
     File[] directoryFiles = fileOrDirectory.listFiles();
     if (directoryFiles != null) {
@@ -1664,7 +1683,9 @@ public final class Util {
     fileOrDirectory.delete();
   }
 
-  /** Creates an empty directory in the directory returned by {@link Context#getCacheDir()}. */
+  /**
+   * Creates an empty directory in the directory returned by {@link Context#getCacheDir()}.
+   */
   public static File createTempDirectory(Context context, String prefix) throws IOException {
     File tempFile = createTempFile(context, prefix);
     tempFile.delete(); // Delete the temp file.
@@ -1672,7 +1693,9 @@ public final class Util {
     return tempFile;
   }
 
-  /** Creates a new empty file in the directory returned by {@link Context#getCacheDir()}. */
+  /**
+   * Creates a new empty file in the directory returned by {@link Context#getCacheDir()}.
+   */
   public static File createTempFile(Context context, String prefix) throws IOException {
     return File.createTempFile(prefix, null, context.getCacheDir());
   }
@@ -1737,7 +1760,8 @@ public final class Util {
    * Returns the upper-case ISO 3166-1 alpha-2 country code of the current registered operator's MCC
    * (Mobile Country Code), or the country code of the default Locale if not available.
    *
-   * @param context A context to access the telephony service. If null, only the Locale can be used.
+   * @param context A context to access the telephony service. If null, only the Locale can be
+   * used.
    * @return The upper-case ISO 3166-1 alpha-2 country code, or an empty String if unavailable.
    */
   public static String getCountryCode(@Nullable Context context) {
@@ -1771,11 +1795,11 @@ public final class Util {
    *
    * @param input Wraps the compressed input data.
    * @param output Wraps an output buffer to be used to store the uncompressed data. If {@code
-   *     output.data} isn't big enough to hold the uncompressed data, a new array is created. If
-   *     {@code true} is returned then the output's position will be set to 0 and its limit will be
-   *     set to the length of the uncompressed data.
+   * output.data} isn't big enough to hold the uncompressed data, a new array is created. If {@code
+   * true} is returned then the output's position will be set to 0 and its limit will be set to the
+   * length of the uncompressed data.
    * @param inflater If not null, used to uncompressed the input. Otherwise a new {@link Inflater}
-   *     is created.
+   * is created.
    * @return Whether the input is uncompressed successfully.
    */
   public static boolean inflate(
@@ -1900,7 +1924,7 @@ public final class Util {
    * @param renderersFactory A {@link RenderersFactory}.
    * @param drmSessionManager An optional {@link DrmSessionManager} used by the renderers.
    * @return The {@link RendererCapabilities} for each renderer created by the {@code
-   *     renderersFactory}.
+   * renderersFactory}.
    */
   public static RendererCapabilities[] getRendererCapabilities(
       RenderersFactory renderersFactory,
@@ -1908,10 +1932,81 @@ public final class Util {
     Renderer[] renderers =
         renderersFactory.createRenderers(
             new Handler(),
-            new VideoRendererEventListener() {},
-            new AudioRendererEventListener() {},
-            (cues) -> {},
-            (metadata) -> {},
+            new VideoRendererEventListener() {
+              @Override
+              public void onVideoEnabled(DecoderCounters counters) {
+
+              }
+
+              @Override
+              public void onVideoDecoderInitialized(String decoderName, long initializedTimestampMs,
+                  long initializationDurationMs) {
+
+              }
+
+              @Override
+              public void onVideoInputFormatChanged(Format format) {
+
+              }
+
+              @Override
+              public void onDroppedFrames(int count, long elapsedMs) {
+
+              }
+
+              @Override
+              public void onVideoSizeChangedA(int width, int height, int unappliedRotationDegrees,
+                  float pixelWidthHeightRatio) {
+
+              }
+
+              @Override
+              public void onRenderedFirstFrameA(@Nullable Surface surface) {
+
+              }
+
+              @Override
+              public void onVideoDisabled(DecoderCounters counters) {
+
+              }
+            },
+            new AudioRendererEventListener() {
+              @Override
+              public void onAudioEnabledB(DecoderCounters counters) {
+
+              }
+
+              @Override
+              public void onAudioSessionIdB(int audioSessionId) {
+
+              }
+
+              @Override
+              public void onAudioDecoderInitializedB(String decoderName, long initializedTimestampMs,
+                  long initializationDurationMs) {
+
+              }
+
+              @Override
+              public void onAudioInputFormatChangedB(Format format) {
+
+              }
+
+              @Override
+              public void onAudioSinkUnderrunB(int bufferSize, long bufferSizeMs,
+                  long elapsedSinceLastFeedMs) {
+
+              }
+
+              @Override
+              public void onAudioDisabledB(DecoderCounters counters) {
+
+              }
+            },
+            (cues) -> {
+            },
+            (metadata) -> {
+            },
             drmSessionManager);
     RendererCapabilities[] capabilities = new RendererCapabilities[renderers.length];
     for (int i = 0; i < renderers.length; i++) {
@@ -1952,7 +2047,7 @@ public final class Util {
   private static String[] getSystemLocales() {
     return SDK_INT >= 24
         ? getSystemLocalesV24()
-        : new String[] {getLocaleLanguageTag(Resources.getSystem().getConfiguration().locale)};
+        : new String[]{getLocaleLanguageTag(Resources.getSystem().getConfiguration().locale)};
   }
 
   @TargetApi(24)
@@ -1978,7 +2073,8 @@ public final class Util {
     return locale.toLanguageTag();
   }
 
-  private static @C.NetworkType int getMobileNetworkType(NetworkInfo networkInfo) {
+  private static @C.NetworkType
+  int getMobileNetworkType(NetworkInfo networkInfo) {
     switch (networkInfo.getSubtype()) {
       case TelephonyManager.NETWORK_TYPE_EDGE:
       case TelephonyManager.NETWORK_TYPE_GPRS:
@@ -2009,8 +2105,8 @@ public final class Util {
   }
 
   /**
-   * Allows the CRC calculation to be done byte by byte instead of bit per bit being the order
-   * "most significant bit first".
+   * Allows the CRC calculation to be done byte by byte instead of bit per bit being the order "most
+   * significant bit first".
    */
   private static final int[] CRC32_BYTES_MSBF = {
       0X00000000, 0X04C11DB7, 0X09823B6E, 0X0D4326D9, 0X130476DC, 0X17C56B6B, 0X1A864DB2,

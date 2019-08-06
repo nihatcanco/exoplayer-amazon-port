@@ -20,6 +20,9 @@ import androidx.annotation.Nullable;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.util.Assertions;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /** A {@link DataSource} for reading from a byte array. */
 public final class ByteArrayDataSource extends BaseDataSource {
@@ -76,6 +79,11 @@ public final class ByteArrayDataSource extends BaseDataSource {
   @Override
   public @Nullable Uri getUri() {
     return uri;
+  }
+
+  @Override
+  public Map<String, List<String>> getResponseHeaders() {
+    return Collections.emptyMap();
   }
 
   @Override

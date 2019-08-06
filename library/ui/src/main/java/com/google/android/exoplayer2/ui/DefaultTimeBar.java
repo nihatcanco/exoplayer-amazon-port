@@ -71,13 +71,13 @@ import java.util.concurrent.CopyOnWriteArraySet;
  *         <li>Default: {@link #DEFAULT_AD_MARKER_WIDTH_DP}
  *       </ul>
  *   <li><b>{@code scrubber_enabled_size}</b> - Dimension for the diameter of the circular scrubber
- *       handle when scrubbing is enabled but not in progress. Set to zero if no scrubber handle
+ *       handle when scrubbing is enabledA but not in progress. Set to zero if no scrubber handle
  *       should be shown.
  *       <ul>
  *         <li>Default: {@link #DEFAULT_SCRUBBER_ENABLED_SIZE_DP}
  *       </ul>
  *   <li><b>{@code scrubber_disabled_size}</b> - Dimension for the diameter of the circular scrubber
- *       handle when scrubbing isn't enabled. Set to zero if no scrubber handle should be shown.
+ *       handle when scrubbing isn't enabledA. Set to zero if no scrubber handle should be shown.
  *       <ul>
  *         <li>Default: {@link #DEFAULT_SCRUBBER_DISABLED_SIZE_DP}
  *       </ul>
@@ -139,11 +139,11 @@ public class DefaultTimeBar extends View implements TimeBar {
    */
   public static final int DEFAULT_AD_MARKER_WIDTH_DP = 4;
   /**
-   * Default diameter for the scrubber when enabled, in dp.
+   * Default diameter for the scrubber when enabledA, in dp.
    */
   public static final int DEFAULT_SCRUBBER_ENABLED_SIZE_DP = 12;
   /**
-   * Default diameter for the scrubber when disabled, in dp.
+   * Default diameter for the scrubber when disabledA, in dp.
    */
   public static final int DEFAULT_SCRUBBER_DISABLED_SIZE_DP = 0;
   /**
@@ -309,7 +309,12 @@ public class DefaultTimeBar extends View implements TimeBar {
     }
     formatBuilder = new StringBuilder();
     formatter = new Formatter(formatBuilder, Locale.getDefault());
-    stopScrubbingRunnable = () -> stopScrubbing(/* canceled= */ false);
+    stopScrubbingRunnable = new Runnable() {
+      @Override
+      public void run() {
+        DefaultTimeBar.this.stopScrubbing(/* canceled= */ false);
+      }
+    };
     if (scrubberDrawable != null) {
       scrubberPadding = (scrubberDrawable.getMinimumWidth() + 1) / 2;
     } else {

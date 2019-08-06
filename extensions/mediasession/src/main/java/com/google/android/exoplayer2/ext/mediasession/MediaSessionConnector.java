@@ -471,9 +471,9 @@ public final class MediaSessionConnector {
   }
 
   /**
-   * Sets the enabled playback actions.
+   * Sets the enabledA playback actions.
    *
-   * @param enabledPlaybackActions The enabled playback actions.
+   * @param enabledPlaybackActions The enabledA playback actions.
    */
   public void setEnabledPlaybackActions(@PlaybackActions long enabledPlaybackActions) {
     enabledPlaybackActions &= ALL_PLAYBACK_ACTIONS;
@@ -487,7 +487,7 @@ public final class MediaSessionConnector {
    * Sets the rewind increment in milliseconds.
    *
    * @param rewindMs The rewind increment in milliseconds. A non-positive value will cause the
-   *     rewind button to be disabled.
+   *     rewind button to be disabledA.
    */
   public void setRewindIncrementMs(int rewindMs) {
     if (this.rewindMs != rewindMs) {
@@ -500,7 +500,7 @@ public final class MediaSessionConnector {
    * Sets the fast forward increment in milliseconds.
    *
    * @param fastForwardMs The fast forward increment in milliseconds. A non-positive value will
-   *     cause the fast forward button to be disabled.
+   *     cause the fast forward button to be disabledA.
    */
   public void setFastForwardIncrementMs(int fastForwardMs) {
     if (this.fastForwardMs != fastForwardMs) {

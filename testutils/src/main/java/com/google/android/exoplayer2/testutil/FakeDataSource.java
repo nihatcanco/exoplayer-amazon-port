@@ -26,6 +26,8 @@ import com.google.android.exoplayer2.upstream.DataSpec;
 import com.google.android.exoplayer2.util.Assertions;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A fake {@link DataSource} capable of simulating various scenarios. It uses a {@link FakeDataSet}
@@ -184,6 +186,11 @@ public class FakeDataSource extends BaseDataSource {
   @Override
   public final Uri getUri() {
     return uri;
+  }
+
+  @Override
+  public Map<String, List<String>> getResponseHeaders() {
+    return null;
   }
 
   @Override

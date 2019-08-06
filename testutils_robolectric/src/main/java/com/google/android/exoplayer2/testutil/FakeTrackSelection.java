@@ -43,7 +43,7 @@ public final class FakeTrackSelection implements TrackSelection {
 
   @Override
   public void enable() {
-    // assert that track selection is in disabled state before this call.
+    // assert that track selection is in disabledA state before this call.
     assertThat(isEnabled).isFalse();
     enableCount++;
     isEnabled = true;
@@ -51,7 +51,7 @@ public final class FakeTrackSelection implements TrackSelection {
 
   @Override
   public void disable() {
-    // assert that track selection is in enabled state before this call.
+    // assert that track selection is in enabledA state before this call.
     assertThat(isEnabled).isTrue();
     releaseCount++;
     isEnabled = false;

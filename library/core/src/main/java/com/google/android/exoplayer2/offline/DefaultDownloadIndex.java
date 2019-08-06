@@ -425,6 +425,53 @@ public final class DefaultDownloadIndex implements WritableDownloadIndex {
     }
 
     @Override
+    public boolean moveToFirst() {
+      return moveToPosition(0);
+    }
+
+    @Override
+    public boolean moveToLast() {
+      return moveToPosition(getCount() - 1);
+    }
+
+    @Override
+    public boolean moveToNext() {
+      return moveToPosition(getPosition() + 1);
+    }
+
+    @Override
+    public boolean moveToPrevious() {
+      return moveToPosition(getPosition() - 1);
+    }
+
+    @Override
+    public boolean isFirst() {
+      return getPosition() == 0 && getCount() != 0;
+    }
+
+    @Override
+    public boolean isLast() {
+      int count = getCount();
+      return getPosition() == (count - 1) && count != 0;
+    }
+
+    @Override
+    public boolean isBeforeFirst() {
+      if (getCount() == 0) {
+        return true;
+      }
+      return getPosition() == -1;
+    }
+
+    @Override
+    public boolean isAfterLast() {
+      if (getCount() == 0) {
+        return true;
+      }
+      return getPosition() == getCount();
+    }
+
+    @Override
     public void close() {
       cursor.close();
     }

@@ -693,7 +693,7 @@ public final class DownloadManager {
         cursor =
             downloadIndex.getDownloads(
                 STATE_QUEUED, STATE_STOPPED, STATE_DOWNLOADING, STATE_REMOVING, STATE_RESTARTING);
-        while (cursor.moveToNext()) {
+        while (cursor.moveToPosition(cursor.getPosition() + 1)) {
           downloads.add(cursor.getDownload());
         }
       } catch (IOException e) {
@@ -810,7 +810,7 @@ public final class DownloadManager {
     private void removeAllDownloads() {
       List<Download> terminalDownloads = new ArrayList<>();
       try (DownloadCursor cursor = downloadIndex.getDownloads(STATE_COMPLETED, STATE_FAILED)) {
-        while (cursor.moveToNext()) {
+        while (cursor.moveToPosition(cursor.getPosition() + 1)) {
           terminalDownloads.add(cursor.getDownload());
         }
       } catch (IOException e) {

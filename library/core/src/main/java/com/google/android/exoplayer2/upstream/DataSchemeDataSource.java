@@ -23,6 +23,9 @@ import com.google.android.exoplayer2.ParserException;
 import com.google.android.exoplayer2.util.Util;
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /** A {@link DataSource} for reading data URLs, as defined by RFC 2397. */
 public final class DataSchemeDataSource extends BaseDataSource {
@@ -84,6 +87,11 @@ public final class DataSchemeDataSource extends BaseDataSource {
   @Override
   public @Nullable Uri getUri() {
     return dataSpec != null ? dataSpec.uri : null;
+  }
+
+  @Override
+  public Map<String, List<String>> getResponseHeaders() {
+    return Collections.emptyMap();
   }
 
   @Override

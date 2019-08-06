@@ -312,7 +312,7 @@ public final class LeanbackPlayerAdapter extends PlayerAdapter implements Runnab
     }
 
     @Override
-    public void onRenderedFirstFrame() {
+    public void onRenderedFirstFrameB() {
       // Do nothing.
     }
 

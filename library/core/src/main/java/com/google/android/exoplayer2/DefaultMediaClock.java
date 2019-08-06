@@ -83,10 +83,10 @@ import com.google.android.exoplayer2.util.StandaloneMediaClock;
   }
 
   /**
-   * Notifies the media clock that a renderer has been enabled. Starts using the media clock of the
+   * Notifies the media clock that a renderer has been enabledA. Starts using the media clock of the
    * provided renderer if available.
    *
-   * @param renderer The renderer which has been enabled.
+   * @param renderer The renderer which has been enabledA.
    * @throws ExoPlaybackException If the renderer provides a media clock and another renderer media
    *     clock is already provided.
    */
@@ -95,7 +95,7 @@ import com.google.android.exoplayer2.util.StandaloneMediaClock;
     if (rendererMediaClock != null && rendererMediaClock != rendererClock) {
       if (rendererClock != null) {
         throw ExoPlaybackException.createForUnexpected(
-            new IllegalStateException("Multiple renderer media clocks enabled."));
+            new IllegalStateException("Multiple renderer media clocks enabledA."));
       }
       this.rendererClock = rendererMediaClock;
       this.rendererClockSource = renderer;
@@ -105,10 +105,10 @@ import com.google.android.exoplayer2.util.StandaloneMediaClock;
   }
 
   /**
-   * Notifies the media clock that a renderer has been disabled. Stops using the media clock of this
+   * Notifies the media clock that a renderer has been disabledA. Stops using the media clock of this
    * renderer if used.
    *
-   * @param renderer The renderer which has been disabled.
+   * @param renderer The renderer which has been disabledA.
    */
   public void onRendererDisabled(Renderer renderer) {
     if (renderer == rendererClockSource) {

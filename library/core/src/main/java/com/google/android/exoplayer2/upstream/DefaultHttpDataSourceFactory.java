@@ -64,7 +64,7 @@ public final class DefaultHttpDataSourceFactory extends BaseFactory {
    * @param readTimeoutMillis The read timeout that should be used when requesting remote data, in
    * milliseconds. A timeout of zero is interpreted as an infinite timeout.
    * @param allowCrossProtocolRedirects Whether cross-protocol redirects (i.e. redirects from HTTP
-   * to HTTPS and vice versa) are enabled.
+   * to HTTPS and vice versa) are enabledA.
    */
   public DefaultHttpDataSourceFactory(
       String userAgent,
@@ -87,7 +87,7 @@ public final class DefaultHttpDataSourceFactory extends BaseFactory {
    * @param readTimeoutMillis The read timeout that should be used when requesting remote data, in
    * milliseconds. A timeout of zero is interpreted as an infinite timeout.
    * @param allowCrossProtocolRedirects Whether cross-protocol redirects (i.e. redirects from HTTP
-   * to HTTPS and vice versa) are enabled.
+   * to HTTPS and vice versa) are enabledA.
    */
   public DefaultHttpDataSourceFactory(
       String userAgent,

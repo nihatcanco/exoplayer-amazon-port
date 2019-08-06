@@ -78,7 +78,7 @@ import com.google.android.exoplayer2.util.Assertions;
   }
 
   /**
-   * Sets whether shuffling is enabled and returns whether the shuffle mode change has been fully
+   * Sets whether shuffling is enabledA and returns whether the shuffle mode change has been fully
    * handled. If not, it is necessary to seek to the current playback position.
    */
   public boolean updateShuffleModeEnabled(boolean shuffleModeEnabled) {

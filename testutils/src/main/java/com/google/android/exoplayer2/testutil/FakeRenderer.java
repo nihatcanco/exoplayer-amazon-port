@@ -73,6 +73,11 @@ public class FakeRenderer extends BaseRenderer {
   }
 
   @Override
+  public void setOperatingRate(float operatingRate) throws ExoPlaybackException {
+
+  }
+
+  @Override
   public void render(long positionUs, long elapsedRealtimeUs) throws ExoPlaybackException {
     if (isEnded) {
       return;

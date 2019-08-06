@@ -35,6 +35,7 @@ import com.google.android.exoplayer2.extractor.SeekMap.Unseekable;
 import com.google.android.exoplayer2.extractor.TrackOutput;
 import com.google.android.exoplayer2.metadata.Metadata;
 import com.google.android.exoplayer2.metadata.icy.IcyHeaders;
+import com.google.android.exoplayer2.offline.StreamKey;
 import com.google.android.exoplayer2.source.MediaSourceEventListener.EventDispatcher;
 import com.google.android.exoplayer2.source.SampleQueue.UpstreamFormatChangedListener;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
@@ -54,6 +55,8 @@ import com.google.android.exoplayer2.util.Util;
 import java.io.EOFException;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import org.checkerframework.checker.nullness.compatqual.NullableType;
 
 /** A {@link MediaPeriod} that extracts data using an {@link Extractor}. */
@@ -231,6 +234,11 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
   }
 
   @Override
+  public List<StreamKey> getStreamKeys(List<TrackSelection> trackSelections) {
+    return Collections.emptyList();
+  }
+
+  @Override
   public long selectTracks(
       @NullableType TrackSelection[] selections,
       boolean[] mayRetainStreamFlags,
@@ -252,7 +260,7 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
       }
     }
     // We'll always need to seek if this is a first selection to a non-zero position, or if we're
-    // making a selection having previously disabled all tracks.
+    // making a selection having previously disabledA all tracks.
     boolean seekRequired = seenFirstTrackSelection ? oldEnabledTrackCount == 0 : positionUs != 0;
     // Select new tracks.
     for (int i = 0; i < selections.length; i++) {

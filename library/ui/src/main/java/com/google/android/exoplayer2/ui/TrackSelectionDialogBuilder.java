@@ -18,6 +18,7 @@ package com.google.android.exoplayer2.ui;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +40,7 @@ public final class TrackSelectionDialogBuilder {
     /**
      * Called when tracks are selected.
      *
-     * @param isDisabled Whether the renderer is disabled.
+     * @param isDisabled Whether the renderer is disabledA.
      * @param overrides List of selected track selection overrides for the renderer.
      */
     void onTracksSelected(boolean isDisabled, List<SelectionOverride> overrides);
@@ -108,7 +109,9 @@ public final class TrackSelectionDialogBuilder {
     overrides = override == null ? Collections.emptyList() : Collections.singletonList(override);
 
     this.callback =
-        (newIsDisabled, newOverrides) ->
+        new DialogCallback() {
+          @Override
+          public void onTracksSelected(boolean newIsDisabled, List<SelectionOverride> newOverrides) {
             trackSelector.setParameters(
                 TrackSelectionUtil.updateParametersWithOverride(
                     selectionParameters,
@@ -116,12 +119,14 @@ public final class TrackSelectionDialogBuilder {
                     rendererTrackGroups,
                     newIsDisabled,
                     newOverrides.isEmpty() ? null : newOverrides.get(0)));
+          }
+        };
   }
 
   /**
-   * Sets whether the selection is initially shown as disabled.
+   * Sets whether the selection is initially shown as disabledA.
    *
-   * @param isDisabled Whether the selection is initially shown as disabled.
+   * @param isDisabled Whether the selection is initially shown as disabledA.
    * @return This builder, for convenience.
    */
   public TrackSelectionDialogBuilder setIsDisabled(boolean isDisabled) {
@@ -159,9 +164,9 @@ public final class TrackSelectionDialogBuilder {
    * Sets whether adaptive selections (consisting of more than one track) can be made.
    *
    * <p>For the selection view to enable adaptive selection it is necessary both for this feature to
-   * be enabled, and for the target renderer to support adaptation between the available tracks.
+   * be enabledA, and for the target renderer to support adaptation between the available tracks.
    *
-   * @param allowAdaptiveSelections Whether adaptive selection is enabled.
+   * @param allowAdaptiveSelections Whether adaptive selection is enabledA.
    * @return This builder, for convenience.
    */
   public TrackSelectionDialogBuilder setAllowAdaptiveSelections(boolean allowAdaptiveSelections) {
@@ -221,8 +226,12 @@ public final class TrackSelectionDialogBuilder {
     }
     selectionView.init(mappedTrackInfo, rendererIndex, isDisabled, overrides, /* listener= */ null);
     Dialog.OnClickListener okClickListener =
-        (dialog, which) ->
+        new Dialog.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
             callback.onTracksSelected(selectionView.getIsDisabled(), selectionView.getOverrides());
+          }
+        };
 
     return builder
         .setTitle(title)

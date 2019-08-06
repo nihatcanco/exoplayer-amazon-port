@@ -444,7 +444,12 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
 
   private void onError(final Exception e) {
     lastException = new DrmSessionException(e);
-    eventDispatcher.dispatch(listener -> listener.onDrmSessionManagerError(e));
+    eventDispatcher.dispatch(new EventDispatcher.Event<DefaultDrmSessionEventListener>() {
+      @Override
+      public void sendTo(DefaultDrmSessionEventListener listener) {
+        listener.onDrmSessionManagerError(e);
+      }
+    });
     if (state != STATE_OPENED_WITH_KEYS) {
       state = STATE_ERROR;
     }

@@ -38,7 +38,9 @@ import java.nio.ByteBuffer;
  */
 public abstract class BinarySearchSeeker {
 
-  /** A seeker that looks for a given timestamp from an input. */
+  /**
+   * A seeker that looks for a given timestamp from an input.
+   */
   protected interface TimestampSeeker {
 
     /**
@@ -49,8 +51,8 @@ public abstract class BinarySearchSeeker {
      * @param input The {@link ExtractorInput} from which data should be peeked.
      * @param targetTimestamp The target timestamp.
      * @param outputFrameHolder If {@link TimestampSearchResult#TYPE_TARGET_TIMESTAMP_FOUND} is
-     *     returned, this holder may be updated to hold the extracted frame that contains the target
-     *     frame/sample associated with the target timestamp.
+     * returned, this holder may be updated to hold the extracted frame that contains the target
+     * frame/sample associated with the target timestamp.
      * @return A {@link TimestampSearchResult} that describes the result of the search.
      * @throws IOException If an error occurred reading from the input.
      * @throws InterruptedException If the thread was interrupted.
@@ -59,8 +61,10 @@ public abstract class BinarySearchSeeker {
         ExtractorInput input, long targetTimestamp, OutputFrameHolder outputFrameHolder)
         throws IOException, InterruptedException;
 
-    /** Called when a seek operation finishes. */
-    default void onSeekFinished() {}
+    /**
+     * Called when a seek operation finishes.
+     */
+    void onSeekFinished();
   }
 
   /**
@@ -73,7 +77,9 @@ public abstract class BinarySearchSeeker {
 
     public long timeUs;
 
-    /** Constructs an instance, wrapping the given byte buffer. */
+    /**
+     * Constructs an instance, wrapping the given byte buffer.
+     */
     public OutputFrameHolder(ByteBuffer outputByteBuffer) {
       this.timeUs = 0;
       this.byteBuffer = outputByteBuffer;
@@ -97,6 +103,7 @@ public abstract class BinarySearchSeeker {
    * BinarySearchSeeker}.
    */
   protected interface SeekTimestampConverter {
+
     /**
      * Converts a seek time in microseconds into target timestamp for the {@link
      * BinarySearchSeeker}.
@@ -113,7 +120,8 @@ public abstract class BinarySearchSeeker {
 
   protected final BinarySearchSeekMap seekMap;
   protected final TimestampSeeker timestampSeeker;
-  protected @Nullable SeekOperationParams seekOperationParams;
+  protected @Nullable
+  SeekOperationParams seekOperationParams;
 
   private final int minimumSearchRange;
 
@@ -121,20 +129,20 @@ public abstract class BinarySearchSeeker {
    * Constructs an instance.
    *
    * @param seekTimestampConverter The {@link SeekTimestampConverter} that converts seek time in
-   *     stream time into target timestamp.
+   * stream time into target timestamp.
    * @param timestampSeeker A {@link TimestampSeeker} that will be used to search for timestamps
-   *     within the stream.
+   * within the stream.
    * @param durationUs The duration of the stream in microseconds.
    * @param floorTimePosition The minimum timestamp value (inclusive) in the stream.
    * @param ceilingTimePosition The minimum timestamp value (exclusive) in the stream.
    * @param floorBytePosition The starting position of the frame with minimum timestamp value
-   *     (inclusive) in the stream.
+   * (inclusive) in the stream.
    * @param ceilingBytePosition The position after the frame with maximum timestamp value in the
-   *     stream.
+   * stream.
    * @param approxBytesPerFrame Approximated bytes per frame.
    * @param minimumSearchRange The minimum byte range that this binary seeker will operate on. If
-   *     the remaining search range is smaller than this value, the search will stop, and the seeker
-   *     will return the position at the floor of the range as the result.
+   * the remaining search range is smaller than this value, the search will stop, and the seeker
+   * will return the position at the floor of the range as the result.
    */
   @SuppressWarnings("initialization")
   protected BinarySearchSeeker(
@@ -160,7 +168,9 @@ public abstract class BinarySearchSeeker {
             approxBytesPerFrame);
   }
 
-  /** Returns the seek map for the stream. */
+  /**
+   * Returns the seek map for the stream.
+   */
   public final SeekMap getSeekMap() {
     return seekMap;
   }
@@ -177,7 +187,9 @@ public abstract class BinarySearchSeeker {
     seekOperationParams = createSeekParamsForTargetTimeUs(timeUs);
   }
 
-  /** Returns whether the last operation set by {@link #setSeekTargetUs(long)} is still pending. */
+  /**
+   * Returns whether the last operation set by {@link #setSeekTargetUs(long)} is still pending.
+   */
   public final boolean isSeeking() {
     return seekOperationParams != null;
   }
@@ -188,10 +200,10 @@ public abstract class BinarySearchSeeker {
    *
    * @param input The {@link ExtractorInput} from which data should be read.
    * @param seekPositionHolder If {@link Extractor#RESULT_SEEK} is returned, this holder is updated
-   *     to hold the position of the required seek.
+   * to hold the position of the required seek.
    * @param outputFrameHolder If {@link Extractor#RESULT_CONTINUE} is returned, this holder may be
-   *     updated to hold the extracted frame that contains the target sample. The caller needs to
-   *     check the byte buffer limit to see if an extracted frame is available.
+   * updated to hold the extracted frame that contains the target sample. The caller needs to check
+   * the byte buffer limit to see if an extracted frame is available.
    * @return One of the {@code RESULT_} values defined in {@link Extractor}.
    * @throws IOException If an error occurred reading from the input.
    * @throws InterruptedException If the thread was interrupted.
@@ -294,6 +306,7 @@ public abstract class BinarySearchSeeker {
    * range [floorPosition, ceilingPosition).
    */
   protected static class SeekOperationParams {
+
     private final long seekTimeUs;
     private final long targetTimePosition;
     private final long approxBytesPerFrame;
@@ -376,31 +389,41 @@ public abstract class BinarySearchSeeker {
       return ceilingBytePosition;
     }
 
-    /** Returns the target timestamp as translated from the seek time. */
+    /**
+     * Returns the target timestamp as translated from the seek time.
+     */
     private long getTargetTimePosition() {
       return targetTimePosition;
     }
 
-    /** Returns the target seek time in microseconds. */
+    /**
+     * Returns the target seek time in microseconds.
+     */
     private long getSeekTimeUs() {
       return seekTimeUs;
     }
 
-    /** Updates the floor constraints (inclusive) of the seek operation. */
+    /**
+     * Updates the floor constraints (inclusive) of the seek operation.
+     */
     private void updateSeekFloor(long floorTimePosition, long floorBytePosition) {
       this.floorTimePosition = floorTimePosition;
       this.floorBytePosition = floorBytePosition;
       updateNextSearchBytePosition();
     }
 
-    /** Updates the ceiling constraints (exclusive) of the seek operation. */
+    /**
+     * Updates the ceiling constraints (exclusive) of the seek operation.
+     */
     private void updateSeekCeiling(long ceilingTimePosition, long ceilingBytePosition) {
       this.ceilingTimePosition = ceilingTimePosition;
       this.ceilingBytePosition = ceilingBytePosition;
       updateNextSearchBytePosition();
     }
 
-    /** Returns the next position in the stream to search. */
+    /**
+     * Returns the next position in the stream to search.
+     */
     private long getNextSearchBytePosition() {
       return nextSearchBytePosition;
     }
@@ -418,48 +441,61 @@ public abstract class BinarySearchSeeker {
   }
 
   /**
-   * Represents possible search results for {@link
-   * TimestampSeeker#searchForTimestamp(ExtractorInput, long, OutputFrameHolder)}.
+   * Represents possible search results for {@link TimestampSeeker#searchForTimestamp(ExtractorInput,
+   * long, OutputFrameHolder)}.
    */
   public static final class TimestampSearchResult {
 
-    /** The search found a timestamp that it deems close enough to the given target. */
+    /**
+     * The search found a timestamp that it deems close enough to the given target.
+     */
     public static final int TYPE_TARGET_TIMESTAMP_FOUND = 0;
-    /** The search found only timestamps larger than the target timestamp. */
+    /**
+     * The search found only timestamps larger than the target timestamp.
+     */
     public static final int TYPE_POSITION_OVERESTIMATED = -1;
-    /** The search found only timestamps smaller than the target timestamp. */
+    /**
+     * The search found only timestamps smaller than the target timestamp.
+     */
     public static final int TYPE_POSITION_UNDERESTIMATED = -2;
-    /** The search didn't find any timestamps. */
+    /**
+     * The search didn't find any timestamps.
+     */
     public static final int TYPE_NO_TIMESTAMP = -3;
 
     @Documented
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({
-      TYPE_TARGET_TIMESTAMP_FOUND,
-      TYPE_POSITION_OVERESTIMATED,
-      TYPE_POSITION_UNDERESTIMATED,
-      TYPE_NO_TIMESTAMP
+        TYPE_TARGET_TIMESTAMP_FOUND,
+        TYPE_POSITION_OVERESTIMATED,
+        TYPE_POSITION_UNDERESTIMATED,
+        TYPE_NO_TIMESTAMP
     })
-    @interface Type {}
+    @interface Type {
+
+    }
 
     public static final TimestampSearchResult NO_TIMESTAMP_IN_RANGE_RESULT =
         new TimestampSearchResult(TYPE_NO_TIMESTAMP, C.TIME_UNSET, C.POSITION_UNSET);
 
-    /** The type of the result. */
-    @Type private final int type;
+    /**
+     * The type of the result.
+     */
+    @Type
+    private final int type;
 
     /**
      * When {@link #type} is {@link #TYPE_POSITION_OVERESTIMATED}, the {@link
      * SeekOperationParams#ceilingTimePosition} should be updated with this value. When {@link
-     * #type} is {@link #TYPE_POSITION_UNDERESTIMATED}, the {@link
-     * SeekOperationParams#floorTimePosition} should be updated with this value.
+     * #type} is {@link #TYPE_POSITION_UNDERESTIMATED}, the {@link SeekOperationParams#floorTimePosition}
+     * should be updated with this value.
      */
     private final long timestampToUpdate;
     /**
      * When {@link #type} is {@link #TYPE_POSITION_OVERESTIMATED}, the {@link
      * SeekOperationParams#ceilingBytePosition} should be updated with this value. When {@link
-     * #type} is {@link #TYPE_POSITION_UNDERESTIMATED}, the {@link
-     * SeekOperationParams#floorBytePosition} should be updated with this value.
+     * #type} is {@link #TYPE_POSITION_UNDERESTIMATED}, the {@link SeekOperationParams#floorBytePosition}
+     * should be updated with this value.
      */
     private final long bytePositionToUpdate;
 
@@ -512,6 +548,7 @@ public abstract class BinarySearchSeeker {
    * each {@link #getSeekPoints(long)} query.
    */
   public static class BinarySearchSeekMap implements SeekMap {
+
     private final SeekTimestampConverter seekTimestampConverter;
     private final long durationUs;
     private final long floorTimePosition;
@@ -520,7 +557,9 @@ public abstract class BinarySearchSeeker {
     private final long ceilingBytePosition;
     private final long approxBytesPerFrame;
 
-    /** Constructs a new instance of this seek map. */
+    /**
+     * Constructs a new instance of this seek map.
+     */
     public BinarySearchSeekMap(
         SeekTimestampConverter seekTimestampConverter,
         long durationUs,
@@ -561,7 +600,9 @@ public abstract class BinarySearchSeeker {
       return durationUs;
     }
 
-    /** @see SeekTimestampConverter#timeUsToTargetTime(long) */
+    /**
+     * @see SeekTimestampConverter#timeUsToTargetTime(long)
+     */
     public long timeUsToTargetTime(long timeUs) {
       return seekTimestampConverter.timeUsToTargetTime(timeUs);
     }

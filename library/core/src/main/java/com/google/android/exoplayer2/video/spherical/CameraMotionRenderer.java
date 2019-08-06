@@ -81,6 +81,11 @@ public class CameraMotionRenderer extends BaseRenderer {
   }
 
   @Override
+  public void setOperatingRate(float operatingRate) throws ExoPlaybackException {
+
+  }
+
+  @Override
   public void render(long positionUs, long elapsedRealtimeUs) throws ExoPlaybackException {
     // Keep reading available samples as long as the sample time is not too far into the future.
     while (!hasReadStreamToEnd() && lastTimestampUs < positionUs + SAMPLE_WINDOW_DURATION_US) {

@@ -20,11 +20,14 @@ import com.google.android.exoplayer2.Format;
 import com.google.android.exoplayer2.FormatHolder;
 import com.google.android.exoplayer2.SeekParameters;
 import com.google.android.exoplayer2.decoder.DecoderInputBuffer;
+import com.google.android.exoplayer2.offline.StreamKey;
 import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.util.Assertions;
 import com.google.android.exoplayer2.util.MimeTypes;
 import com.google.android.exoplayer2.util.Util;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Wraps a {@link MediaPeriod} and clips its {@link SampleStream}s to provide a subsequence of their
@@ -52,7 +55,7 @@ public final class ClippingMediaPeriod implements MediaPeriod, MediaPeriod.Callb
    * first read from.
    *
    * @param mediaPeriod The media period to clip.
-   * @param enableInitialDiscontinuity Whether the initial discontinuity should be enabled.
+   * @param enableInitialDiscontinuity Whether the initial discontinuity should be enabledA.
    * @param startUs The clipping start time, in microseconds.
    * @param endUs The clipping end time, in microseconds, or {@link C#TIME_END_OF_SOURCE} to
    *     indicate the end of the period.
@@ -92,6 +95,11 @@ public final class ClippingMediaPeriod implements MediaPeriod, MediaPeriod.Callb
   @Override
   public TrackGroupArray getTrackGroups() {
     return mediaPeriod.getTrackGroups();
+  }
+
+  @Override
+  public List<StreamKey> getStreamKeys(List<TrackSelection> trackSelections) {
+    return Collections.emptyList();
   }
 
   @Override

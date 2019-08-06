@@ -31,15 +31,15 @@ public final class FixedTrackSelection extends BaseTrackSelection {
 
   /**
    * @deprecated Don't use as adaptive track selection factory as it will throw when multiple tracks
-   *     are selected. If you would like to disable adaptive selection in {@link
-   *     DefaultTrackSelector}, enable the {@link
-   *     DefaultTrackSelector.Parameters#forceHighestSupportedBitrate} flag instead.
+   * are selected. If you would like to disable adaptive selection in {@link DefaultTrackSelector},
+   * enable the {@link DefaultTrackSelector.Parameters#forceHighestSupportedBitrate} flag instead.
    */
   @Deprecated
   public static final class Factory implements TrackSelection.Factory {
 
     private final int reason;
-    private final @Nullable Object data;
+    private final @Nullable
+    Object data;
 
     public Factory() {
       this.reason = C.SELECTION_REASON_UNKNOWN;
@@ -56,6 +56,12 @@ public final class FixedTrackSelection extends BaseTrackSelection {
     }
 
     @Override
+    public TrackSelection createTrackSelection(TrackGroup group, BandwidthMeter bandwidthMeter,
+        int... tracks) {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
     public @NullableType TrackSelection[] createTrackSelections(
         @NullableType Definition[] definitions, BandwidthMeter bandwidthMeter) {
       return TrackSelectionUtil.createTrackSelectionsForDefinitions(
@@ -66,7 +72,8 @@ public final class FixedTrackSelection extends BaseTrackSelection {
   }
 
   private final int reason;
-  private final @Nullable Object data;
+  private final @Nullable
+  Object data;
 
   /**
    * @param group The {@link TrackGroup}. Must not be null.
@@ -109,8 +116,20 @@ public final class FixedTrackSelection extends BaseTrackSelection {
   }
 
   @Override
-  public @Nullable Object getSelectionData() {
+  public @Nullable
+  Object getSelectionData() {
     return data;
+  }
+
+  @Override
+  public void onDiscontinuity() {
+
+  }
+
+  @Override
+  public void updateSelectedTrack(long playbackPositionUs, long bufferedDurationUs,
+      long availableDurationUs) {
+    throw new UnsupportedOperationException();
   }
 
 }

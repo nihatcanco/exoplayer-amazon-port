@@ -26,6 +26,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /** A {@link DataSource} for reading from a content URI. */
 public final class ContentDataSource extends BaseDataSource {
@@ -146,6 +149,11 @@ public final class ContentDataSource extends BaseDataSource {
   @Override
   public @Nullable Uri getUri() {
     return uri;
+  }
+
+  @Override
+  public Map<String, List<String>> getResponseHeaders() {
+    return Collections.emptyMap();
   }
 
   @SuppressWarnings("Finally")

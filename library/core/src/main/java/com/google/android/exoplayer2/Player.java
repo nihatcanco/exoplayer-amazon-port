@@ -83,7 +83,7 @@ public interface Player {
      * <p>Setting the audio attributes during playback may introduce a short gap in audio output as
      * the audio track is recreated. A new audio session id will also be generated.
      *
-     * <p>If tunneling is enabled by the track selector, the specified audio attributes will be
+     * <p>If tunneling is enabledA by the track selector, the specified audio attributes will be
      * ignored, but they will take effect if audio is later played without tunneling.
      *
      * <p>If the device is running a build before platform API version 21, audio attributes cannot
@@ -103,7 +103,7 @@ public interface Player {
      * <p>Setting the audio attributes during playback may introduce a short gap in audio output as
      * the audio track is recreated. A new audio session id will also be generated.
      *
-     * <p>If tunneling is enabled by the track selector, the specified audio attributes will be
+     * <p>If tunneling is enabledA by the track selector, the specified audio attributes will be
      * ignored, but they will take effect if audio is later played without tunneling.
      *
      * <p>If the device is running a build before platform API version 21, audio attributes cannot
@@ -375,7 +375,7 @@ public interface Player {
     /**
      * Called when the value of {@link #getShuffleModeEnabled()} changes.
      *
-     * @param shuffleModeEnabled Whether shuffling of windows is enabled.
+     * @param shuffleModeEnabled Whether shuffling of windows is enabledA.
      */
     void onShuffleModeEnabledChanged(boolean shuffleModeEnabled);
 
@@ -630,14 +630,14 @@ public interface Player {
   @RepeatMode int getRepeatMode();
 
   /**
-   * Sets whether shuffling of windows is enabled.
+   * Sets whether shuffling of windows is enabledA.
    *
-   * @param shuffleModeEnabled Whether shuffling is enabled.
+   * @param shuffleModeEnabled Whether shuffling is enabledA.
    */
   void setShuffleModeEnabled(boolean shuffleModeEnabled);
 
   /**
-   * Returns whether shuffling of windows is enabled.
+   * Returns whether shuffling of windows is enabledA.
    */
   boolean getShuffleModeEnabled();
 
@@ -686,26 +686,26 @@ public interface Player {
 
   /**
    * Returns whether a previous window exists, which may depend on the current repeat mode and
-   * whether shuffle mode is enabled.
+   * whether shuffle mode is enabledA.
    */
   boolean hasPrevious();
 
   /**
    * Seeks to the default position of the previous window in the timeline, which may depend on the
-   * current repeat mode and whether shuffle mode is enabled. Does nothing if {@link #hasPrevious()}
+   * current repeat mode and whether shuffle mode is enabledA. Does nothing if {@link #hasPrevious()}
    * is {@code false}.
    */
   void previous();
 
   /**
    * Returns whether a next window exists, which may depend on the current repeat mode and whether
-   * shuffle mode is enabled.
+   * shuffle mode is enabledA.
    */
   boolean hasNext();
 
   /**
    * Seeks to the default position of the next window in the timeline, which may depend on the
-   * current repeat mode and whether shuffle mode is enabled. Does nothing if {@link #hasNext()} is
+   * current repeat mode and whether shuffle mode is enabledA. Does nothing if {@link #hasNext()} is
    * {@code false}.
    */
   void next();
@@ -808,14 +808,14 @@ public interface Player {
 
   /**
    * Returns the index of the next timeline window to be played, which may depend on the current
-   * repeat mode and whether shuffle mode is enabled. Returns {@link C#INDEX_UNSET} if the window
+   * repeat mode and whether shuffle mode is enabledA. Returns {@link C#INDEX_UNSET} if the window
    * currently being played is the last window.
    */
   int getNextWindowIndex();
 
   /**
    * Returns the index of the previous timeline window to be played, which may depend on the current
-   * repeat mode and whether shuffle mode is enabled. Returns {@link C#INDEX_UNSET} if the window
+   * repeat mode and whether shuffle mode is enabledA. Returns {@link C#INDEX_UNSET} if the window
    * currently being played is the first window.
    */
   int getPreviousWindowIndex();

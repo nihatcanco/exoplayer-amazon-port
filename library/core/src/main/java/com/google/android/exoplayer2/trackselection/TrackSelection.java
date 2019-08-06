@@ -37,21 +37,33 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
  */
 public interface TrackSelection {
 
-  /** Contains of a subset of selected tracks belonging to a {@link TrackGroup}. */
+  /**
+   * Contains of a subset of selected tracks belonging to a {@link TrackGroup}.
+   */
   final class Definition {
-    /** The {@link TrackGroup} which tracks belong to. */
+
+    /**
+     * The {@link TrackGroup} which tracks belong to.
+     */
     public final TrackGroup group;
-    /** The indices of the selected tracks in {@link #group}. */
+    /**
+     * The indices of the selected tracks in {@link #group}.
+     */
     public final int[] tracks;
-    /** The track selection reason. One of the {@link C} SELECTION_REASON_ constants. */
+    /**
+     * The track selection reason. One of the {@link C} SELECTION_REASON_ constants.
+     */
     public final int reason;
-    /** Optional data associated with this selection of tracks. */
-    @Nullable public final Object data;
+    /**
+     * Optional data associated with this selection of tracks.
+     */
+    @Nullable
+    public final Object data;
 
     /**
      * @param group The {@link TrackGroup}. Must not be null.
      * @param tracks The indices of the selected tracks within the {@link TrackGroup}. Must not be
-     *     null or empty. May be in any order.
+     * null or empty. May be in any order.
      */
     public Definition(TrackGroup group, int... tracks) {
       this(group, tracks, C.SELECTION_REASON_UNKNOWN, /* data= */ null);
@@ -78,15 +90,13 @@ public interface TrackSelection {
 
     /**
      * @deprecated Implement {@link #createTrackSelections(Definition[], BandwidthMeter)} instead.
-     *     Calling {@link TrackSelectionUtil#createTrackSelectionsForDefinitions(Definition[],
-     *     AdaptiveTrackSelectionFactory)} helps to create a single adaptive track selection in the
-     *     same way as using this deprecated method.
+     * Calling {@link TrackSelectionUtil#createTrackSelectionsForDefinitions(Definition[],
+     * AdaptiveTrackSelectionFactory)} helps to create a single adaptive track selection in the same
+     * way as using this deprecated method.
      */
     @Deprecated
-    default TrackSelection createTrackSelection(
-        TrackGroup group, BandwidthMeter bandwidthMeter, int... tracks) {
-      throw new UnsupportedOperationException();
-    }
+    TrackSelection createTrackSelection(
+        TrackGroup group, BandwidthMeter bandwidthMeter, int... tracks);
 
     /**
      * Creates a new selection for each {@link Definition}.
@@ -94,15 +104,11 @@ public interface TrackSelection {
      * @param definitions A {@link Definition} array. May include null values.
      * @param bandwidthMeter A {@link BandwidthMeter} which can be used to select tracks.
      * @return The created selections. Must have the same length as {@code definitions} and may
-     *     include null values.
+     * include null values.
      */
     @SuppressWarnings("deprecation")
-    default @NullableType TrackSelection[] createTrackSelections(
-        @NullableType Definition[] definitions, BandwidthMeter bandwidthMeter) {
-      return TrackSelectionUtil.createTrackSelectionsForDefinitions(
-          definitions,
-          definition -> createTrackSelection(definition.group, bandwidthMeter, definition.tracks));
-    }
+    @NullableType TrackSelection[] createTrackSelections(
+        @NullableType Definition[] definitions, BandwidthMeter bandwidthMeter);
   }
 
   /**
@@ -110,7 +116,7 @@ public interface TrackSelection {
    * List, MediaChunkIterator[])} or {@link #evaluateQueueSize(long, List)} will only happen after
    * this call.
    *
-   * <p>This method may not be called when the track selection is already enabled.
+   * <p>This method may not be called when the track selection is already enabledA.
    */
   void enable();
 
@@ -119,7 +125,7 @@ public interface TrackSelection {
    * long, long, List, MediaChunkIterator[])} or {@link #evaluateQueueSize(long, List)} will happen
    * after this call.
    *
-   * <p>This method may only be called when the track selection is already enabled.
+   * <p>This method may only be called when the track selection is already enabledA.
    */
   void disable();
 
@@ -158,7 +164,7 @@ public interface TrackSelection {
    *
    * @param format The format.
    * @return The index in the selection, or {@link C#INDEX_UNSET} if the track with the specified
-   *     format is not part of the selection.
+   * format is not part of the selection.
    */
   int indexOf(Format format);
 
@@ -167,7 +173,7 @@ public interface TrackSelection {
    *
    * @param indexInTrackGroup The index in the track group.
    * @return The index in the selection, or {@link C#INDEX_UNSET} if the track with the specified
-   *     index is not part of the selection.
+   * index is not part of the selection.
    */
   int indexOf(int indexInTrackGroup);
 
@@ -193,8 +199,11 @@ public interface TrackSelection {
    */
   int getSelectionReason();
 
-  /** Returns optional data associated with the current track selection. */
-  @Nullable Object getSelectionData();
+  /**
+   * Returns optional data associated with the current track selection.
+   */
+  @Nullable
+  Object getSelectionData();
 
   // Adaptation.
 
@@ -211,50 +220,45 @@ public interface TrackSelection {
    *
    * <p>This happens when the playback position jumps, e.g., as a result of a seek being performed.
    */
-  default void onDiscontinuity() {}
+  void onDiscontinuity();
 
   /**
    * @deprecated Use and implement {@link #updateSelectedTrack(long, long, long, List,
-   *     MediaChunkIterator[])} instead.
+   * MediaChunkIterator[])} instead.
    */
   @Deprecated
-  default void updateSelectedTrack(
-      long playbackPositionUs, long bufferedDurationUs, long availableDurationUs) {
-    throw new UnsupportedOperationException();
-  }
+  void updateSelectedTrack(
+      long playbackPositionUs, long bufferedDurationUs, long availableDurationUs);
 
   /**
    * Updates the selected track for sources that load media in discrete {@link MediaChunk}s.
    *
-   * <p>This method may only be called when the selection is enabled.
+   * <p>This method may only be called when the selection is enabledA.
    *
    * @param playbackPositionUs The current playback position in microseconds. If playback of the
-   *     period to which this track selection belongs has not yet started, the value will be the
-   *     starting position in the period minus the duration of any media in previous periods still
-   *     to be played.
+   * period to which this track selection belongs has not yet started, the value will be the
+   * starting position in the period minus the duration of any media in previous periods still to be
+   * played.
    * @param bufferedDurationUs The duration of media currently buffered from the current playback
-   *     position, in microseconds. Note that the next load position can be calculated as {@code
-   *     (playbackPositionUs + bufferedDurationUs)}.
+   * position, in microseconds. Note that the next load position can be calculated as {@code
+   * (playbackPositionUs + bufferedDurationUs)}.
    * @param availableDurationUs The duration of media available for buffering from the current
-   *     playback position, in microseconds, or {@link C#TIME_UNSET} if media can be buffered to the
-   *     end of the current period. Note that if not set to {@link C#TIME_UNSET}, the position up to
-   *     which media is available for buffering can be calculated as {@code (playbackPositionUs +
-   *     availableDurationUs)}.
+   * playback position, in microseconds, or {@link C#TIME_UNSET} if media can be buffered to the end
+   * of the current period. Note that if not set to {@link C#TIME_UNSET}, the position up to which
+   * media is available for buffering can be calculated as {@code (playbackPositionUs +
+   * availableDurationUs)}.
    * @param queue The queue of already buffered {@link MediaChunk}s. Must not be modified.
    * @param mediaChunkIterators An array of {@link MediaChunkIterator}s providing information about
-   *     the sequence of upcoming media chunks for each track in the selection. All iterators start
-   *     from the media chunk which will be loaded next if the respective track is selected. Note
-   *     that this information may not be available for all tracks, and so some iterators may be
-   *     empty.
+   * the sequence of upcoming media chunks for each track in the selection. All iterators start from
+   * the media chunk which will be loaded next if the respective track is selected. Note that this
+   * information may not be available for all tracks, and so some iterators may be empty.
    */
-  default void updateSelectedTrack(
+  void updateSelectedTrack(
       long playbackPositionUs,
       long bufferedDurationUs,
       long availableDurationUs,
       List<? extends MediaChunk> queue,
-      MediaChunkIterator[] mediaChunkIterators) {
-    updateSelectedTrack(playbackPositionUs, bufferedDurationUs, availableDurationUs);
-  }
+      MediaChunkIterator[] mediaChunkIterators);
 
   /**
    * May be called periodically by sources that load media in discrete {@link MediaChunk}s and
@@ -265,12 +269,12 @@ public interface TrackSelection {
    * An example of a case where a smaller value may be returned is if network conditions have
    * improved dramatically, allowing chunks to be discarded and re-buffered in a track of
    * significantly higher quality. Discarding chunks may allow faster switching to a higher quality
-   * track in this case. This method may only be called when the selection is enabled.
+   * track in this case. This method may only be called when the selection is enabledA.
    *
    * @param playbackPositionUs The current playback position in microseconds. If playback of the
-   *     period to which this track selection belongs has not yet started, the value will be the
-   *     starting position in the period minus the duration of any media in previous periods still
-   *     to be played.
+   * period to which this track selection belongs has not yet started, the value will be the
+   * starting position in the period minus the duration of any media in previous periods still to be
+   * played.
    * @param queue The queue of buffered {@link MediaChunk}s. Must not be modified.
    * @return The number of chunks to retain in the queue.
    */
@@ -284,11 +288,11 @@ public interface TrackSelection {
    * will remain selected until the next call to {@link #updateSelectedTrack(long, long, long, List,
    * MediaChunkIterator[])}.
    *
-   * <p>This method may only be called when the selection is enabled.
+   * <p>This method may only be called when the selection is enabledA.
    *
    * @param index The index of the track in the selection.
    * @param blacklistDurationMs The duration of time for which the track should be blacklisted, in
-   *     milliseconds.
+   * milliseconds.
    * @return Whether blacklisting was successful.
    */
   boolean blacklist(int index, long blacklistDurationMs);

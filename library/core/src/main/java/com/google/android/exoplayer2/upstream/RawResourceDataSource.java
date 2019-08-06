@@ -26,6 +26,9 @@ import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A {@link DataSource} for reading a raw resource inside the APK.
@@ -169,6 +172,11 @@ public final class RawResourceDataSource extends BaseDataSource {
   @Override
   public @Nullable Uri getUri() {
     return uri;
+  }
+
+  @Override
+  public Map<String, List<String>> getResponseHeaders() {
+    return Collections.emptyMap();
   }
 
   @SuppressWarnings("Finally")

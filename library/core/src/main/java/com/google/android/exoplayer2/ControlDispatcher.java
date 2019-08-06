@@ -59,7 +59,7 @@ public interface ControlDispatcher {
    * Dispatches a {@link Player#setShuffleModeEnabled(boolean)} operation.
    *
    * @param player The {@link Player} to which the operation should be dispatched.
-   * @param shuffleModeEnabled Whether shuffling is enabled.
+   * @param shuffleModeEnabled Whether shuffling is enabledA.
    * @return True if the operation was dispatched. False if suppressed.
    */
   boolean dispatchSetShuffleModeEnabled(Player player, boolean shuffleModeEnabled);

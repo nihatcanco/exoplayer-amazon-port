@@ -128,6 +128,11 @@ public final class OfflineLicenseHelper<T extends ExoMediaCrypto> {
     DefaultDrmSessionEventListener eventListener =
         new DefaultDrmSessionEventListener() {
           @Override
+          public void onDrmSessionAcquired() {
+
+          }
+
+          @Override
           public void onDrmKeysLoaded() {
             conditionVariable.open();
           }
@@ -145,6 +150,11 @@ public final class OfflineLicenseHelper<T extends ExoMediaCrypto> {
           @Override
           public void onDrmKeysRemoved() {
             conditionVariable.open();
+          }
+
+          @Override
+          public void onDrmSessionReleased() {
+
           }
         };
     drmSessionManager =

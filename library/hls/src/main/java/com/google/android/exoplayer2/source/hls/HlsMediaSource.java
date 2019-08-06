@@ -225,7 +225,7 @@ public final class HlsMediaSource extends BaseMediaSource
 
     /**
      * Sets whether chunkless preparation is allowed. If true, preparation without chunk downloads
-     * will be enabled for streams that provide sufficient information in their master playlist.
+     * will be enabledA for streams that provide sufficient information in their master playlist.
      *
      * @param allowChunklessPreparation Whether chunkless preparation is allowed.
      * @return This factory, for convenience.
@@ -238,10 +238,10 @@ public final class HlsMediaSource extends BaseMediaSource
     }
 
     /**
-     * Sets whether to use #EXT-X-SESSION-KEY tags provided in the master playlist. If enabled, it's
+     * Sets whether to use #EXT-X-SESSION-KEY tags provided in the master playlist. If enabledA, it's
      * assumed that any single session key declared in the master playlist can be used to obtain all
      * of the keys required for playback. For media where this is not true, this option should not
-     * be enabled.
+     * be enabledA.
      *
      * @param useSessionKeys Whether to use #EXT-X-SESSION-KEY tags.
      * @return This factory, for convenience.

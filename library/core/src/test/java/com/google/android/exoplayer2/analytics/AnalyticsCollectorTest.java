@@ -32,6 +32,7 @@ import com.google.android.exoplayer2.RenderersFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.Timeline.Window;
+import com.google.android.exoplayer2.audio.AudioAttributes;
 import com.google.android.exoplayer2.audio.AudioRendererEventListener;
 import com.google.android.exoplayer2.decoder.DecoderCounters;
 import com.google.android.exoplayer2.metadata.Metadata;
@@ -811,14 +812,14 @@ public final class AnalyticsCollectorTest {
     @Override
     protected void onEnabled(boolean joining) throws ExoPlaybackException {
       super.onEnabled(joining);
-      eventDispatcher.enabled(decoderCounters);
+      eventDispatcher.enabledA(decoderCounters);
       notifiedAudioSessionId = false;
     }
 
     @Override
     protected void onDisabled() {
       super.onDisabled();
-      eventDispatcher.disabled(decoderCounters);
+      eventDispatcher.disabledA(decoderCounters);
     }
 
     @Override
@@ -828,8 +829,8 @@ public final class AnalyticsCollectorTest {
 
     @Override
     protected void onFormatChanged(Format format) {
-      eventDispatcher.inputFormatChanged(format);
-      eventDispatcher.decoderInitialized(
+      eventDispatcher.inputFormatChangedA(format);
+      eventDispatcher.decoderInitializedA(
           /* decoderName= */ "fake.audio.decoder",
           /* initializedTimestampMs= */ SystemClock.elapsedRealtime(),
           /* initializationDurationMs= */ 0);
@@ -838,7 +839,7 @@ public final class AnalyticsCollectorTest {
     @Override
     protected void onBufferRead() {
       if (!notifiedAudioSessionId) {
-        eventDispatcher.audioSessionId(/* audioSessionId= */ 1);
+        eventDispatcher.audioSessionIdA(/* audioSessionIdA= */ 1);
         notifiedAudioSessionId = true;
       }
     }
@@ -1030,7 +1031,7 @@ public final class AnalyticsCollectorTest {
     }
 
     @Override
-    public void onSurfaceSizeChanged(EventTime eventTime, int width, int height) {
+    public void onSurfaceSizeChangedA(EventTime eventTime, int width, int height) {
       reportedEvents.add(new ReportedEvent(EVENT_SURFACE_SIZE_CHANGED, eventTime));
     }
 
@@ -1063,8 +1064,18 @@ public final class AnalyticsCollectorTest {
     }
 
     @Override
-    public void onAudioSessionId(EventTime eventTime, int audioSessionId) {
+    public void onAudioSessionIdA(EventTime eventTime, int audioSessionId) {
       reportedEvents.add(new ReportedEvent(EVENT_AUDIO_SESSION_ID, eventTime));
+    }
+
+    @Override
+    public void onAudioAttributesChangedA(EventTime eventTime, AudioAttributes audioAttributes) {
+
+    }
+
+    @Override
+    public void onVolumeChangedA(EventTime eventTime, float volume) {
+
     }
 
     @Override
@@ -1079,7 +1090,7 @@ public final class AnalyticsCollectorTest {
     }
 
     @Override
-    public void onVideoSizeChanged(
+    public void onVideoSizeChangedA(
         EventTime eventTime,
         int width,
         int height,

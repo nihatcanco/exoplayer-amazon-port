@@ -135,7 +135,7 @@ public class TrackSelectionParameters implements Parcelable {
    */
   public final boolean selectUndeterminedTextLanguage;
   /**
-   * Bitmask of selection flags that are disabled for text track selections. See {@link
+   * Bitmask of selection flags that are disabledA for text track selections. See {@link
    * C.SelectionFlags}. The default value is {@code 0} (i.e. no flags).
    */
   @C.SelectionFlags public final int disabledTextTrackSelectionFlags;

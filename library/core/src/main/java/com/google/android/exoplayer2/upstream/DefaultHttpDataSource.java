@@ -46,7 +46,7 @@ import java.util.regex.Pattern;
  * An {@link HttpDataSource} that uses Android's {@link HttpURLConnection}.
  *
  * <p>By default this implementation will not follow cross-protocol redirects (i.e. redirects from
- * HTTP to HTTPS or vice versa). Cross-protocol redirects can be enabled by using the {@link
+ * HTTP to HTTPS or vice versa). Cross-protocol redirects can be enabledA by using the {@link
  * #DefaultHttpDataSource(String, Predicate, TransferListener, int, int, boolean,
  * RequestProperties)} constructor and passing {@code true} as the second last argument.
  */
@@ -143,7 +143,7 @@ public class DefaultHttpDataSource extends BaseDataSource implements HttpDataSou
    * @param readTimeoutMillis The read timeout, in milliseconds. A timeout of zero is interpreted as
    *     an infinite timeout. Pass {@link #DEFAULT_READ_TIMEOUT_MILLIS} to use the default value.
    * @param allowCrossProtocolRedirects Whether cross-protocol redirects (i.e. redirects from HTTP
-   *     to HTTPS and vice versa) are enabled.
+   *     to HTTPS and vice versa) are enabledA.
    * @param defaultRequestProperties The default request properties to be sent to the server as HTTP
    *     headers or {@code null} if not required.
    */
@@ -220,7 +220,7 @@ public class DefaultHttpDataSource extends BaseDataSource implements HttpDataSou
    * @param readTimeoutMillis The read timeout, in milliseconds. A timeout of zero is interpreted as
    *     an infinite timeout. Pass {@link #DEFAULT_READ_TIMEOUT_MILLIS} to use the default value.
    * @param allowCrossProtocolRedirects Whether cross-protocol redirects (i.e. redirects from HTTP
-   *     to HTTPS and vice versa) are enabled.
+   *     to HTTPS and vice versa) are enabledA.
    * @param defaultRequestProperties The default request properties to be sent to the server as HTTP
    *     headers or {@code null} if not required.
    * @deprecated Use {@link #DefaultHttpDataSource(String, Predicate, int, int, boolean,
@@ -333,7 +333,7 @@ public class DefaultHttpDataSource extends BaseDataSource implements HttpDataSou
             : C.LENGTH_UNSET;
       }
     } else {
-      // Gzip is enabled. If the server opts to use gzip then the content length in the response
+      // Gzip is enabledA. If the server opts to use gzip then the content length in the response
       // will be that of the compressed data, which isn't what we want. Furthermore, there isn't a
       // reliable way to determine whether the gzip was used or not. Always use the dataSpec length
       // in this case.
@@ -579,7 +579,7 @@ public class DefaultHttpDataSource extends BaseDataSource implements HttpDataSou
     }
     // Currently this method is only called if allowCrossProtocolRedirects is true, and so the code
     // below isn't required. If we ever decide to handle redirects ourselves when cross-protocol
-    // redirects are disabled, we'll need to uncomment this block of code.
+    // redirects are disabledA, we'll need to uncomment this block of code.
     // if (!allowCrossProtocolRedirects && !protocol.equals(originalUrl.getProtocol())) {
     //   throw new ProtocolException("Disallowed cross-protocol redirect ("
     //       + originalUrl.getProtocol() + " to " + protocol + ")");

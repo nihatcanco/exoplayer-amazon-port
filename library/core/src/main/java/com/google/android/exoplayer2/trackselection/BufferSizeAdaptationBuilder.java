@@ -38,10 +38,14 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
  */
 public final class BufferSizeAdaptationBuilder {
 
-  /** Dynamic filter for formats, which is applied when selecting a new track. */
+  /**
+   * Dynamic filter for formats, which is applied when selecting a new track.
+   */
   public interface DynamicFormatFilter {
 
-    /** Filter which allows all formats. */
+    /**
+     * Filter which allows all formats.
+     */
     DynamicFormatFilter NO_FILTER = (format, trackBitrate, isInitialSelection) -> true;
 
     /**
@@ -50,7 +54,7 @@ public final class BufferSizeAdaptationBuilder {
      *
      * @param format The {@link Format} of the candidate track.
      * @param trackBitrate The estimated bitrate of the track. May differ from {@link
-     *     Format#bitrate} if a more accurate estimate of the current track bitrate is available.
+     * Format#bitrate} if a more accurate estimate of the current track bitrate is available.
      * @param isInitialSelection Whether this is for the initial track selection.
      */
     boolean isFormatAllowed(Format format, int trackBitrate, boolean isInitialSelection);
@@ -76,7 +80,8 @@ public final class BufferSizeAdaptationBuilder {
 
   /**
    * The default duration of media that must be buffered for playback to resume after a rebuffer, in
-   * milliseconds. A rebuffer is defined to be caused by buffer depletion rather than a user action.
+   * milliseconds. A rebuffer is defined to be caused by buffer depletion rather than a user
+   * action.
    */
   public static final int DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS =
       DefaultLoadControl.DEFAULT_BUFFER_FOR_PLAYBACK_AFTER_REBUFFER_MS;
@@ -102,7 +107,8 @@ public final class BufferSizeAdaptationBuilder {
   public static final int DEFAULT_START_UP_MIN_BUFFER_FOR_QUALITY_INCREASE_MS =
       AdaptiveTrackSelection.DEFAULT_MIN_DURATION_FOR_QUALITY_INCREASE_MS;
 
-  @Nullable private DefaultAllocator allocator;
+  @Nullable
+  private DefaultAllocator allocator;
   private Clock clock;
   private int minBufferMs;
   private int maxBufferMs;
@@ -114,7 +120,9 @@ public final class BufferSizeAdaptationBuilder {
   private DynamicFormatFilter dynamicFormatFilter;
   private boolean buildCalled;
 
-  /** Creates builder with default values. */
+  /**
+   * Creates builder with default values.
+   */
   public BufferSizeAdaptationBuilder() {
     clock = Clock.DEFAULT;
     minBufferMs = DEFAULT_MIN_BUFFER_MS;
@@ -157,14 +165,14 @@ public final class BufferSizeAdaptationBuilder {
    * Sets the buffer duration parameters.
    *
    * @param minBufferMs The minimum duration of media that the player will attempt to ensure is
-   *     buffered at all times, in milliseconds.
+   * buffered at all times, in milliseconds.
    * @param maxBufferMs The maximum duration of media that the player will attempt to buffer, in
-   *     milliseconds.
+   * milliseconds.
    * @param bufferForPlaybackMs The duration of media that must be buffered for playback to start or
-   *     resume following a user action such as a seek, in milliseconds.
+   * resume following a user action such as a seek, in milliseconds.
    * @param bufferForPlaybackAfterRebufferMs The default duration of media that must be buffered for
-   *     playback to resume after a rebuffer, in milliseconds. A rebuffer is defined to be caused by
-   *     buffer depletion rather than a user action.
+   * playback to resume after a rebuffer, in milliseconds. A rebuffer is defined to be caused by
+   * buffer depletion rather than a user action.
    * @return This builder, for convenience.
    * @throws IllegalStateException If {@link #buildPlayerComponents()} has already been called.
    */
@@ -185,8 +193,8 @@ public final class BufferSizeAdaptationBuilder {
    * Sets the hysteresis buffer used to prevent repeated format switching.
    *
    * @param hysteresisBufferMs The offset the current duration of buffered media must deviate from
-   *     the ideal duration of buffered media for the currently selected format, before the selected
-   *     format is changed. This value must be smaller than {@code maxBufferMs - minBufferMs}.
+   * the ideal duration of buffered media for the currently selected format, before the selected
+   * format is changed. This value must be smaller than {@code maxBufferMs - minBufferMs}.
    * @return This builder, for convenience.
    * @throws IllegalStateException If {@link #buildPlayerComponents()} has already been called.
    */
@@ -202,10 +210,10 @@ public final class BufferSizeAdaptationBuilder {
    * bandwidth estimate.
    *
    * @param bandwidthFraction The fraction of the available bandwidth that the selection should
-   *     consider available for use. Setting to a value less than 1 is recommended to account for
-   *     inaccuracies in the bandwidth estimator.
+   * consider available for use. Setting to a value less than 1 is recommended to account for
+   * inaccuracies in the bandwidth estimator.
    * @param minBufferForQualityIncreaseMs The minimum duration of buffered media required for the
-   *     selected track to switch to one of higher quality.
+   * selected track to switch to one of higher quality.
    * @return This builder, for convenience.
    * @throws IllegalStateException If {@link #buildPlayerComponents()} has already been called.
    */
@@ -235,7 +243,7 @@ public final class BufferSizeAdaptationBuilder {
    * Builds player components for buffer size based track adaptation.
    *
    * @return A pair of a {@link TrackSelection.Factory} and a {@link LoadControl}, which should be
-   *     used to construct the player.
+   * used to construct the player.
    */
   public Pair<TrackSelection.Factory, LoadControl> buildPlayerComponents() {
     Assertions.checkArgument(hysteresisBufferMs < maxBufferMs - minBufferMs);
@@ -256,6 +264,12 @@ public final class BufferSizeAdaptationBuilder {
 
     TrackSelection.Factory trackSelectionFactory =
         new TrackSelection.Factory() {
+          @Override
+          public TrackSelection createTrackSelection(TrackGroup group,
+              BandwidthMeter bandwidthMeter, int... tracks) {
+            throw new UnsupportedOperationException();
+          }
+
           @Override
           public @NullableType TrackSelection[] createTrackSelections(
               @NullableType Definition[] definitions, BandwidthMeter bandwidthMeter) {
@@ -350,6 +364,12 @@ public final class BufferSizeAdaptationBuilder {
     }
 
     @Override
+    public void updateSelectedTrack(long playbackPositionUs, long bufferedDurationUs,
+        long availableDurationUs) {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
     public int getSelectedIndex() {
       return selectedIndex;
     }
@@ -417,7 +437,7 @@ public final class BufferSizeAdaptationBuilder {
         if (formatBitrates[i] != BITRATE_BLACKLISTED) {
           if (getTargetBufferForBitrateUs(formatBitrates[i]) <= bufferUs
               && dynamicFormatFilter.isFormatAllowed(
-                  getFormat(i), formatBitrates[i], /* isInitialSelection= */ false)) {
+              getFormat(i), formatBitrates[i], /* isInitialSelection= */ false)) {
             return i;
           }
           lowestBitrateNonBlacklistedIndex = i;
@@ -454,7 +474,7 @@ public final class BufferSizeAdaptationBuilder {
         if (formatBitrates[i] != BITRATE_BLACKLISTED) {
           if (Math.round(formatBitrates[i] * playbackSpeed) <= effectiveBitrate
               && dynamicFormatFilter.isFormatAllowed(
-                  getFormat(i), formatBitrates[i], isInitialSelection)) {
+              getFormat(i), formatBitrates[i], isInitialSelection)) {
             return i;
           }
           lowestBitrateNonBlacklistedIndex = i;

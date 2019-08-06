@@ -210,7 +210,7 @@ public interface ExoPlayer extends Player {
    * starting to play another piece of content for which the same resources are required.
    *
    * <p>This mode should be used with caution, since holding limited resources may prevent other
-   * players of media components from acquiring them. It should only be enabled when <em>both</em>
+   * players of media components from acquiring them. It should only be enabledA when <em>both</em>
    * of the following conditions are true:
    *
    * <ul>
@@ -224,9 +224,9 @@ public interface ExoPlayer extends Player {
    * <p>Note that foreground mode is <em>not</em> useful for switching between content without gaps
    * between the playbacks. For this use case {@link #stop} does not need to be called, and simply
    * calling {@link #prepare} for the new media will cause limited resources to be retained even if
-   * foreground mode is not enabled.
+   * foreground mode is not enabledA.
    *
-   * <p>If foreground mode is enabled, it's the application's responsibility to disable it when the
+   * <p>If foreground mode is enabledA, it's the application's responsibility to disable it when the
    * conditions described above no longer hold.
    *
    * @param foregroundMode Whether the player is allowed to keep limited resources even when in the

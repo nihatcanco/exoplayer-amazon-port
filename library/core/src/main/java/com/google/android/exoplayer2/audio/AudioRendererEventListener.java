@@ -31,69 +31,71 @@ import com.google.android.exoplayer2.util.Assertions;
 public interface AudioRendererEventListener {
 
   /**
-   * Called when the renderer is enabled.
+   * Called when the renderer is enabledA.
    *
    * @param counters {@link DecoderCounters} that will be updated by the renderer for as long as it
-   *     remains enabled.
+   * remains enabledA.
    */
-  default void onAudioEnabled(DecoderCounters counters) {}
+  void onAudioEnabledB(DecoderCounters counters);
 
   /**
    * Called when the audio session is set.
    *
    * @param audioSessionId The audio session id.
    */
-  default void onAudioSessionId(int audioSessionId) {}
+  void onAudioSessionIdB(int audioSessionId);
 
   /**
    * Called when a decoder is created.
    *
    * @param decoderName The decoder that was created.
    * @param initializedTimestampMs {@link SystemClock#elapsedRealtime()} when initialization
-   *     finished.
+   * finished.
    * @param initializationDurationMs The time taken to initialize the decoder in milliseconds.
    */
-  default void onAudioDecoderInitialized(
-      String decoderName, long initializedTimestampMs, long initializationDurationMs) {}
+  void onAudioDecoderInitializedB(
+      String decoderName, long initializedTimestampMs, long initializationDurationMs);
 
   /**
    * Called when the format of the media being consumed by the renderer changes.
    *
    * @param format The new format.
    */
-  default void onAudioInputFormatChanged(Format format) {}
+  void onAudioInputFormatChangedB(Format format);
 
   /**
    * Called when an {@link AudioSink} underrun occurs.
    *
    * @param bufferSize The size of the {@link AudioSink}'s buffer, in bytes.
    * @param bufferSizeMs The size of the {@link AudioSink}'s buffer, in milliseconds, if it is
-   *     configured for PCM output. {@link C#TIME_UNSET} if it is configured for passthrough output,
-   *     as the buffered media can have a variable bitrate so the duration may be unknown.
+   * configured for PCM output. {@link C#TIME_UNSET} if it is configured for passthrough output, as
+   * the buffered media can have a variable bitrate so the duration may be unknown.
    * @param elapsedSinceLastFeedMs The time since the {@link AudioSink} was last fed data.
    */
-  default void onAudioSinkUnderrun(
-      int bufferSize, long bufferSizeMs, long elapsedSinceLastFeedMs) {}
+  void onAudioSinkUnderrunB(
+      int bufferSize, long bufferSizeMs, long elapsedSinceLastFeedMs);
 
   /**
-   * Called when the renderer is disabled.
+   * Called when the renderer is disabledA.
    *
    * @param counters {@link DecoderCounters} that were updated by the renderer.
    */
-  default void onAudioDisabled(DecoderCounters counters) {}
+  void onAudioDisabledB(DecoderCounters counters);
 
   /**
    * Dispatches events to a {@link AudioRendererEventListener}.
    */
   final class EventDispatcher {
 
-    @Nullable private final Handler handler;
-    @Nullable private final AudioRendererEventListener listener;
+    @Nullable
+    private final Handler handler;
+    @Nullable
+    private final AudioRendererEventListener listener;
 
     /**
      * @param handler A handler for dispatching events, or null if creating a dummy instance.
      * @param listener The listener to which events should be dispatched, or null if creating a
-     *     dummy instance.
+     * dummy instance.
      */
     public EventDispatcher(@Nullable Handler handler,
         @Nullable AudioRendererEventListener listener) {
@@ -102,67 +104,67 @@ public interface AudioRendererEventListener {
     }
 
     /**
-     * Invokes {@link AudioRendererEventListener#onAudioEnabled(DecoderCounters)}.
+     * Invokes {@link AudioRendererEventListener#onAudioEnabledB(DecoderCounters)}.
      */
-    public void enabled(final DecoderCounters decoderCounters) {
+    public void enabledA(final DecoderCounters decoderCounters) {
       if (listener != null) {
-        handler.post(() -> listener.onAudioEnabled(decoderCounters));
+        handler.post(() -> listener.onAudioEnabledB(decoderCounters));
       }
     }
 
     /**
-     * Invokes {@link AudioRendererEventListener#onAudioDecoderInitialized(String, long, long)}.
+     * Invokes {@link AudioRendererEventListener#onAudioDecoderInitializedB(String, long, long)}.
      */
-    public void decoderInitialized(final String decoderName,
+    public void decoderInitializedA(final String decoderName,
         final long initializedTimestampMs, final long initializationDurationMs) {
       if (listener != null) {
         handler.post(
             () ->
-                listener.onAudioDecoderInitialized(
+                listener.onAudioDecoderInitializedB(
                     decoderName, initializedTimestampMs, initializationDurationMs));
       }
     }
 
     /**
-     * Invokes {@link AudioRendererEventListener#onAudioInputFormatChanged(Format)}.
+     * Invokes {@link AudioRendererEventListener#onAudioInputFormatChangedB(Format)}.
      */
-    public void inputFormatChanged(final Format format) {
+    public void inputFormatChangedA(final Format format) {
       if (listener != null) {
-        handler.post(() -> listener.onAudioInputFormatChanged(format));
+        handler.post(() -> listener.onAudioInputFormatChangedB(format));
       }
     }
 
     /**
-     * Invokes {@link AudioRendererEventListener#onAudioSinkUnderrun(int, long, long)}.
+     * Invokes {@link AudioRendererEventListener#onAudioSinkUnderrunB(int, long, long)}.
      */
-    public void audioTrackUnderrun(final int bufferSize, final long bufferSizeMs,
+    public void audioTrackUnderrunA(final int bufferSize, final long bufferSizeMs,
         final long elapsedSinceLastFeedMs) {
       if (listener != null) {
         handler.post(
-            () -> listener.onAudioSinkUnderrun(bufferSize, bufferSizeMs, elapsedSinceLastFeedMs));
+            () -> listener.onAudioSinkUnderrunB(bufferSize, bufferSizeMs, elapsedSinceLastFeedMs));
       }
     }
 
     /**
-     * Invokes {@link AudioRendererEventListener#onAudioDisabled(DecoderCounters)}.
+     * Invokes {@link AudioRendererEventListener#onAudioDisabledB(DecoderCounters)}.
      */
-    public void disabled(final DecoderCounters counters) {
+    public void disabledA(final DecoderCounters counters) {
       counters.ensureUpdated();
       if (listener != null) {
         handler.post(
             () -> {
               counters.ensureUpdated();
-              listener.onAudioDisabled(counters);
+              listener.onAudioDisabledB(counters);
             });
       }
     }
 
     /**
-     * Invokes {@link AudioRendererEventListener#onAudioSessionId(int)}.
+     * Invokes {@link AudioRendererEventListener#onAudioSessionIdB(int)}.
      */
-    public void audioSessionId(final int audioSessionId) {
+    public void audioSessionIdA(final int audioSessionId) {
       if (listener != null) {
-        handler.post(() -> listener.onAudioSessionId(audioSessionId));
+        handler.post(() -> listener.onAudioSessionIdB(audioSessionId));
       }
     }
 

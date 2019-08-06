@@ -72,45 +72,47 @@ import org.checkerframework.checker.nullness.qual.RequiresNonNull;
  * Standard playback actions can be shown or omitted as follows:
  *
  * <ul>
- *   <li><b>{@code useNavigationActions}</b> - Sets whether the navigation previous and next actions
- *       are displayed.
- *       <ul>
- *         <li>Corresponding setter: {@link #setUseNavigationActions(boolean)}
- *         <li>Default: {@code true}
- *       </ul>
- *   <li><b>{@code useNavigationActionsInCompactView}</b> - Sets whether the navigation previous and
- *       next actions should are displayed in compact view (including the lock screen notification).
- *       <ul>
- *         <li>Corresponding setter: {@link #setUseNavigationActionsInCompactView(boolean)}
- *         <li>Default: {@code false}
- *       </ul>
- *   <li><b>{@code usePlayPauseActions}</b> - Sets whether the play and pause actions are displayed.
- *       <ul>
- *         <li>Corresponding setter: {@link #setUsePlayPauseActions(boolean)}
- *         <li>Default: {@code true}
- *       </ul>
- *   <li><b>{@code useStopAction}</b> - Sets whether the stop action is displayed.
- *       <ul>
- *         <li>Corresponding setter: {@link #setUseStopAction(boolean)}
- *         <li>Default: {@code false}
- *       </ul>
- *   <li><b>{@code rewindIncrementMs}</b> - Sets the rewind increment. If set to zero the rewind
- *       action is not displayed.
- *       <ul>
- *         <li>Corresponding setter: {@link #setRewindIncrementMs(long)}
- *         <li>Default: {@link #DEFAULT_REWIND_MS} (5000)
- *       </ul>
- *   <li><b>{@code fastForwardIncrementMs}</b> - Sets the fast forward increment. If set to zero the
- *       fast forward action is not included in the notification.
- *       <ul>
- *         <li>Corresponding setter: {@link #setFastForwardIncrementMs(long)}
- *         <li>Default: {@link #DEFAULT_FAST_FORWARD_MS} (5000)
- *       </ul>
+ * <li><b>{@code useNavigationActions}</b> - Sets whether the navigation previous and next actions
+ * are displayed.
+ * <ul>
+ * <li>Corresponding setter: {@link #setUseNavigationActions(boolean)}
+ * <li>Default: {@code true}
+ * </ul>
+ * <li><b>{@code useNavigationActionsInCompactView}</b> - Sets whether the navigation previous and
+ * next actions should are displayed in compact view (including the lock screen notification).
+ * <ul>
+ * <li>Corresponding setter: {@link #setUseNavigationActionsInCompactView(boolean)}
+ * <li>Default: {@code false}
+ * </ul>
+ * <li><b>{@code usePlayPauseActions}</b> - Sets whether the play and pause actions are displayed.
+ * <ul>
+ * <li>Corresponding setter: {@link #setUsePlayPauseActions(boolean)}
+ * <li>Default: {@code true}
+ * </ul>
+ * <li><b>{@code useStopAction}</b> - Sets whether the stop action is displayed.
+ * <ul>
+ * <li>Corresponding setter: {@link #setUseStopAction(boolean)}
+ * <li>Default: {@code false}
+ * </ul>
+ * <li><b>{@code rewindIncrementMs}</b> - Sets the rewind increment. If set to zero the rewind
+ * action is not displayed.
+ * <ul>
+ * <li>Corresponding setter: {@link #setRewindIncrementMs(long)}
+ * <li>Default: {@link #DEFAULT_REWIND_MS} (5000)
+ * </ul>
+ * <li><b>{@code fastForwardIncrementMs}</b> - Sets the fast forward increment. If set to zero the
+ * fast forward action is not included in the notification.
+ * <ul>
+ * <li>Corresponding setter: {@link #setFastForwardIncrementMs(long)}
+ * <li>Default: {@link #DEFAULT_FAST_FORWARD_MS} (5000)
+ * </ul>
  * </ul>
  */
 public class PlayerNotificationManager {
 
-  /** An adapter to provide content assets of the media currently playing. */
+  /**
+   * An adapter to provide content assets of the media currently playing.
+   */
   public interface MediaDescriptionAdapter {
 
     /**
@@ -150,9 +152,7 @@ public class PlayerNotificationManager {
      * @param player The {@link Player} for which a notification is being built.
      */
     @Nullable
-    default String getCurrentSubText(Player player) {
-      return null;
-    }
+    String getCurrentSubText(Player player);
 
     /**
      * Gets the large icon for the current media item.
@@ -172,7 +172,9 @@ public class PlayerNotificationManager {
     Bitmap getCurrentLargeIcon(Player player, BitmapCallback callback);
   }
 
-  /** Defines and handles custom actions. */
+  /**
+   * Defines and handles custom actions.
+   */
   public interface CustomActionReceiver {
 
     /**
@@ -211,7 +213,9 @@ public class PlayerNotificationManager {
     void onCustomAction(Player player, String action, Intent intent);
   }
 
-  /** A listener for changes to the notification. */
+  /**
+   * A listener for changes to the notification.
+   */
   public interface NotificationListener {
 
     /**
@@ -222,25 +226,16 @@ public class PlayerNotificationManager {
      * @deprecated Use {@link #onNotificationPosted(int, Notification, boolean)} instead.
      */
     @Deprecated
-    default void onNotificationStarted(int notificationId, Notification notification) {}
-
-    /**
-     * Called after the notification has been cancelled.
-     *
-     * @param notificationId The id of the notification which has been cancelled.
-     * @deprecated Use {@link #onNotificationCancelled(int, boolean)}.
-     */
-    @Deprecated
-    default void onNotificationCancelled(int notificationId) {}
+    void onNotificationStarted(int notificationId, Notification notification);
 
     /**
      * Called after the notification has been cancelled.
      *
      * @param notificationId The id of the notification which has been cancelled.
      * @param dismissedByUser {@code true} if the notification is cancelled because the user
-     *     dismissed the notification.
+     * dismissed the notification.
      */
-    default void onNotificationCancelled(int notificationId, boolean dismissedByUser) {}
+    void onNotificationCancelled(int notificationId, boolean dismissedByUser);
 
     /**
      * Called each time after the notification has been posted.
@@ -252,15 +247,20 @@ public class PlayerNotificationManager {
      * @param notification The {@link Notification}.
      * @param ongoing Whether the notification is ongoing.
      */
-    default void onNotificationPosted(
-        int notificationId, Notification notification, boolean ongoing) {}
+    void onNotificationPosted(
+        int notificationId, Notification notification, boolean ongoing);
   }
 
-  /** Receives a {@link Bitmap}. */
+  /**
+   * Receives a {@link Bitmap}.
+   */
   public final class BitmapCallback {
+
     private final int notificationTag;
 
-    /** Create the receiver. */
+    /**
+     * Create the receiver.
+     */
     private BitmapCallback(int notificationTag) {
       this.notificationTag = notificationTag;
     }
@@ -273,32 +273,51 @@ public class PlayerNotificationManager {
     public void onBitmap(final Bitmap bitmap) {
       if (bitmap != null) {
         mainHandler.post(
-            () -> {
-              if (player != null
-                  && notificationTag == currentNotificationTag
-                  && isNotificationStarted) {
-                startOrUpdateNotification(bitmap);
+            new Runnable() {
+              @Override
+              public void run() {
+                if (player != null
+                    && notificationTag == currentNotificationTag
+                    && isNotificationStarted) {
+                  startOrUpdateNotification(bitmap);
+                }
               }
             });
       }
     }
   }
 
-  /** The action which starts playback. */
+  /**
+   * The action which starts playback.
+   */
   public static final String ACTION_PLAY = "com.google.android.exoplayer.play";
-  /** The action which pauses playback. */
+  /**
+   * The action which pauses playback.
+   */
   public static final String ACTION_PAUSE = "com.google.android.exoplayer.pause";
-  /** The action which skips to the previous window. */
+  /**
+   * The action which skips to the previous window.
+   */
   public static final String ACTION_PREVIOUS = "com.google.android.exoplayer.prev";
-  /** The action which skips to the next window. */
+  /**
+   * The action which skips to the next window.
+   */
   public static final String ACTION_NEXT = "com.google.android.exoplayer.next";
-  /** The action which fast forwards. */
+  /**
+   * The action which fast forwards.
+   */
   public static final String ACTION_FAST_FORWARD = "com.google.android.exoplayer.ffwd";
-  /** The action which rewinds. */
+  /**
+   * The action which rewinds.
+   */
   public static final String ACTION_REWIND = "com.google.android.exoplayer.rewind";
-  /** The action which stops playback. */
+  /**
+   * The action which stops playback.
+   */
   public static final String ACTION_STOP = "com.google.android.exoplayer.stop";
-  /** The extra key of the instance id of the player notification manager. */
+  /**
+   * The extra key of the instance id of the player notification manager.
+   */
   public static final String EXTRA_INSTANCE_ID = "INSTANCE_ID";
   /**
    * The action which is executed when the notification is dismissed. It cancels the notification
@@ -307,18 +326,19 @@ public class PlayerNotificationManager {
   private static final String ACTION_DISMISS = "com.google.android.exoplayer.dismiss";
 
   /**
-   * Visibility of notification on the lock screen. One of {@link
-   * NotificationCompat#VISIBILITY_PRIVATE}, {@link NotificationCompat#VISIBILITY_PUBLIC} or {@link
-   * NotificationCompat#VISIBILITY_SECRET}.
+   * Visibility of notification on the lock screen. One of {@link NotificationCompat#VISIBILITY_PRIVATE},
+   * {@link NotificationCompat#VISIBILITY_PUBLIC} or {@link NotificationCompat#VISIBILITY_SECRET}.
    */
   @Documented
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({
-    NotificationCompat.VISIBILITY_PRIVATE,
-    NotificationCompat.VISIBILITY_PUBLIC,
-    NotificationCompat.VISIBILITY_SECRET
+      NotificationCompat.VISIBILITY_PRIVATE,
+      NotificationCompat.VISIBILITY_PUBLIC,
+      NotificationCompat.VISIBILITY_SECRET
   })
-  public @interface Visibility {}
+  public @interface Visibility {
+
+  }
 
   /**
    * Priority of the notification (required for API 25 and lower). One of {@link
@@ -329,17 +349,23 @@ public class PlayerNotificationManager {
   @Documented
   @Retention(RetentionPolicy.SOURCE)
   @IntDef({
-    NotificationCompat.PRIORITY_DEFAULT,
-    NotificationCompat.PRIORITY_MAX,
-    NotificationCompat.PRIORITY_HIGH,
-    NotificationCompat.PRIORITY_LOW,
-    NotificationCompat.PRIORITY_MIN
+      NotificationCompat.PRIORITY_DEFAULT,
+      NotificationCompat.PRIORITY_MAX,
+      NotificationCompat.PRIORITY_HIGH,
+      NotificationCompat.PRIORITY_LOW,
+      NotificationCompat.PRIORITY_MIN
   })
-  public @interface Priority {}
+  public @interface Priority {
 
-  /** The default fast forward increment, in milliseconds. */
+  }
+
+  /**
+   * The default fast forward increment, in milliseconds.
+   */
   public static final int DEFAULT_FAST_FORWARD_MS = 15000;
-  /** The default rewind increment, in milliseconds. */
+  /**
+   * The default rewind increment, in milliseconds.
+   */
   public static final int DEFAULT_REWIND_MS = 5000;
 
   private static final long MAX_POSITION_FOR_SEEK_TO_PREVIOUS = 3000;
@@ -350,7 +376,8 @@ public class PlayerNotificationManager {
   private final String channelId;
   private final int notificationId;
   private final MediaDescriptionAdapter mediaDescriptionAdapter;
-  @Nullable private final CustomActionReceiver customActionReceiver;
+  @Nullable
+  private final CustomActionReceiver customActionReceiver;
   private final Handler mainHandler;
   private final NotificationManagerCompat notificationManager;
   private final IntentFilter intentFilter;
@@ -362,15 +389,21 @@ public class PlayerNotificationManager {
   private final int instanceId;
   private final Timeline.Window window;
 
-  @Nullable private NotificationCompat.Builder builder;
-  @Nullable private ArrayList<NotificationCompat.Action> builderActions;
-  @Nullable private Player player;
-  @Nullable private PlaybackPreparer playbackPreparer;
+  @Nullable
+  private NotificationCompat.Builder builder;
+  @Nullable
+  private ArrayList<NotificationCompat.Action> builderActions;
+  @Nullable
+  private Player player;
+  @Nullable
+  private PlaybackPreparer playbackPreparer;
   private ControlDispatcher controlDispatcher;
   private boolean isNotificationStarted;
   private int currentNotificationTag;
-  @Nullable private NotificationListener notificationListener;
-  @Nullable private MediaSessionCompat.Token mediaSessionToken;
+  @Nullable
+  private NotificationListener notificationListener;
+  @Nullable
+  private MediaSessionCompat.Token mediaSessionToken;
   private boolean useNavigationActions;
   private boolean useNavigationActionsInCompactView;
   private boolean usePlayPauseActions;
@@ -381,9 +414,11 @@ public class PlayerNotificationManager {
   private boolean colorized;
   private int defaults;
   private int color;
-  @DrawableRes private int smallIconResourceId;
+  @DrawableRes
+  private int smallIconResourceId;
   private int visibility;
-  @Priority private int priority;
+  @Priority
+  private int priority;
   private boolean useChronometer;
   private boolean wasPlayWhenReady;
   private int lastPlaybackState;
@@ -401,7 +436,7 @@ public class PlayerNotificationManager {
    * @param context The {@link Context}.
    * @param channelId The id of the notification channel.
    * @param channelName A string resource identifier for the user visible name of the channel. The
-   *     recommended maximum length is 40 characters; the value may be truncated if it is too long.
+   * recommended maximum length is 40 characters; the value may be truncated if it is too long.
    * @param notificationId The id of the notification.
    * @param mediaDescriptionAdapter The {@link MediaDescriptionAdapter}.
    */
@@ -425,7 +460,7 @@ public class PlayerNotificationManager {
    * @param context The {@link Context}.
    * @param channelId The id of the notification channel.
    * @param channelName A string resource identifier for the user visible name of the channel. The
-   *     recommended maximum length is 40 characters; the value may be truncated if it is too long.
+   * recommended maximum length is 40 characters; the value may be truncated if it is too long.
    * @param notificationId The id of the notification.
    * @param mediaDescriptionAdapter The {@link MediaDescriptionAdapter}.
    * @param notificationListener The {@link NotificationListener}.
@@ -598,8 +633,8 @@ public class PlayerNotificationManager {
    * setPlayer(null)}. This will cancel the notification.
    *
    * @param player The {@link Player} to use, or {@code null} to remove the current player. Only
-   *     players which are accessed on the main thread are supported ({@code
-   *     player.getApplicationLooper() == Looper.getMainLooper()}).
+   * players which are accessed on the main thread are supported ({@code
+   * player.getApplicationLooper() == Looper.getMainLooper()}).
    */
   public final void setPlayer(@Nullable Player player) {
     Assertions.checkState(Looper.myLooper() == Looper.getMainLooper());
@@ -636,7 +671,7 @@ public class PlayerNotificationManager {
    * Sets the {@link ControlDispatcher}.
    *
    * @param controlDispatcher The {@link ControlDispatcher}, or null to use {@link
-   *     DefaultControlDispatcher}.
+   * DefaultControlDispatcher}.
    */
   public final void setControlDispatcher(ControlDispatcher controlDispatcher) {
     this.controlDispatcher =
@@ -662,7 +697,7 @@ public class PlayerNotificationManager {
    * Sets the fast forward increment in milliseconds.
    *
    * @param fastForwardMs The fast forward increment in milliseconds. A value of zero will cause the
-   *     fast forward action to be disabled.
+   * fast forward action to be disabledA.
    */
   public final void setFastForwardIncrementMs(long fastForwardMs) {
     if (this.fastForwardMs == fastForwardMs) {
@@ -676,7 +711,7 @@ public class PlayerNotificationManager {
    * Sets the rewind increment in milliseconds.
    *
    * @param rewindMs The rewind increment in milliseconds. A value of zero will cause the rewind
-   *     action to be disabled.
+   * action to be disabledA.
    */
   public final void setRewindIncrementMs(long rewindMs) {
     if (this.rewindMs == rewindMs) {
@@ -705,7 +740,7 @@ public class PlayerNotificationManager {
    * neither in compact nor in full view mode of the notification.
    *
    * @param useNavigationActionsInCompactView Whether the navigation actions should be displayed in
-   *     compact view.
+   * compact view.
    */
   public final void setUseNavigationActionsInCompactView(
       boolean useNavigationActionsInCompactView) {
@@ -824,9 +859,9 @@ public class PlayerNotificationManager {
    * <p>See {@link NotificationCompat.Builder#setPriority(int)}.
    *
    * @param priority The priority which can be one of {@link NotificationCompat#PRIORITY_DEFAULT},
-   *     {@link NotificationCompat#PRIORITY_MAX}, {@link NotificationCompat#PRIORITY_HIGH}, {@link
-   *     NotificationCompat#PRIORITY_LOW} or {@link NotificationCompat#PRIORITY_MIN}. If not set
-   *     {@link NotificationCompat#PRIORITY_LOW} is used by default.
+   * {@link NotificationCompat#PRIORITY_MAX}, {@link NotificationCompat#PRIORITY_HIGH}, {@link
+   * NotificationCompat#PRIORITY_LOW} or {@link NotificationCompat#PRIORITY_MIN}. If not set {@link
+   * NotificationCompat#PRIORITY_LOW} is used by default.
    */
   public final void setPriority(@Priority int priority) {
     if (this.priority == priority) {
@@ -880,9 +915,8 @@ public class PlayerNotificationManager {
    *
    * <p>See {@link NotificationCompat.Builder#setVisibility(int)}.
    *
-   * @param visibility The visibility which must be one of {@link
-   *     NotificationCompat#VISIBILITY_PUBLIC}, {@link NotificationCompat#VISIBILITY_PRIVATE} or
-   *     {@link NotificationCompat#VISIBILITY_SECRET}.
+   * @param visibility The visibility which must be one of {@link NotificationCompat#VISIBILITY_PUBLIC},
+   * {@link NotificationCompat#VISIBILITY_PRIVATE} or {@link NotificationCompat#VISIBILITY_SECRET}.
    */
   public final void setVisibility(@Visibility int visibility) {
     if (this.visibility == visibility) {
@@ -900,7 +934,9 @@ public class PlayerNotificationManager {
     invalidate();
   }
 
-  /** Forces an update of the notification if already started. */
+  /**
+   * Forces an update of the notification if already started.
+   */
   public void invalidate() {
     if (isNotificationStarted && player != null) {
       startOrUpdateNotification();
@@ -946,7 +982,6 @@ public class PlayerNotificationManager {
       context.unregisterReceiver(notificationBroadcastReceiver);
       if (notificationListener != null) {
         notificationListener.onNotificationCancelled(notificationId, dismissedByUser);
-        notificationListener.onNotificationCancelled(notificationId);
       }
     }
   }
@@ -956,12 +991,12 @@ public class PlayerNotificationManager {
    *
    * @param player The player for which state to build a notification.
    * @param builder The builder used to build the last notification, or {@code null}. Re-using the
-   *     builder when possible can prevent notification flicker when {@code Util#SDK_INT} &lt; 21.
+   * builder when possible can prevent notification flicker when {@code Util#SDK_INT} &lt; 21.
    * @param ongoing Whether the notification should be ongoing.
    * @param largeIcon The large icon to be used.
    * @return The {@link NotificationCompat.Builder} on which to call {@link
-   *     NotificationCompat.Builder#build()} to obtain the notification, or {@code null} if no
-   *     notification should be displayed.
+   * NotificationCompat.Builder#build()} to obtain the notification, or {@code null} if no
+   * notification should be displayed.
    */
   @Nullable
   protected NotificationCompat.Builder createNotification(
@@ -1146,7 +1181,9 @@ public class PlayerNotificationManager {
     return Arrays.copyOf(actionIndices, actionCounter);
   }
 
-  /** Returns whether the generated notification should be ongoing. */
+  /**
+   * Returns whether the generated notification should be ongoing.
+   */
   protected boolean getOngoing(Player player) {
     int playbackState = player.getPlaybackState();
     return (playbackState == Player.STATE_BUFFERING || playbackState == Player.STATE_READY)
@@ -1163,7 +1200,7 @@ public class PlayerNotificationManager {
     int previousWindowIndex = player.getPreviousWindowIndex();
     if (previousWindowIndex != C.INDEX_UNSET
         && (player.getCurrentPosition() <= MAX_POSITION_FOR_SEEK_TO_PREVIOUS
-            || (window.isDynamic && !window.isSeekable))) {
+        || (window.isDynamic && !window.isSeekable))) {
       seekTo(player, previousWindowIndex, C.TIME_UNSET);
     } else {
       seekTo(player, 0);

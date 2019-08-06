@@ -55,9 +55,7 @@ public interface DownloadCursor extends Closeable {
    *
    * @return whether the move succeeded.
    */
-  default boolean moveToFirst() {
-    return moveToPosition(0);
-  }
+  boolean moveToFirst();
 
   /**
    * Move the cursor to the last download.
@@ -66,9 +64,7 @@ public interface DownloadCursor extends Closeable {
    *
    * @return whether the move succeeded.
    */
-  default boolean moveToLast() {
-    return moveToPosition(getCount() - 1);
-  }
+  boolean moveToLast();
 
   /**
    * Move the cursor to the next download.
@@ -78,9 +74,7 @@ public interface DownloadCursor extends Closeable {
    *
    * @return whether the move succeeded.
    */
-  default boolean moveToNext() {
-    return moveToPosition(getPosition() + 1);
-  }
+  boolean moveToNext();
 
   /**
    * Move the cursor to the previous download.
@@ -90,36 +84,19 @@ public interface DownloadCursor extends Closeable {
    *
    * @return whether the move succeeded.
    */
-  default boolean moveToPrevious() {
-    return moveToPosition(getPosition() - 1);
-  }
+  boolean moveToPrevious();
 
   /** Returns whether the cursor is pointing to the first download. */
-  default boolean isFirst() {
-    return getPosition() == 0 && getCount() != 0;
-  }
+  boolean isFirst();
 
   /** Returns whether the cursor is pointing to the last download. */
-  default boolean isLast() {
-    int count = getCount();
-    return getPosition() == (count - 1) && count != 0;
-  }
+  boolean isLast();
 
   /** Returns whether the cursor is pointing to the position before the first download. */
-  default boolean isBeforeFirst() {
-    if (getCount() == 0) {
-      return true;
-    }
-    return getPosition() == -1;
-  }
+  boolean isBeforeFirst();
 
   /** Returns whether the cursor is pointing to the position after the last download. */
-  default boolean isAfterLast() {
-    if (getCount() == 0) {
-      return true;
-    }
-    return getPosition() == getCount();
-  }
+  boolean isAfterLast();
 
   /** Returns whether the cursor is closed */
   boolean isClosed();

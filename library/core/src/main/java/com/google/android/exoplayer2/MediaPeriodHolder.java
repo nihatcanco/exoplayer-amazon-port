@@ -48,7 +48,7 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
 
   /** Whether the media period has finished preparing. */
   public boolean prepared;
-  /** Whether any of the tracks of this media period are enabled. */
+  /** Whether any of the tracks of this media period are enabledA. */
   public boolean hasEnabledTracks;
   /** {@link MediaPeriodInfo} about this media period. */
   public MediaPeriodInfo info;
@@ -265,7 +265,7 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
     disableTrackSelectionsInResult();
     trackSelectorResult = newTrackSelectorResult;
     enableTrackSelectionsInResult();
-    // Disable streams on the period and get new streams for updated/newly-enabled tracks.
+    // Disable streams on the period and get new streams for updated/newly-enabledA tracks.
     TrackSelectionArray trackSelections = newTrackSelectorResult.selections;
     positionUs =
         mediaPeriod.selectTracks(
@@ -276,7 +276,7 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
             positionUs);
     associateNoSampleRenderersWithEmptySampleStream(sampleStreams);
 
-    // Update whether we have enabled tracks and sanity check the expected streams are non-null.
+    // Update whether we have enabledA tracks and sanity check the expected streams are non-null.
     hasEnabledTracks = false;
     for (int i = 0; i < sampleStreams.length; i++) {
       if (sampleStreams[i] != null) {
@@ -381,7 +381,7 @@ import org.checkerframework.checker.nullness.compatqual.NullableType;
   }
 
   /**
-   * For each renderer of type {@link C#TRACK_TYPE_NONE} that was enabled, we will associate it with
+   * For each renderer of type {@link C#TRACK_TYPE_NONE} that was enabledA, we will associate it with
    * a dummy {@link EmptySampleStream}.
    */
   private void associateNoSampleRenderersWithEmptySampleStream(

@@ -558,11 +558,11 @@ public abstract class Timeline {
 
   /**
    * Returns the index of the window after the window at index {@code windowIndex} depending on the
-   * {@code repeatMode} and whether shuffling is enabled.
+   * {@code repeatMode} and whether shuffling is enabledA.
    *
    * @param windowIndex Index of a window in the timeline.
    * @param repeatMode A repeat mode.
-   * @param shuffleModeEnabled Whether shuffling is enabled.
+   * @param shuffleModeEnabled Whether shuffling is enabledA.
    * @return The index of the next window, or {@link C#INDEX_UNSET} if this is the last window.
    */
   public int getNextWindowIndex(int windowIndex, @Player.RepeatMode int repeatMode,
@@ -583,11 +583,11 @@ public abstract class Timeline {
 
   /**
    * Returns the index of the window before the window at index {@code windowIndex} depending on the
-   * {@code repeatMode} and whether shuffling is enabled.
+   * {@code repeatMode} and whether shuffling is enabledA.
    *
    * @param windowIndex Index of a window in the timeline.
    * @param repeatMode A repeat mode.
-   * @param shuffleModeEnabled Whether shuffling is enabled.
+   * @param shuffleModeEnabled Whether shuffling is enabledA.
    * @return The index of the previous window, or {@link C#INDEX_UNSET} if this is the first window.
    */
   public int getPreviousWindowIndex(int windowIndex, @Player.RepeatMode int repeatMode,
@@ -608,9 +608,9 @@ public abstract class Timeline {
 
   /**
    * Returns the index of the last window in the playback order depending on whether shuffling is
-   * enabled.
+   * enabledA.
    *
-   * @param shuffleModeEnabled Whether shuffling is enabled.
+   * @param shuffleModeEnabled Whether shuffling is enabledA.
    * @return The index of the last window in the playback order, or {@link C#INDEX_UNSET} if the
    *     timeline is empty.
    */
@@ -620,9 +620,9 @@ public abstract class Timeline {
 
   /**
    * Returns the index of the first window in the playback order depending on whether shuffling is
-   * enabled.
+   * enabledA.
    *
-   * @param shuffleModeEnabled Whether shuffling is enabled.
+   * @param shuffleModeEnabled Whether shuffling is enabledA.
    * @return The index of the first window in the playback order, or {@link C#INDEX_UNSET} if the
    *     timeline is empty.
    */
@@ -676,13 +676,13 @@ public abstract class Timeline {
 
   /**
    * Returns the index of the period after the period at index {@code periodIndex} depending on the
-   * {@code repeatMode} and whether shuffling is enabled.
+   * {@code repeatMode} and whether shuffling is enabledA.
    *
    * @param periodIndex Index of a period in the timeline.
    * @param period A {@link Period} to be used internally. Must not be null.
    * @param window A {@link Window} to be used internally. Must not be null.
    * @param repeatMode A repeat mode.
-   * @param shuffleModeEnabled Whether shuffling is enabled.
+   * @param shuffleModeEnabled Whether shuffling is enabledA.
    * @return The index of the next period, or {@link C#INDEX_UNSET} if this is the last period.
    */
   public final int getNextPeriodIndex(int periodIndex, Period period, Window window,
@@ -700,13 +700,13 @@ public abstract class Timeline {
 
   /**
    * Returns whether the given period is the last period of the timeline depending on the
-   * {@code repeatMode} and whether shuffling is enabled.
+   * {@code repeatMode} and whether shuffling is enabledA.
    *
    * @param periodIndex A period index.
    * @param period A {@link Period} to be used internally. Must not be null.
    * @param window A {@link Window} to be used internally. Must not be null.
    * @param repeatMode A repeat mode.
-   * @param shuffleModeEnabled Whether shuffling is enabled.
+   * @param shuffleModeEnabled Whether shuffling is enabledA.
    * @return Whether the period of the given index is the last period of the timeline.
    */
   public final boolean isLastPeriod(int periodIndex, Period period, Window window,

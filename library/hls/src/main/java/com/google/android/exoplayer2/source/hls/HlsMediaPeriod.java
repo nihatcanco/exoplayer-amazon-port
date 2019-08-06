@@ -295,8 +295,8 @@ public final class HlsMediaPeriod implements MediaPeriod, HlsSampleStreamWrapper
       if (wrapperEnabled) {
         newEnabledSampleStreamWrappers[newEnabledSampleStreamWrapperCount] = sampleStreamWrapper;
         if (newEnabledSampleStreamWrapperCount++ == 0) {
-          // The first enabled wrapper is responsible for initializing timestamp adjusters. This
-          // way, if enabled, variants are responsible. Else audio renditions. Else text renditions.
+          // The first enabledA wrapper is responsible for initializing timestamp adjusters. This
+          // way, if enabledA, variants are responsible. Else audio renditions. Else text renditions.
           sampleStreamWrapper.setIsTimestampMaster(true);
           if (wasReset || enabledSampleStreamWrappers.length == 0
               || sampleStreamWrapper != enabledSampleStreamWrappers[0]) {
@@ -498,7 +498,7 @@ public final class HlsMediaPeriod implements MediaPeriod, HlsSampleStreamWrapper
     for (HlsSampleStreamWrapper sampleStreamWrapper : this.sampleStreamWrappers) {
       sampleStreamWrapper.continuePreparing();
     }
-    // All wrappers are enabled during preparation.
+    // All wrappers are enabledA during preparation.
     enabledSampleStreamWrappers = this.sampleStreamWrappers;
   }
 

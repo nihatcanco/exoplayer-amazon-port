@@ -21,7 +21,7 @@ import com.google.android.exoplayer2.Player;
 public interface DefaultDrmSessionEventListener {
 
   /** Called each time a drm session is acquired. */
-  default void onDrmSessionAcquired() {}
+  void onDrmSessionAcquired();
 
   /** Called each time keys are loaded. */
   void onDrmKeysLoaded();
@@ -47,5 +47,5 @@ public interface DefaultDrmSessionEventListener {
   void onDrmKeysRemoved();
 
   /** Called each time a drm session is released. */
-  default void onDrmSessionReleased() {}
+  void onDrmSessionReleased();
 }

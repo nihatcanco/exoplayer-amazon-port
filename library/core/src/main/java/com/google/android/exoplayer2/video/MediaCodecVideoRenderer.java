@@ -1152,7 +1152,7 @@ public class MediaCodecVideoRenderer extends MediaCodecRenderer {
    * @param deviceNeedsNoPostProcessWorkaround Whether the device is known to do post processing by
    *     default that isn't compatible with ExoPlayer.
    * @param tunnelingAudioSessionId The audio session id to use for tunneling, or {@link
-   *     C#AUDIO_SESSION_ID_UNSET} if tunneling should not be enabled.
+   *     C#AUDIO_SESSION_ID_UNSET} if tunneling should not be enabledA.
    * @return The framework {@link MediaFormat} that should be used to configure the decoder.
    */
   @SuppressLint("InlinedApi")

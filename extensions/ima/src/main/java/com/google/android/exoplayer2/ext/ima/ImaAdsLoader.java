@@ -49,8 +49,10 @@ import com.google.ads.interactivemedia.v3.api.player.VideoProgressUpdate;
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerLibraryInfo;
+import com.google.android.exoplayer2.PlaybackParameters;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.Timeline;
+import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.source.ads.AdPlaybackState;
 import com.google.android.exoplayer2.source.ads.AdPlaybackState.AdState;
 import com.google.android.exoplayer2.source.ads.AdsLoader;
@@ -963,6 +965,16 @@ public final class ImaAdsLoader
   }
 
   @Override
+  public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {
+
+  }
+
+  @Override
+  public void onLoadingChanged(boolean isLoading) {
+
+  }
+
+  @Override
   public void onPlayerStateChanged(boolean playWhenReady, int playbackState) {
     if (adsManager == null) {
       return;
@@ -989,6 +1001,16 @@ public final class ImaAdsLoader
         Log.d(TAG, "VideoAdPlayerCallback.onEnded in onPlayerStateChanged");
       }
     }
+  }
+
+  @Override
+  public void onRepeatModeChanged(int repeatMode) {
+
+  }
+
+  @Override
+  public void onShuffleModeEnabledChanged(boolean shuffleModeEnabled) {
+
   }
 
   @Override
@@ -1029,6 +1051,16 @@ public final class ImaAdsLoader
     } else {
       updateImaStateForPlayerState();
     }
+  }
+
+  @Override
+  public void onPlaybackParametersChanged(PlaybackParameters playbackParameters) {
+
+  }
+
+  @Override
+  public void onSeekProcessed() {
+
   }
 
   // Internal methods.

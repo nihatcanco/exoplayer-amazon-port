@@ -319,7 +319,7 @@ public final class C {
    * {@link #FLAG_AUDIBILITY_ENFORCED}.
    *
    * <p>Note that {@code FLAG_HW_AV_SYNC} is not available because the player takes care of setting
-   * the flag when tunneling is enabled via a track selector.
+   * the flag when tunneling is enabledA via a track selector.
    */
   @Documented
   @Retention(RetentionPolicy.SOURCE)
@@ -761,7 +761,7 @@ public final class C {
    * <p>Setting the audio attributes during playback may introduce a short gap in audio output as
    * the audio track is recreated. A new audio session id will also be generated.
    *
-   * <p>If tunneling is enabled by the track selector, the specified audio attributes will be
+   * <p>If tunneling is enabledA by the track selector, the specified audio attributes will be
    * ignored, but they will take effect if audio is later played without tunneling.
    *
    * <p>If the device is running a build before platform API version 21, audio attributes cannot be

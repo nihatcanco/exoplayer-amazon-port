@@ -77,7 +77,7 @@ public final class DefaultDataSource implements DataSource {
    * @param context A context.
    * @param userAgent The User-Agent to use when requesting remote data.
    * @param allowCrossProtocolRedirects Whether cross-protocol redirects (i.e. redirects from HTTP
-   *     to HTTPS and vice versa) are enabled when fetching remote data.
+   *     to HTTPS and vice versa) are enabledA when fetching remote data.
    */
   public DefaultDataSource(Context context, String userAgent, boolean allowCrossProtocolRedirects) {
     this(
@@ -98,7 +98,7 @@ public final class DefaultDataSource implements DataSource {
    * @param readTimeoutMillis The read timeout that should be used when requesting remote data, in
    *     milliseconds. A timeout of zero is interpreted as an infinite timeout.
    * @param allowCrossProtocolRedirects Whether cross-protocol redirects (i.e. redirects from HTTP
-   *     to HTTPS and vice versa) are enabled when fetching remote data.
+   *     to HTTPS and vice versa) are enabledA when fetching remote data.
    */
   public DefaultDataSource(
       Context context,
@@ -138,7 +138,7 @@ public final class DefaultDataSource implements DataSource {
    * @param listener An optional listener.
    * @param userAgent The User-Agent to use when requesting remote data.
    * @param allowCrossProtocolRedirects Whether cross-protocol redirects (i.e. redirects from HTTP
-   *     to HTTPS and vice versa) are enabled when fetching remote data.
+   *     to HTTPS and vice versa) are enabledA when fetching remote data.
    * @deprecated Use {@link #DefaultDataSource(Context, String, boolean)} and {@link
    *     #addTransferListener(TransferListener)}.
    */
@@ -164,7 +164,7 @@ public final class DefaultDataSource implements DataSource {
    * @param readTimeoutMillis The read timeout that should be used when requesting remote data, in
    *     milliseconds. A timeout of zero is interpreted as an infinite timeout.
    * @param allowCrossProtocolRedirects Whether cross-protocol redirects (i.e. redirects from HTTP
-   *     to HTTPS and vice versa) are enabled when fetching remote data.
+   *     to HTTPS and vice versa) are enabledA when fetching remote data.
    * @deprecated Use {@link #DefaultDataSource(Context, String, int, int, boolean)} and {@link
    *     #addTransferListener(TransferListener)}.
    */

@@ -50,6 +50,12 @@ public final class RandomTrackSelection extends BaseTrackSelection {
     }
 
     @Override
+    public TrackSelection createTrackSelection(TrackGroup group, BandwidthMeter bandwidthMeter,
+        int... tracks) {
+      throw new UnsupportedOperationException();
+    }
+
+    @Override
     public @NullableType TrackSelection[] createTrackSelections(
         @NullableType Definition[] definitions, BandwidthMeter bandwidthMeter) {
       return TrackSelectionUtil.createTrackSelectionsForDefinitions(
@@ -65,7 +71,7 @@ public final class RandomTrackSelection extends BaseTrackSelection {
   /**
    * @param group The {@link TrackGroup}. Must not be null.
    * @param tracks The indices of the selected tracks within the {@link TrackGroup}. Must not be
-   *     null or empty. May be in any order.
+   * null or empty. May be in any order.
    */
   public RandomTrackSelection(TrackGroup group, int... tracks) {
     super(group, tracks);
@@ -76,7 +82,7 @@ public final class RandomTrackSelection extends BaseTrackSelection {
   /**
    * @param group The {@link TrackGroup}. Must not be null.
    * @param tracks The indices of the selected tracks within the {@link TrackGroup}. Must not be
-   *     null or empty. May be in any order.
+   * null or empty. May be in any order.
    * @param seed A seed for the {@link Random} instance used to update the selected track.
    */
   public RandomTrackSelection(TrackGroup group, int[] tracks, long seed) {
@@ -86,7 +92,7 @@ public final class RandomTrackSelection extends BaseTrackSelection {
   /**
    * @param group The {@link TrackGroup}. Must not be null.
    * @param tracks The indices of the selected tracks within the {@link TrackGroup}. Must not be
-   *     null or empty. May be in any order.
+   * null or empty. May be in any order.
    * @param random A source of random numbers.
    */
   public RandomTrackSelection(TrackGroup group, int[] tracks, Random random) {
@@ -135,8 +141,20 @@ public final class RandomTrackSelection extends BaseTrackSelection {
   }
 
   @Override
-  public @Nullable Object getSelectionData() {
+  public @Nullable
+  Object getSelectionData() {
     return null;
+  }
+
+  @Override
+  public void onDiscontinuity() {
+
+  }
+
+  @Override
+  public void updateSelectedTrack(long playbackPositionUs, long bufferedDurationUs,
+      long availableDurationUs) {
+    throw new UnsupportedOperationException();
   }
 
 }

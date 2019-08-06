@@ -98,9 +98,7 @@ public interface MediaPeriod extends SequenceableLoader {
    *     list if filtering is not possible and the entire media needs to be loaded to play the
    *     selected tracks.
    */
-  default List<StreamKey> getStreamKeys(List<TrackSelection> trackSelections) {
-    return Collections.emptyList();
-  }
+  List<StreamKey> getStreamKeys(List<TrackSelection> trackSelections);
 
   /**
    * Performs a track selection.
@@ -125,7 +123,7 @@ public interface MediaPeriod extends SequenceableLoader {
    *     have been retained but with the requirement that the consuming renderer be reset.
    * @param positionUs The current playback position in microseconds. If playback of this period has
    *     not yet started, the value will be the starting position.
-   * @return The actual position at which the tracks were enabled, in microseconds.
+   * @return The actual position at which the tracks were enabledA, in microseconds.
    */
   long selectTracks(
       @NullableType TrackSelection[] selections,
@@ -188,7 +186,7 @@ public interface MediaPeriod extends SequenceableLoader {
   // SequenceableLoader interface. Overridden to provide more specific documentation.
 
   /**
-   * Returns an estimate of the position up to which data is buffered for the enabled tracks.
+   * Returns an estimate of the position up to which data is buffered for the enabledA tracks.
    *
    * <p>This method is only called when at least one track is selected.
    *

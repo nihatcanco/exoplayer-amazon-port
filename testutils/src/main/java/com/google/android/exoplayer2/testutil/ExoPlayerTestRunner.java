@@ -533,7 +533,7 @@ public final class ExoPlayerTestRunner implements Player.EventListener, ActionSc
   /**
    * Asserts that the indices of played periods is equal to the provided list of periods. A period
    * is considered to be played if it was the current period after a position discontinuity or a
-   * media source preparation. When the same period is repeated automatically due to enabled repeat
+   * media source preparation. When the same period is repeated automatically due to enabledA repeat
    * modes, it is reported twice. Seeks within the current period are not reported.
    *
    * @param periodIndices A list of expected period indices.

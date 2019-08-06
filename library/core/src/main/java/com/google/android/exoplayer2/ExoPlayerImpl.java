@@ -251,7 +251,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
     if (this.playWhenReady != playWhenReady) {
       this.playWhenReady = playWhenReady;
       int playbackState = playbackInfo.playbackState;
-      notifyListeners(listener -> listener.onPlayerStateChanged(playWhenReady, playbackState));
+      notifyListeners(new ListenerInvocation() {
+        @Override
+        public void invokeListener(EventListener listener) {
+          listener.onPlayerStateChanged(playWhenReady, playbackState);
+        }
+      });
     }
   }
 
@@ -265,7 +270,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
     if (this.repeatMode != repeatMode) {
       this.repeatMode = repeatMode;
       internalPlayer.setRepeatMode(repeatMode);
-      notifyListeners(listener -> listener.onRepeatModeChanged(repeatMode));
+      notifyListeners(new ListenerInvocation() {
+        @Override
+        public void invokeListener(EventListener listener) {
+          listener.onRepeatModeChanged(repeatMode);
+        }
+      });
     }
   }
 
@@ -279,7 +289,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
     if (this.shuffleModeEnabled != shuffleModeEnabled) {
       this.shuffleModeEnabled = shuffleModeEnabled;
       internalPlayer.setShuffleModeEnabled(shuffleModeEnabled);
-      notifyListeners(listener -> listener.onShuffleModeEnabledChanged(shuffleModeEnabled));
+      notifyListeners(new ListenerInvocation() {
+        @Override
+        public void invokeListener(EventListener listener) {
+          listener.onShuffleModeEnabledChanged(shuffleModeEnabled);
+        }
+      });
     }
   }
 
@@ -328,7 +343,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
       maskingPeriodIndex = timeline.getIndexOfPeriod(periodUidAndPosition.first);
     }
     internalPlayer.seekTo(timeline, windowIndex, C.msToUs(positionMs));
-    notifyListeners(listener -> listener.onPositionDiscontinuity(DISCONTINUITY_REASON_SEEK));
+    notifyListeners(new ListenerInvocation() {
+      @Override
+      public void invokeListener(EventListener listener) {
+        listener.onPositionDiscontinuity(DISCONTINUITY_REASON_SEEK);
+      }
+    });
   }
 
   @Override
@@ -605,13 +625,23 @@ import java.util.concurrent.CopyOnWriteArrayList;
         PlaybackParameters playbackParameters = (PlaybackParameters) msg.obj;
         if (!this.playbackParameters.equals(playbackParameters)) {
           this.playbackParameters = playbackParameters;
-          notifyListeners(listener -> listener.onPlaybackParametersChanged(playbackParameters));
+          notifyListeners(new ListenerInvocation() {
+            @Override
+            public void invokeListener(EventListener listener) {
+              listener.onPlaybackParametersChanged(playbackParameters);
+            }
+          });
         }
         break;
       case ExoPlayerImplInternal.MSG_ERROR:
         ExoPlaybackException playbackError = (ExoPlaybackException) msg.obj;
         this.playbackError = playbackError;
-        notifyListeners(listener -> listener.onPlayerError(playbackError));
+        notifyListeners(new ListenerInvocation() {
+          @Override
+          public void invokeListener(EventListener listener) {
+            listener.onPlayerError(playbackError);
+          }
+        });
         break;
       default:
         throw new IllegalStateException();
@@ -713,7 +743,12 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
   private void notifyListeners(ListenerInvocation listenerInvocation) {
     CopyOnWriteArrayList<ListenerHolder> listenerSnapshot = new CopyOnWriteArrayList<>(listeners);
-    notifyListeners(() -> invokeAll(listenerSnapshot, listenerInvocation));
+    notifyListeners(new Runnable() {
+      @Override
+      public void run() {
+        invokeAll(listenerSnapshot, listenerInvocation);
+      }
+    });
   }
 
   private void notifyListeners(Runnable listenerNotificationRunnable) {
@@ -786,30 +821,53 @@ import java.util.concurrent.CopyOnWriteArrayList;
       if (timelineOrManifestChanged || timelineChangeReason == TIMELINE_CHANGE_REASON_PREPARED) {
         invokeAll(
             listenerSnapshot,
-            listener ->
+            new ListenerInvocation() {
+              @Override
+              public void invokeListener(EventListener listener) {
                 listener.onTimelineChanged(
-                    playbackInfo.timeline, playbackInfo.manifest, timelineChangeReason));
+                    playbackInfo.timeline, playbackInfo.manifest, timelineChangeReason);
+              }
+            });
       }
       if (positionDiscontinuity) {
         invokeAll(
             listenerSnapshot,
-            listener -> listener.onPositionDiscontinuity(positionDiscontinuityReason));
+            new ListenerInvocation() {
+              @Override
+              public void invokeListener(EventListener listener) {
+                listener.onPositionDiscontinuity(positionDiscontinuityReason);
+              }
+            });
       }
       if (trackSelectorResultChanged) {
         trackSelector.onSelectionActivated(playbackInfo.trackSelectorResult.info);
         invokeAll(
             listenerSnapshot,
-            listener ->
+            new ListenerInvocation() {
+              @Override
+              public void invokeListener(EventListener listener) {
                 listener.onTracksChanged(
-                    playbackInfo.trackGroups, playbackInfo.trackSelectorResult.selections));
+                    playbackInfo.trackGroups, playbackInfo.trackSelectorResult.selections);
+              }
+            });
       }
       if (isLoadingChanged) {
-        invokeAll(listenerSnapshot, listener -> listener.onLoadingChanged(playbackInfo.isLoading));
+        invokeAll(listenerSnapshot, new ListenerInvocation() {
+          @Override
+          public void invokeListener(EventListener listener) {
+            listener.onLoadingChanged(playbackInfo.isLoading);
+          }
+        });
       }
       if (playbackStateChanged) {
         invokeAll(
             listenerSnapshot,
-            listener -> listener.onPlayerStateChanged(playWhenReady, playbackInfo.playbackState));
+            new ListenerInvocation() {
+              @Override
+              public void invokeListener(EventListener listener) {
+                listener.onPlayerStateChanged(playWhenReady, playbackInfo.playbackState);
+              }
+            });
       }
       if (seekProcessed) {
         invokeAll(listenerSnapshot, EventListener::onSeekProcessed);

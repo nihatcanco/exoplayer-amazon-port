@@ -95,9 +95,7 @@ public interface DataSource {
    * When the source is open, returns the response headers associated with the last {@link #open}
    * call. Otherwise, returns an empty map.
    */
-  default Map<String, List<String>> getResponseHeaders() {
-    return Collections.emptyMap();
-  }
+  Map<String, List<String>> getResponseHeaders();
 
   /**
    * Closes the source.

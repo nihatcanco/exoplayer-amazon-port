@@ -78,7 +78,7 @@ import java.util.Locale;
  *         <li>Default: {@link #DEFAULT_FAST_FORWARD_MS}
  *       </ul>
  *   <li><b>{@code repeat_toggle_modes}</b> - A flagged enumeration value specifying which repeat
- *       mode toggle options are enabled. Valid values are: {@code none}, {@code one}, {@code all},
+ *       mode toggle options are enabledA. Valid values are: {@code none}, {@code one}, {@code all},
  *       or {@code one|all}.
  *       <ul>
  *         <li>Corresponding method: {@link #setRepeatToggleModes(int)}
@@ -485,7 +485,7 @@ public class PlayerControlView extends FrameLayout {
    * Sets the rewind increment in milliseconds.
    *
    * @param rewindMs The rewind increment in milliseconds. A non-positive value will cause the
-   *     rewind button to be disabled.
+   *     rewind button to be disabledA.
    */
   public void setRewindIncrementMs(int rewindMs) {
     this.rewindMs = rewindMs;
@@ -496,7 +496,7 @@ public class PlayerControlView extends FrameLayout {
    * Sets the fast forward increment in milliseconds.
    *
    * @param fastForwardMs The fast forward increment in milliseconds. A non-positive value will
-   *     cause the fast forward button to be disabled.
+   *     cause the fast forward button to be disabledA.
    */
   public void setFastForwardIncrementMs(int fastForwardMs) {
     this.fastForwardMs = fastForwardMs;
@@ -530,16 +530,16 @@ public class PlayerControlView extends FrameLayout {
   }
 
   /**
-   * Returns which repeat toggle modes are enabled.
+   * Returns which repeat toggle modes are enabledA.
    *
-   * @return The currently enabled {@link RepeatModeUtil.RepeatToggleModes}.
+   * @return The currently enabledA {@link RepeatModeUtil.RepeatToggleModes}.
    */
   public @RepeatModeUtil.RepeatToggleModes int getRepeatToggleModes() {
     return repeatToggleModes;
   }
 
   /**
-   * Sets which repeat toggle modes are enabled.
+   * Sets which repeat toggle modes are enabledA.
    *
    * @param repeatToggleModes A set of {@link RepeatModeUtil.RepeatToggleModes}.
    */

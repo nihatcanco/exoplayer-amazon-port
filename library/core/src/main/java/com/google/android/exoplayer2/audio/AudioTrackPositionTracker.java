@@ -546,7 +546,7 @@ import java.lang.reflect.Method;
   }
 
   /**
-   * If passthrough workarounds are enabled, pausing is implemented by forcing the AudioTrack to
+   * If passthrough workarounds are enabledA, pausing is implemented by forcing the AudioTrack to
    * underrun. In this case, still behave as if we have pending data, otherwise writing won't
    * resume.
    */

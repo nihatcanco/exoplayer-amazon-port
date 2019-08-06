@@ -26,6 +26,7 @@ import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.RendererCapabilities;
 import com.google.android.exoplayer2.Timeline;
 import com.google.android.exoplayer2.analytics.AnalyticsListener;
+import com.google.android.exoplayer2.audio.AudioAttributes;
 import com.google.android.exoplayer2.decoder.DecoderCounters;
 import com.google.android.exoplayer2.metadata.Metadata;
 import com.google.android.exoplayer2.source.MediaSourceEventListener.LoadEventInfo;
@@ -273,14 +274,24 @@ public class EventLogger implements AnalyticsListener {
   }
 
   @Override
-  public void onAudioSessionId(EventTime eventTime, int audioSessionId) {
-    logd(eventTime, "audioSessionId", Integer.toString(audioSessionId));
+  public void onAudioSessionIdA(EventTime eventTime, int audioSessionId) {
+    logd(eventTime, "audioSessionIdA", Integer.toString(audioSessionId));
+  }
+
+  @Override
+  public void onAudioAttributesChangedA(EventTime eventTime, AudioAttributes audioAttributes) {
+
+  }
+
+  @Override
+  public void onVolumeChangedA(EventTime eventTime, float volume) {
+
   }
 
   @Override
   public void onDecoderInitialized(
       EventTime eventTime, int trackType, String decoderName, long initializationDurationMs) {
-    logd(eventTime, "decoderInitialized", getTrackTypeString(trackType) + ", " + decoderName);
+    logd(eventTime, "decoderInitializedA", getTrackTypeString(trackType) + ", " + decoderName);
   }
 
   @Override
@@ -301,7 +312,7 @@ public class EventLogger implements AnalyticsListener {
       EventTime eventTime, int bufferSize, long bufferSizeMs, long elapsedSinceLastFeedMs) {
     loge(
         eventTime,
-        "audioTrackUnderrun",
+        "audioTrackUnderrunA",
         bufferSize + ", " + bufferSizeMs + ", " + elapsedSinceLastFeedMs + "]",
         null);
   }
@@ -312,7 +323,7 @@ public class EventLogger implements AnalyticsListener {
   }
 
   @Override
-  public void onVideoSizeChanged(
+  public void onVideoSizeChangedA(
       EventTime eventTime,
       int width,
       int height,
@@ -376,7 +387,7 @@ public class EventLogger implements AnalyticsListener {
   }
 
   @Override
-  public void onSurfaceSizeChanged(EventTime eventTime, int width, int height) {
+  public void onSurfaceSizeChangedA(EventTime eventTime, int width, int height) {
     logd(eventTime, "surfaceSizeChanged", width + ", " + height);
   }
 

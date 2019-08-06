@@ -170,7 +170,13 @@ public final class CanvasRenderer {
 
     // Create the underlying SurfaceTexture with the appropriate size.
     displaySurfaceTexture = new SurfaceTexture(textureId);
-    displaySurfaceTexture.setOnFrameAvailableListener(surfaceTexture -> surfaceDirty.set(true));
+    displaySurfaceTexture.setOnFrameAvailableListener(
+        new SurfaceTexture.OnFrameAvailableListener() {
+          @Override
+          public void onFrameAvailable(SurfaceTexture surfaceTexture) {
+            surfaceDirty.set(true);
+          }
+        });
     displaySurfaceTexture.setDefaultBufferSize(width, height);
     displaySurface = new Surface(displaySurfaceTexture);
   }

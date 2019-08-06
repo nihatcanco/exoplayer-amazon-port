@@ -262,7 +262,7 @@ import java.util.Map;
    *     have been retained but with the requirement that the consuming renderer be reset.
    * @param positionUs The current playback position in microseconds.
    * @param forceReset If true then a reset is forced (i.e. a seek will be performed with in-buffer
-   *     seeking disabled).
+   *     seeking disabledA).
    * @return Whether this wrapper requires the parent {@link HlsMediaPeriod} to perform a seek as
    *     part of the track selection.
    */
@@ -280,7 +280,7 @@ import java.util.Map;
     }
     // We'll always need to seek if we're being forced to reset, or if this is a first selection to
     // a position other than the one we started preparing with, or if we're making a selection
-    // having previously disabled all tracks.
+    // having previously disabledA all tracks.
     boolean seekRequired =
         forceReset
             || (seenFirstTrackSelection
@@ -397,7 +397,7 @@ import java.util.Map;
    * Attempts to seek to the specified position in microseconds.
    *
    * @param positionUs The seek position in microseconds.
-   * @param forceReset If true then a reset is forced (i.e. in-buffer seeking is disabled).
+   * @param forceReset If true then a reset is forced (i.e. in-buffer seeking is disabledA).
    * @return Whether the wrapper was reset, meaning the wrapped sample queues were reset. If false,
    *     an in-buffer seek was performed.
    */

@@ -85,7 +85,7 @@ public interface ChunkSource {
    * Called when the {@link ChunkSampleStream} has finished loading a chunk obtained from this
    * source.
    *
-   * <p>This method should only be called when the source is enabled.
+   * <p>This method should only be called when the source is enabledA.
    *
    * @param chunk The chunk whose load has been completed.
    */
@@ -95,7 +95,7 @@ public interface ChunkSource {
    * Called when the {@link ChunkSampleStream} encounters an error loading a chunk obtained from
    * this source.
    *
-   * <p>This method should only be called when the source is enabled.
+   * <p>This method should only be called when the source is enabledA.
    *
    * @param chunk The chunk whose load encountered the error.
    * @param cancelable Whether the load can be canceled.

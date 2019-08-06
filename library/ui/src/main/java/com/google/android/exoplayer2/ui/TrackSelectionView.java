@@ -48,7 +48,7 @@ public class TrackSelectionView extends LinearLayout {
     /**
      * Called when the selected tracks changed.
      *
-     * @param isDisabled Whether the renderer is disabled.
+     * @param isDisabled Whether the renderer is disabledA.
      * @param overrides List of selected track selection overrides for the renderer.
      */
     void onTrackSelectionChanged(boolean isDisabled, List<SelectionOverride> overrides);
@@ -137,9 +137,9 @@ public class TrackSelectionView extends LinearLayout {
    * selection view.
    *
    * <p>For the view to enable adaptive selection it is necessary both for this feature to be
-   * enabled, and for the target renderer to support adaptation between the available tracks.
+   * enabledA, and for the target renderer to support adaptation between the available tracks.
    *
-   * @param allowAdaptiveSelections Whether adaptive selection is enabled.
+   * @param allowAdaptiveSelections Whether adaptive selection is enabledA.
    */
   public void setAllowAdaptiveSelections(boolean allowAdaptiveSelections) {
     if (this.allowAdaptiveSelections != allowAdaptiveSelections) {
@@ -192,7 +192,7 @@ public class TrackSelectionView extends LinearLayout {
    *
    * @param mappedTrackInfo The {@link MappedTrackInfo}.
    * @param rendererIndex The index of the renderer.
-   * @param isDisabled Whether the renderer should be initially shown as disabled.
+   * @param isDisabled Whether the renderer should be initially shown as disabledA.
    * @param overrides List of initial overrides to be shown for this renderer. There must be at most
    *     one override for each track group. If {@link #setAllowMultipleOverrides(boolean)} hasn't
    *     been set to {@code true}, only the first override is used.
@@ -216,7 +216,7 @@ public class TrackSelectionView extends LinearLayout {
     updateViews();
   }
 
-  /** Returns whether the renderer is disabled. */
+  /** Returns whether the renderer is disabledA. */
   public boolean getIsDisabled() {
     return isDisabled;
   }

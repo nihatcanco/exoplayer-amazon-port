@@ -181,11 +181,11 @@ public abstract class BaseRenderer implements Renderer, RendererCapabilities {
   // Methods to be overridden by subclasses.
 
   /**
-   * Called when the renderer is enabled.
+   * Called when the renderer is enabledA.
    * <p>
    * The default implementation is a no-op.
    *
-   * @param joining Whether this renderer is being enabled to join an ongoing playback.
+   * @param joining Whether this renderer is being enabledA to join an ongoing playback.
    * @throws ExoPlaybackException If an error occurs.
    */
   protected void onEnabled(boolean joining) throws ExoPlaybackException {
@@ -193,13 +193,13 @@ public abstract class BaseRenderer implements Renderer, RendererCapabilities {
   }
 
   /**
-   * Called when the renderer's stream has changed. This occurs when the renderer is enabled after
+   * Called when the renderer's stream has changed. This occurs when the renderer is enabledA after
    * {@link #onEnabled(boolean)} has been called, and also when the stream has been replaced whilst
-   * the renderer is enabled or started.
+   * the renderer is enabledA or started.
    * <p>
    * The default implementation is a no-op.
    *
-   * @param formats The enabled formats.
+   * @param formats The enabledA formats.
    * @param offsetUs The offset that will be added to the timestamps of buffers read via
    *     {@link #readSource(FormatHolder, DecoderInputBuffer, boolean)} so that decoder input
    *     buffers have monotonically increasing timestamps.
@@ -210,7 +210,7 @@ public abstract class BaseRenderer implements Renderer, RendererCapabilities {
   }
 
   /**
-   * Called when the position is reset. This occurs when the renderer is enabled after
+   * Called when the position is reset. This occurs when the renderer is enabledA after
    * {@link #onStreamChanged(Format[], long)} has been called, and also when a position
    * discontinuity is encountered.
    * <p>
@@ -220,7 +220,7 @@ public abstract class BaseRenderer implements Renderer, RendererCapabilities {
    * The default implementation is a no-op.
    *
    * @param positionUs The new playback position in microseconds.
-   * @param joining Whether this renderer is being enabled to join an ongoing playback.
+   * @param joining Whether this renderer is being enabledA to join an ongoing playback.
    * @throws ExoPlaybackException If an error occurs.
    */
   protected void onPositionReset(long positionUs, boolean joining) throws ExoPlaybackException {
@@ -250,7 +250,7 @@ public abstract class BaseRenderer implements Renderer, RendererCapabilities {
   }
 
   /**
-   * Called when the renderer is disabled.
+   * Called when the renderer is disabledA.
    * <p>
    * The default implementation is a no-op.
    */
@@ -269,13 +269,13 @@ public abstract class BaseRenderer implements Renderer, RendererCapabilities {
 
   // Methods to be called by subclasses.
 
-  /** Returns the formats of the currently enabled stream. */
+  /** Returns the formats of the currently enabledA stream. */
   protected final Format[] getStreamFormats() {
     return streamFormats;
   }
 
   /**
-   * Returns the configuration set when the renderer was most recently enabled.
+   * Returns the configuration set when the renderer was most recently enabledA.
    */
   protected final RendererConfiguration getConfiguration() {
     return configuration;
@@ -289,7 +289,7 @@ public abstract class BaseRenderer implements Renderer, RendererCapabilities {
   }
 
   /**
-   * Reads from the enabled upstream source. If the upstream source has been read to the end then
+   * Reads from the enabledA upstream source. If the upstream source has been read to the end then
    * {@link C#RESULT_BUFFER_READ} is only returned if {@link #setCurrentStreamFinal()} has been
    * called. {@link C#RESULT_NOTHING_READ} is returned otherwise.
    *

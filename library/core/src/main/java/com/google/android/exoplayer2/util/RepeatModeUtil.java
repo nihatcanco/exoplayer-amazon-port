@@ -39,14 +39,14 @@ public final class RepeatModeUtil {
       value = {REPEAT_TOGGLE_MODE_NONE, REPEAT_TOGGLE_MODE_ONE, REPEAT_TOGGLE_MODE_ALL})
   public @interface RepeatToggleModes {}
   /**
-   * All repeat mode buttons disabled.
+   * All repeat mode buttons disabledA.
    */
   public static final int REPEAT_TOGGLE_MODE_NONE = 0;
   /**
-   * "Repeat One" button enabled.
+   * "Repeat One" button enabledA.
    */
   public static final int REPEAT_TOGGLE_MODE_ONE = 1;
-  /** "Repeat All" button enabled. */
+  /** "Repeat All" button enabledA. */
   public static final int REPEAT_TOGGLE_MODE_ALL = 1 << 1; // 2
   // LINT.ThenChange(../../../../../../../../../ui/src/main/res/values/attrs.xml)
 
@@ -58,7 +58,7 @@ public final class RepeatModeUtil {
    * Gets the next repeat mode out of {@code enabledModes} starting from {@code currentMode}.
    *
    * @param currentMode The current repeat mode.
-   * @param enabledModes Bitmask of enabled modes.
+   * @param enabledModes Bitmask of enabledA modes.
    * @return The next repeat mode.
    */
   public static @Player.RepeatMode int getNextRepeatMode(@Player.RepeatMode int currentMode,
@@ -73,11 +73,11 @@ public final class RepeatModeUtil {
   }
 
   /**
-   * Verifies whether a given {@code repeatMode} is enabled in the bitmask {@code enabledModes}.
+   * Verifies whether a given {@code repeatMode} is enabledA in the bitmask {@code enabledModes}.
    *
    * @param repeatMode The mode to check.
-   * @param enabledModes The bitmask representing the enabled modes.
-   * @return {@code true} if enabled.
+   * @param enabledModes The bitmask representing the enabledA modes.
+   * @return {@code true} if enabledA.
    */
   public static boolean isRepeatModeEnabled(@Player.RepeatMode int repeatMode, int enabledModes) {
     switch (repeatMode) {

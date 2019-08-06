@@ -69,7 +69,9 @@ import java.util.Map;
      */
     public boolean endOfStream;
 
-    /** Indicates that the chunk source is waiting for the referred playlist to be refreshed. */
+    /**
+     * Indicates that the chunk source is waiting for the referred playlist to be refreshed.
+     */
     public Uri playlistUrl;
 
     /**
@@ -115,20 +117,20 @@ import java.util.Map;
 
   /**
    * @param extractorFactory An {@link HlsExtractorFactory} from which to obtain the extractors for
-   *     media chunks.
+   * media chunks.
    * @param playlistTracker The {@link HlsPlaylistTracker} from which to obtain media playlists.
    * @param playlistUrls The {@link Uri}s of the media playlists that can be adapted between by this
-   *     chunk source.
+   * chunk source.
    * @param playlistFormats The {@link Format Formats} corresponding to the media playlists.
    * @param dataSourceFactory An {@link HlsDataSourceFactory} to create {@link DataSource}s for the
-   *     chunks.
+   * chunks.
    * @param mediaTransferListener The transfer listener which should be informed of any media data
-   *     transfers. May be null if no listener is available.
+   * transfers. May be null if no listener is available.
    * @param timestampAdjusterProvider A provider of {@link TimestampAdjuster} instances. If multiple
-   *     {@link HlsChunkSource}s are used for a single playback, they should all share the same
-   *     provider.
+   * {@link HlsChunkSource}s are used for a single playback, they should all share the same
+   * provider.
    * @param muxedCaptionFormats List of muxed caption {@link Format}s. Null if no closed caption
-   *     information is available in the master playlist.
+   * information is available in the master playlist.
    */
   public HlsChunkSource(
       HlsExtractorFactory extractorFactory,
@@ -209,7 +211,7 @@ import java.util.Map;
    * Sets whether this chunk source is responsible for initializing timestamp adjusters.
    *
    * @param isTimestampMaster True if this chunk source is responsible for initializing timestamp
-   *     adjusters.
+   * adjusters.
    */
   public void setIsTimestampMaster(boolean isTimestampMaster) {
     this.isTimestampMaster = isTimestampMaster;
@@ -224,9 +226,9 @@ import java.util.Map;
    * contain the {@link Uri} that refers to the playlist that needs refreshing.
    *
    * @param playbackPositionUs The current playback position relative to the period start in
-   *     microseconds. If playback of the period to which this chunk source belongs has not yet
-   *     started, the value will be the starting position in the period minus the duration of any
-   *     media in previous periods still to be played.
+   * microseconds. If playback of the period to which this chunk source belongs has not yet started,
+   * the value will be the starting position in the period minus the duration of any media in
+   * previous periods still to be played.
    * @param loadPositionUs The current load position relative to the period start in microseconds.
    * @param queue The queue of buffered {@link HlsMediaChunk}s.
    * @param out A holder to populate.
@@ -279,15 +281,15 @@ import java.util.Map;
         getChunkMediaSequence(
             previous, switchingTrack, mediaPlaylist, startOfPlaylistInPeriodUs, loadPositionUs);
     if (chunkMediaSequence < mediaPlaylist.mediaSequence && previous != null && switchingTrack) {
-        // We try getting the next chunk without adapting in case that's the reason for falling
-        // behind the live window.
-        selectedTrackIndex = oldTrackIndex;
-        selectedPlaylistUrl = playlistUrls[selectedTrackIndex];
-        mediaPlaylist =
-            playlistTracker.getPlaylistSnapshot(selectedPlaylistUrl, /* isForPlayback= */ true);
-        startOfPlaylistInPeriodUs =
-            mediaPlaylist.startTimeUs - playlistTracker.getInitialStartTimeUs();
-        chunkMediaSequence = previous.getNextChunkIndex();
+      // We try getting the next chunk without adapting in case that's the reason for falling
+      // behind the live window.
+      selectedTrackIndex = oldTrackIndex;
+      selectedPlaylistUrl = playlistUrls[selectedTrackIndex];
+      mediaPlaylist =
+          playlistTracker.getPlaylistSnapshot(selectedPlaylistUrl, /* isForPlayback= */ true);
+      startOfPlaylistInPeriodUs =
+          mediaPlaylist.startTimeUs - playlistTracker.getInitialStartTimeUs();
+      chunkMediaSequence = previous.getNextChunkIndex();
     }
 
     if (chunkMediaSequence < mediaPlaylist.mediaSequence) {
@@ -364,7 +366,7 @@ import java.util.Map;
    *
    * @param chunk The chunk whose load caused the blacklisting attempt.
    * @param blacklistDurationMs The number of milliseconds for which the track selection should be
-   *     blacklisted.
+   * blacklisted.
    * @return Whether the blacklisting succeeded.
    */
   public boolean maybeBlacklistTrack(Chunk chunk, long blacklistDurationMs) {
@@ -377,7 +379,7 @@ import java.util.Map;
    *
    * @param playlistUrl The {@link Uri} of the playlist whose load encountered an error.
    * @param blacklistDurationMs The duration for which the playlist should be blacklisted. Or {@link
-   *     C#TIME_UNSET} if the playlist should not be blacklisted.
+   * C#TIME_UNSET} if the playlist should not be blacklisted.
    * @return True if blacklisting did not encounter errors. False otherwise.
    */
   public boolean onPlaylistError(Uri playlistUrl, long blacklistDurationMs) {
@@ -444,10 +446,10 @@ import java.util.Map;
    *
    * @param previous The last (at least partially) loaded segment.
    * @param switchingTrack Whether the segment to load is not preceded by a segment in the same
-   *     track.
+   * track.
    * @param mediaPlaylist The media playlist to which the segment to load belongs.
    * @param startOfPlaylistInPeriodUs The start of {@code mediaPlaylist} relative to the period
-   *     start in microseconds.
+   * start in microseconds.
    * @param loadPositionUs The current load position relative to the period start in microseconds.
    * @return The media sequence of the segment to load.
    */
@@ -467,10 +469,10 @@ import java.util.Map;
       }
       long targetPositionInPlaylistUs = targetPositionInPeriodUs - startOfPlaylistInPeriodUs;
       return Util.binarySearchFloor(
-              mediaPlaylist.segments,
-              /* value= */ targetPositionInPlaylistUs,
-              /* inclusive= */ true,
-              /* stayInBounds= */ !playlistTracker.isLive() || previous == null)
+          mediaPlaylist.segments,
+          /* value= */ targetPositionInPlaylistUs,
+          /* inclusive= */ true,
+          /* stayInBounds= */ !playlistTracker.isLive() || previous == null)
           + mediaPlaylist.mediaSequence;
     }
     // We ignore the case of previous not having loaded completely, in which case we load the next
@@ -573,6 +575,17 @@ import java.util.Map;
       return null;
     }
 
+    @Override
+    public void onDiscontinuity() {
+
+    }
+
+    @Override
+    public void updateSelectedTrack(long playbackPositionUs, long bufferedDurationUs,
+        long availableDurationUs) {
+      throw new UnsupportedOperationException();
+    }
+
   }
 
   private static final class EncryptionKeyChunk extends DataChunk {
@@ -601,7 +614,9 @@ import java.util.Map;
 
   }
 
-  /** {@link MediaChunkIterator} wrapping a {@link HlsMediaPlaylist}. */
+  /**
+   * {@link MediaChunkIterator} wrapping a {@link HlsMediaPlaylist}.
+   */
   private static final class HlsMediaPlaylistSegmentIterator extends BaseMediaChunkIterator {
 
     private final HlsMediaPlaylist playlist;
@@ -612,7 +627,7 @@ import java.util.Map;
      *
      * @param playlist The {@link HlsMediaPlaylist} to wrap.
      * @param startOfPlaylistInPeriodUs The start time of the playlist in the period, in
-     *     microseconds.
+     * microseconds.
      * @param chunkIndex The index of the first available chunk in the playlist.
      */
     public HlsMediaPlaylistSegmentIterator(

@@ -225,7 +225,7 @@ public abstract class Action {
 
   /**
    * Updates the {@link Parameters} of a {@link DefaultTrackSelector} to specify whether the
-   * renderer at a given index should be disabled.
+   * renderer at a given index should be disabledA.
    */
   public static final class SetRendererDisabled extends Action {
 
@@ -235,7 +235,7 @@ public abstract class Action {
     /**
      * @param tag A tag to use for logging.
      * @param rendererIndex The index of the renderer.
-     * @param disabled Whether the renderer should be disabled.
+     * @param disabled Whether the renderer should be disabledA.
      */
     public SetRendererDisabled(String tag, int rendererIndex, boolean disabled) {
       super(tag, "SetRendererDisabled:" + rendererIndex + ":" + disabled);

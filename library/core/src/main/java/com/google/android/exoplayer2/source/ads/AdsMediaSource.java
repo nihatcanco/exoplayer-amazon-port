@@ -426,6 +426,16 @@ public final class AdsMediaSource extends CompositeMediaSource<MediaPeriodId> {
               error,
               /* wasCanceled= */ true);
     }
+
+    @Override
+    public void onAdClicked() {
+
+    }
+
+    @Override
+    public void onAdTapped() {
+
+    }
   }
 
   private final class AdPrepareErrorListener implements DeferredMediaPeriod.PrepareErrorListener {
